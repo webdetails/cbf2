@@ -172,7 +172,7 @@ echo
 docker build -t $DOCKERTAG $tmpDir
 
 echo 
-echo Done. You may want to use the ./startProject.sh command
+echo Done. You may want to use the ./startProjectFromImage.sh command
 
 cd $BASEDIR
 
