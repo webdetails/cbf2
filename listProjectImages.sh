@@ -2,8 +2,9 @@
 
 BASEDIR=$(dirname $0)
 
-echo Projects found:
-echo ---------------
+echo
+echo Project Images found:
+echo ---------------------
 echo
 
 

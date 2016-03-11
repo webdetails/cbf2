@@ -19,7 +19,7 @@ echo
 
 
 # 1. Search for what we have
-IMAGES=$( docker images | egrep 'pdu-' | cut -d' ' -f 1 )
+IMAGES=$( docker images | egrep '^baserver-' | cut -d' ' -f 1 )
 
 IFS=$'\n';
 
@@ -36,7 +36,7 @@ echo
 
 n=-1;
 
-RUNNING_CONTAINERS=$( docker ps -a -f status=running -f "name=pdu" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" )
+RUNNING_CONTAINERS=$( docker ps -a -f status=running -f "name=baserver" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" | grep -v 'pdu-' )
 
 IFS=$'\n';
 
@@ -51,7 +51,7 @@ do
 done
 
 
-STOPPED_CONTAINERS=$( docker ps -a -f status=exited -f status=paused -f "name=pdu" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" )
+STOPPED_CONTAINERS=$( docker ps -a -f status=exited -f status=paused -f "name=baserver" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" | grep -v 'pdu-' )
 
 IFS=$'\n';
 
@@ -128,7 +128,7 @@ then
 	fi
 
 	if [ $operation == "L" ]; then
-		docker logs -f $dockerImage 
+		docker logs -f $dockerImage
 		echo Done
 		exit 0
 	fi
