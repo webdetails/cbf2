@@ -82,7 +82,7 @@ then
 	read -a OPTIONS <<< $minorVersions
 	echo Options size: ${#OPTIONS[@]}
 
-	promptUser "Stable versions found " "0" "Choose a version" 
+	promptUser "Minor versions found for $version " "0" "Choose a version" 
 	minorVersion=${OPTIONS[$CHOICE]}
 
 	echo Minor version: $minorVersion
@@ -100,7 +100,25 @@ then
 		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ce/; mget -O $SOFTWARE_DIR biserver-ce-*zip";
 
 	else
-		echo WIP
+		
+		# EE - download the bundles (ba and plugin), and then the patches
+		echo " Downloading $minorVersion EE and plugins..."
+		#lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ee/; mget -O $SOFTWARE_DIR biserver-[^m]*zip \
+			#paz-plugin-ee-*.zip \
+			#pir-plugin-ee-*.zip \
+			#pdd-plugin-ee-*.zip"
+
+		## Find dot versions that are relevant
+		for subV in $subVersions
+		do
+			if [[ $subV =~ $minorVersion.[^0] ]]; then
+				echo " Downloading $subV patches..."
+
+				lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$subV/; mget -O $SOFTWARE_DIR SP*zip"
+
+			fi
+		done
+
 
 	fi
 	
@@ -112,7 +130,7 @@ fi
 
 
 
-echo GOOD SO FAR...
+echo Done! You can now launch CBF2
 
 cd $BASEDIR
 exit 0

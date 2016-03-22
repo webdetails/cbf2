@@ -20,7 +20,7 @@ IMAGES=$( docker images | egrep '^baserver-(ee|merged)' | cut -d' ' -f 1 )
 
 if ((  $(grep -c . <<< "$IMAGES" ) == 0 ))
 then
-  echo No valid local images found. Please create one with listBuilds.sh
+  echo No valid local images found. Please create one
   exit 1
 fi
 
@@ -37,7 +37,7 @@ then
 fi
 
 echo
-echo Choose a project to build an image for:
+echo "Choose a project to build an image for:"
 echo
 
 IFS=$'\n';
@@ -55,7 +55,7 @@ echo
 
 
 # Which version do you want to start?
-read -e -p "Which image to start?: " PROJECTNO
+read -e -p "> Choose project: " PROJECTNO
 PROJECTNO=${PROJECTNO:-"-1"}
 
 if [ $PROJECTNO == "-1" ] 
@@ -89,7 +89,7 @@ n=-1
 for image in $IMAGES
 do
   ((n++))
-  echo [$n] $image
+  echo " [$n] $image"
   IMAGE[$n]=$image
 done;
 
@@ -97,7 +97,7 @@ echo
 
 
 # Which version do you want to start?
-read -e -p "Which image to start?: " IMAGENO
+read -e -p "> Choose image: " IMAGENO
 IMAGENO=${IMAGENO:-"-1"}
 
 if [ $IMAGENO == "-1" ] 
@@ -172,7 +172,7 @@ echo
 docker build -t $DOCKERTAG $tmpDir
 
 echo 
-echo Done. You may want to use the ./listProjectImages.sh command
+echo Project image built successfully
 
 cd $BASEDIR
 
