@@ -1,5 +1,6 @@
 clients/
-software/
+software/*/
+licenses/*.lic
 tmp/
 projects/*
 .DS_Store

@@ -15,26 +15,30 @@ cd $BASEDIR
 if [ -z $BOX_USER ]
 then
 	echo The following variables have to be set:
-  echo BOX_USER
-  echo BOX_PASSWORD
-  echo "Optionally, override BOX_URL (set to ftp.box.com/CI)"
-  exit 1
+	echo BOX_USER
+	echo BOX_PASSWORD
+	echo "Optionally, override BOX_URL (set to ftp.box.com/CI)"
+	exit 1
 fi
 
 
 #VERSIONS=()
 SOFTWARE_DIR=software
+LICENSES_DIR=licenses
 
-# Create the dir if doesn't exist
+# Create the dirs if they don't exist
 if ! [ -d $SOFTWARE_DIR ]; then
 	mkdir $SOFTWARE_DIR
+fi
+if ! [ -d $LICENSES_DIR ]; then
+	mkdir $LICENSES_DIR
 fi
 
 
 VERSIONS=(6.1-QAT 7.0-QAT)
 BOX_URL=${BOX_URL:-ftp.box.com/CI}
 SOFTWARE_PATH=ee
-PRODUCT=ee
+VARIANT=ee
 
 
 echo
@@ -50,8 +54,53 @@ b=${OPTIONS[$CHOICE]}
 
 if [ $CHOICE -eq 0 ]; then
 
-	# Stable version. Get the list of them
-	echo Connecting to box to get the latest nightly builds
+	# Nightly builds. Get the list of them
+	echo Connecting to box to get the latest nightly builds...
+
+	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort=name [0-9]*QAT " );
+
+	OPTIONS=();
+	for versionDir in $result
+	do
+		OPTIONS=("${OPTIONS[@]}" $(echo $versionDir | cut -d- -f1) )
+	done;
+
+	promptUser "Nightly versions found " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
+	version=${OPTIONS[$CHOICE]}
+
+	# Getting the latest build number
+
+	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort date $version-QAT | head -n 1");
+	BUILD=$(echo $result | cut -f2 -d/)
+
+
+	# Ask for buildno
+	read -e -p "Latest build is $BUILD. Which one do you want to download? [$BUILD]: " buildno
+	buildno=${buildno:-$BUILD}
+
+	# Ask for product
+	read -e -p "Which server ('ee', 'merged-ee', 'ce' or 'merged-ce')? [$VARIANT]: " variant
+	variant=${variant:-$VARIANT}
+
+	DOWNLOAD_DIR=$SOFTWARE_DIR/$version-QAT-$buildno
+	mkdir -p $DOWNLOAD_DIR
+
+	if [[ $variant =~ ce  ]]; then
+
+		echo Downloading $version-QAT-$buildno $variant...
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-QAT/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno.zip";
+
+	else
+
+		# EE - download the bundles (ba and plugins)
+		echo Downloading $version-QAT-$buildno $variant and plugins...
+
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-QAT/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno-dist.zip \
+			paz-plugin-ee-*-dist.zip \
+			pir-plugin-ee-*-dist.zip \
+			pdd-plugin-ee-*-dist.zip"
+
+	fi
 
 
 elif [ "$CHOICE" -eq 1 ]
@@ -67,7 +116,7 @@ then
 		OPTIONS=("${OPTIONS[@]}" $(echo $versionDir | cut -d- -f1) )
 	done;
 
-	promptUser "Stable versions found " "0" "Choose a version" 
+	promptUser "Stable versions found " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
 	version=${OPTIONS[$CHOICE]}
 
 
@@ -82,12 +131,12 @@ then
 	read -a OPTIONS <<< $minorVersions
 	echo Options size: ${#OPTIONS[@]}
 
-	promptUser "Minor versions found for $version " "0" "Choose a version" 
+	promptUser "Minor versions found for $version " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
 	minorVersion=${OPTIONS[$CHOICE]}
 
 	echo Minor version: $minorVersion
-
-
+	DOWNLOAD_DIR=$SOFTWARE_DIR/$minorVersion
+	mkdir -p $DOWNLOAD_DIR
 
 	OPTIONS=("ee" "ce")
 	promptUser "You want EE or CE?" "0"
@@ -95,18 +144,18 @@ then
 
 	if [ "$variant" == "ce" ]; then
 
-		# CE is actually easier; We'll download from $version-Releases/$version-.0.0/ce/baserver
+		# CE is actually easier; We'll download from $version-Releases/$version-.$minorVersion.0/ce/baserver
 		echo Downloading $minorVersion CE...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ce/; mget -O $SOFTWARE_DIR biserver-ce-*zip";
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ce/; mget -O $DOWNLOAD_DIR biserver-ce-*zip";
 
 	else
-		
+
 		# EE - download the bundles (ba and plugin), and then the patches
 		echo " Downloading $minorVersion EE and plugins..."
-		#lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ee/; mget -O $SOFTWARE_DIR biserver-[^m]*zip \
-			#paz-plugin-ee-*.zip \
-			#pir-plugin-ee-*.zip \
-			#pdd-plugin-ee-*.zip"
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ee/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip \
+			paz-plugin-ee-*.zip \
+			pir-plugin-ee-*.zip \
+			pdd-plugin-ee-*.zip"
 
 		## Find dot versions that are relevant
 		for subV in $subVersions
@@ -114,14 +163,24 @@ then
 			if [[ $subV =~ $minorVersion.[^0] ]]; then
 				echo " Downloading $subV patches..."
 
-				lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$subV/; mget -O $SOFTWARE_DIR SP*zip"
+				# There are 2 possible formats - right on the dir and on a patches subdir
+				lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$subV/; mget -O $DOWNLOAD_DIR SP*zip patch/SP*zip" 2>/dev/null
 
 			fi
 		done
 
 
 	fi
-	
+
+
+	# If EE... also get licenses
+
+	if [[ $variant =~ ee  ]]; then
+		rm $LICENSES_DIR/*lic
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/DEV_LICENSES/; mget -O $LICENSES_DIR *lic";
+
+	fi
+
 
 else 
 	echo Somethings wrong, doc...

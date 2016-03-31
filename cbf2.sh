@@ -179,7 +179,7 @@ else
 		echo You selected the image $build
 		echo
 
-		read -e -p "> What do you want to do? (L)aunch it or (D)elete it? [L]: " operation
+		read -e -p "> What do you want to do? (L)aunch a new container or (D)elete the image? [L]: " operation
 		operation=${operation:-L}
 
 		if ! [ $operation == "L" ] && ! [ $operation == "D" ]
@@ -275,7 +275,7 @@ else
 			fi
 
 			if [ $operation == "L" ]; then
-				docker logs -f $dockerImage 
+				docker logs -f $dockerImage
 				echo Done
 				exit 0
 			fi

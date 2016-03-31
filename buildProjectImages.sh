@@ -171,8 +171,13 @@ echo
 
 docker build -t $DOCKERTAG $tmpDir
 
+# 8. Clean it
+
+rm -rf $tmpDir
+
 echo 
 echo Project image built successfully
+echo
 
 cd $BASEDIR
 
