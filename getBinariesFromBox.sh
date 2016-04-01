@@ -108,7 +108,7 @@ then
 
 	echo Connecting to box to get the latest stable versions...
 
-	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort=name [0-9]*Releases ");
+	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort=name [5-9]*Releases ");
 
 	OPTIONS=();
 	for versionDir in $result
@@ -123,7 +123,7 @@ then
 	# Now for the minor vesions
 
 	echo Connecting to box to get the latest dot versions for $version...
-	subVersions=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/ ; cls -1 --sort=name [0-9]* ");
+	subVersions=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/ ; cls -1 --sort=name [0-9S]* " | grep -v '\-C');
 
 	minorVersions=$(echo "$subVersions" | egrep -o '^\d+\.\d+\.\d+' | sort -u )
 
@@ -146,20 +146,21 @@ then
 
 		# CE is actually easier; We'll download from $version-Releases/$version-.$minorVersion.0/ce/baserver
 		echo Downloading $minorVersion CE...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ce/; mget -O $DOWNLOAD_DIR biserver-ce-*zip";
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/; mget -O $DOWNLOAD_DIR biserver-ce-*zip ce/biserver-ce-*zip"; 2>/dev/null
 
 	else
 
 		# EE - download the bundles (ba and plugin), and then the patches
 		echo " Downloading $minorVersion EE and plugins..."
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/ee/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip \
-			paz-plugin-ee-*.zip \
-			pir-plugin-ee-*.zip \
-			pdd-plugin-ee-*.zip"
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip ee/biserver-[^m]*zip \
+			paz-plugin-ee-*.zip ee/paz-plugin-ee-*.zip \
+			pir-plugin-ee-*.zip ee/pir-plugin-ee-*.zip \
+			pdd-plugin-ee-*.zip ee/pdd-plugin-ee-*.zip" 2>/dev/null
 
 		## Find dot versions that are relevant
 		for subV in $subVersions
 		do
+			echo subversion: $subV
 			if [[ $subV =~ $minorVersion.[^0] ]]; then
 				echo " Downloading $subV patches..."
 
@@ -168,6 +169,9 @@ then
 
 			fi
 		done
+
+		# Older releases have the patches on the top level dir
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/; mget -O $DOWNLOAD_DIR SP*zip patch/SP*zip" 2>/dev/null
 
 
 	fi

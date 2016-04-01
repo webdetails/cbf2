@@ -12,6 +12,7 @@
 # 7. Build it
 
 BASEDIR=$(dirname $0)
+cd $BASEDIR
 PROJECTS_DIR="projects"
 
 
