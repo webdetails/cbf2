@@ -57,7 +57,7 @@ echo
 
 
 # 1. Search for what we have
-IMAGES=$( docker images | egrep '^baserver-(ee|merged)' | cut -d' ' -f 1 )
+IMAGES=$( docker images | egrep '^baserver' | cut -d' ' -f 1 )
 
 IFS=$'\n';
 n=-1

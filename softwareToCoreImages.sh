@@ -65,6 +65,15 @@ fi
 
 mkdir -p $tmpDir
 
+# Now - we need to check if we have the cbf2-core docker image. Else, we need to build it
+
+if  [[ ! $( docker images | grep cbf2-core ) ]]; then
+
+	echo Base imagee not found. Building cbf2-core...
+	docker build -t cbf2-core -f dockerfiles/Dockerfile-CoreCBF dockerfiles
+
+fi
+
 
 if [[ $server =~ -ce- ]]
 then
@@ -74,7 +83,7 @@ then
 	unzip $serverFile -d $tmpDir/pentaho > /dev/null
 
 	echo Creating docker image...
-	docker build --build-arg JAVA_VERSION=8 -t $DOCKERTAG -f dockerfiles/Dockerfile-CE-FromFile dockerfiles
+	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-CE-FromFile dockerfiles
 
 
 else
@@ -92,8 +101,13 @@ then
 fi
 
 
+echo Done. You may want to use the ./cff2.sh command
 
-exit 1;
+rm -rf $tmpDir
+cd $BASEDIR
+exit 0
+
+
 
 echo  ... connecting to box to get the nightlies
 
