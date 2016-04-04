@@ -199,9 +199,6 @@ EOT
 	echo Creating docker image...
 	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
 
-	rm -rf $tmpDirInstallers
-	exit 1;
-
 fi
 
 
@@ -213,9 +210,9 @@ then
 fi
 
 
+rm -rf $tmpDir
 echo Done. You may want to use the ./cbf2.sh command
 
-rm -rf $tmpDir
 cd $BASEDIR
 exit 0
 

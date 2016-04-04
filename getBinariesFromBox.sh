@@ -160,7 +160,7 @@ then
 		## Find dot versions that are relevant
 		for subV in $subVersions
 		do
-			echo subversion: $subV
+			# echo subversion: $subV
 			if [[ $subV =~ $minorVersion.[^0] ]]; then
 				echo " Downloading $subV patches..."
 
