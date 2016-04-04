@@ -54,6 +54,7 @@ DOCKERTAG=$(echo $server | sed -E -e 's/biserver/baserver/; s/(-dist)?\.zip//' |
 # 4. Dynamically change the project-specific dockerfile to change the FROM
 tmpDir=dockerfiles/tmp
 
+
 # We'll use one of two things: If we have a project-specific Dockerfile, we'll 
 # go for that one; if not, we'll use a default. 
 # We'll also build a tmp dir for processing the stuff
@@ -88,75 +89,118 @@ then
 
 else
 
-	echo	docker build --build-arg BOX_URL=$BOX_URL --build-arg BOX_USER=$BOX_USER --build-arg BOX_PASSWORD=$BOX_PASSWORD --build-arg BRANCH=$branch --build-arg BUILD=$buildno --build-arg PRODUCT=$product -t $DOCKERTAG -f dockerfiles/Dockerfile-EE dockerfiles
+	# 1 - Unzip everything
+	# 2 - Present eula
+	# 3 - Call the installers
+	# 4 - Process the patches
+	# 5 - Copy the relevant stuff to Pentaho dir
+	# 6 - Copy licenses
+	# 7 - Call docker file
 
-fi
+	tmpDirInstallers=$tmpDir/installers
+	mkdir $tmpDirInstallers 
 
-
-if [ $? -ne 0 ] 
-then
-	echo
-	echo An error occurred...
-	exit 1
-fi
-
-
-echo Done. You may want to use the ./cff2.sh command
-
-rm -rf $tmpDir
-cd $BASEDIR
-exit 0
-
-
-
-echo  ... connecting to box to get the nightlies
-
-for i in ${VERSIONS[@]}; do
 	
-	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort date $i | head -n 1");
+	echo Unzipping files...
+	for file in $( dirname $serverFile )/[^S]*ee*.zip
+	do 
+		unzip $file -d $tmpDirInstallers > /dev/null
+	done
 
-	BRANCH=$(echo $result | cut -f1 -d/)
-	BUILD=$(echo $result | cut -f2 -d/)
-	echo Nightly available - Branch: $BRANCH , Build number: $BUILD
-done
+	# EULA
+	less $tmpDirInstallers/biserver*/license.txt
+	echo
+	read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
 
-# Are we done?
-read -e -p "Do you want to build the image? [y/N]: " -n 1 ANSWER
-ANSWER=${ANSWER:-"n"}
+	# Did the user accept it?
+	if ! [ $choice == "Y" ]; then
+		echo "Sorry, can't  continue without accepting the license agreement. Bye"
+		exit 1
+	fi
 
-if ! [ $ANSWER == "y" ] || [ $ANSWER == "Y" ]
-then
-	exit 0;
-fi
+	# 3 - Call the installers
 
-echo 
+	tmpDirInstallers=$tmpDir/installers
 
-# Ask for branch
-read -e -p "Which branch? [$BRANCH]: " branch
-branch=${branch:-$BRANCH}
+	mkdir $tmpDir/pentaho
 
-# Ask for buildno
-read -e -p "Which build number? [$BUILD]: " buildno
-buildno=${buildno:-$BUILD}
+	for dir in $tmpDirInstallers/*/
+	do
+		
+		targetDir="../../pentaho"
+		if [[ $dir =~ plugin ]]; then
+			targetDir="../../pentaho/biserver-ee/pentaho-solutions/system"
+		fi
 
-# Ask for product
-read -e -p "Which server ('ee', 'merged-ee', 'ce' or 'merged-ce')? [$PRODUCT]: " product
-product=${product:-$PRODUCT}
+		echo Installing $dir...
 
-read -e -p 'Press any key to start building docker image. This will take a while...' -n 1 foo
+		pushd $dir > /dev/null
 
-# Docker doesn't accept tag names in uppercase
-DOCKERTAG=$(echo "baserver-$product-$branch-$buildno" | tr '[:upper:]' '[:lower:]')
+		cat <<EOT > auto-install.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<AutomatedInstallation langpack="eng"> 
+   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+   <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
+      <installpath>$targetDir</installpath> 
+   </com.izforge.izpack.panels.target.TargetPanel> 
+   <com.izforge.izpack.panels.install.InstallPanel id="installpanel"/> 
+</AutomatedInstallation>
+EOT
 
+    java -jar installer.jar auto-install.xml > /dev/null
 
-if [[ $product =~ ^.*ce$ ]]
-then
+		popd > /dev/null
 
-	docker build --build-arg JAVA_VERSION=8 -t $DOCKERTAG -f dockerfiles/Dockerfile-CE-FromFile dockerfiles
+	done
 
-else
+	# 4 - Patches
 
-	docker build --build-arg BOX_URL=$BOX_URL --build-arg BOX_USER=$BOX_USER --build-arg BOX_PASSWORD=$BOX_PASSWORD --build-arg BRANCH=$branch --build-arg BUILD=$buildno --build-arg PRODUCT=$product -t $DOCKERTAG -f dockerfiles/Dockerfile-EE dockerfiles
+	tmpDirPatches=$tmpDir/patches
+	mkdir $tmpDirPatches
+
+	echo Unzipping patches...
+	tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
+	mkdir $tmpDirPentahoPatches
+
+	for file in $( dirname $serverFile )/[S]*zip
+	do 
+		if [ -f $file ]; then
+			unzip $file -d $tmpDirPatches > /dev/null
+		fi
+	done
+
+	# We're only interested in by server patches...
+	for patch in $tmpDirPatches/BIServer/*zip $tmpDirPatches/*/BIServer/*zip
+	do
+		if [ -f $patch ]; then
+			echo Processing $patch
+			unzip -o $patch -d $tmpDirPentahoPatches > /dev/null
+		fi
+	done
+
+	# Now we need to find all jars that are on the pentaho dir with the same name,
+	# delete them (old patches required this...) and copy all the stuff over
+
+	pushd $tmpDirPentahoPatches
+	find . -iname \*jar | while read jar
+	do
+
+		rm $( echo ../../pentaho/biserver-ee/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
+
+	done
+
+	# and copy them...
+	cp -R * ../../pentaho/biserver-ee/ > /dev/null 2>&1
+	popd
+
+	echo Copying licenses...
+	cp -R licenses $tmpDir
+
+	echo Creating docker image...
+	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
+
+	#rm -rf $tmpDirInstallers
+	exit 1;
 
 fi
 
@@ -169,9 +213,10 @@ then
 fi
 
 
-# Suggest going to the nightly start
-echo Done. You may want to use the ./startNightly.sh command
+echo Done. You may want to use the ./cbf2.sh command
 
 rm -rf $tmpDir
 cd $BASEDIR
 exit 0
+
+

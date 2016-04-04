@@ -154,7 +154,7 @@ fi
 
 # Add a new image
 if [ $choice == "A" ]; then
-	source "$BASEDIR/buildCoreImages.sh"
+	source "$BASEDIR/softwareToCoreImages.sh"
 fi
 
 # Create project

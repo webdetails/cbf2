@@ -3,18 +3,21 @@ MAINTAINER  Pedro Alves <palves@pentaho.com>
 
 ADD scripts/run.sh /pentaho/
 ADD tmp/pentaho/ /pentaho/
+ADD tmp/licenses /pentaho/licenses/
 ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
 
 RUN cd /pentaho && \
+  license-installer/install_license.sh install -q  /pentaho/licenses/*lic && \ 
+  mv /root/.pentaho/.installedLicenses.xml /pentaho/biserver* && \ 
   /etc/init.d/postgresql start && \
-  cd /pentaho/biserver-ce/data/postgresql; \
+  cd /pentaho/biserver-ee/data/postgresql; \
   psql -U postgres -f create_jcr_postgresql.sql; \
   psql -U postgres -f create_quartz_postgresql.sql; \
   psql -U postgres -f create_repository_postgresql.sql; \
-  rm /pentaho/biserver-ce/promptuser.sh; \
-  touch /pentaho/biserver-ce/tomcat/logs/catalina.out ; \
-  touch /pentaho/biserver-ce/tomcat/logs/pentaho.log ; \
-  sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/biserver-ce/tomcat/bin/startup.sh; \
+  rm /pentaho/biserver-ee/promptuser.sh; \
+  touch /pentaho/biserver-ee/tomcat/logs/catalina.out ; \
+  touch /pentaho/biserver-ee/tomcat/logs/pentaho.log ; \
+  sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/biserver-ee/tomcat/bin/startup.sh; \
   mkdir /home/pentaho && groupadd -r pentaho && useradd -r -g pentaho -p $(perl -e'print crypt("pentaho", "aa")' ) -G sudo pentaho && \ 
   chown -R pentaho.pentaho /pentaho && \ 
   chown -R pentaho.pentaho /home/pentaho && \
@@ -29,4 +32,3 @@ EXPOSE 8080 8044 9001
 # 1. Run 
 
 ENTRYPOINT ["bash", "/pentaho/run.sh"]
-
