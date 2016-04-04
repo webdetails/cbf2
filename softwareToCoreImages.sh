@@ -199,7 +199,7 @@ EOT
 	echo Creating docker image...
 	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
 
-	#rm -rf $tmpDirInstallers
+	rm -rf $tmpDirInstallers
 	exit 1;
 
 fi
