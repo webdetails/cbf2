@@ -33,7 +33,7 @@ cd $BASEDIR
 
 
 
-DOCKER_IMAGES=()
+DOCKER_CONTAINERS=()
 DOCKER_STATUS=()
 DOCKER_IDS=()
 
@@ -90,7 +90,7 @@ do
 		DOCKER_STATUS[$n]="Stopped"
 	fi
 
-	DOCKER_IMAGES[$n]=${ENTRY[2]}
+	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
 	TYPE[$n]="CONTAINER"
 	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
@@ -135,7 +135,7 @@ do
 		DOCKER_STATUS[$n]="Stopped"
 	fi
 
-	DOCKER_IMAGES[$n]=${ENTRY[2]}
+	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
 	TYPE[$n]="CONTAINER"
 	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
@@ -220,13 +220,12 @@ else
 	else
 
 		# Action over the containers
-		build=${BUILD[$choice]}
+		dockerImage=${DOCKER_CONTAINERS[$choice]}
 
 		echo
-		echo You selected the container $build
+		echo You selected the container $dockerImage
 		echo
 
-		dockerImage=${DOCKER_IMAGES[$choice]}
 
 		echo 
 
@@ -241,8 +240,11 @@ else
 			echo " R: Restart it"
 			echo " A: Attach to it"
 			echo " L: See the Logs"
-			echo " E: Export the solution"
-			echo " I: Import the solution"
+
+			if [[ $dockerImage =~ ^pdu ]]; then
+				echo " E: Export the solution"
+				echo " I: Import the solution"
+			fi
 			echo
 
 			read -e -p "What do you want to do? [A]: " operation

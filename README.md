@@ -52,6 +52,10 @@ you can also put the patches there and they will be processed.
 For EE, you should use the official _-dist.zip_ artifacts. For CE, the normal
 _.zip_ file.
 
+## The _licenses_ directory
+
+For EE, simply place the _*.lic_ license files on the licenses subdirectory.
+They will be installed on the images for EE builds.
 
 ### Released versions:
 
@@ -151,18 +155,211 @@ There are 4 main concepts here:
 * Project containers
 
 These should be straightforward to understand if you're familiar with
-[docker](http://docker.com)
+[docker](http://docker.com), but in a nutshell there are 2 fundamental concepts:
+_images_ and _containers_. An image is an inert, immutable file; The container
+is an instance of an image, and it's a container that will run and allow us to
+access the Pentaho platform
+
+
+## Accessing the platform
+
+When we run the container, it exposes a few ports, most importantly 8080. So in
+order to see Pentaho running all we need to do is to access the machine where
+docker is running. This part may vary depending on the operating system; on a
+Mac, and using docker-machine, there's a separate VM running the things, so I'm
+able to access the platform by using the following URL:
+
+	http://192.168.99.100:8080/pentaho/Home
 
 
 ### Core images
 
+These are the core images - a clean install out of one of the available
+artifacts that are provided on the _software_ directory. So the first thing we
+should do is add a core image. The option _[A]_ allows us to select which image
+to add from an official distribution archive.
+
+When we select this option, we are prompted to chose the version we want to
+build: 
+
+	> Select an entry number, [A] to add new image or [C] to create new project: A
+
+	Servers found on the software dir:
+	 [0]: biserver-ee-5.2.1.0-148-dist.zip
+	 [1]: biserver-ce-5.4.0.0-128.zip
+	 [2]: biserver-ee-5.4.1.0-169-dist.zip
+	 [3]: biserver-ce-6.0.1.0-386.zip
+	 [4]: biserver-ee-6.0.1.0-386-dist.zip
+	 [5]: biserver-ee-6.1-qat-153-dist.zip
+	 [6]: biserver-merged-ce-6.1-qat-153.zip
+	 [7]: biserver-merged-ee-7.0-QAT-76-dist.zip
+
+CBF2 will correctly know how to handle EE dist files, you'll be presented with
+the EULA, patches will be automatically processed and licenses will be
+installed.
+
+Once an image is build, if we select that core image number you'll have the
+option to launch a new container or delete the image:
+
+	> Select an entry number, [A] to add new image or [C] to create new project: 0
+	You selected the image baserver-ee-6.0.1.0-386
+	> What do you want to do? (L)aunch a new container or (D)elete the image? [L]:
+
+
 ### Core containers
+
+From a core image you can launch a container; This will allow us to explore a
+completely clean version of the image you selected. This is useful for some
+tests, but I'd say the big value would come out of the project images. Here are
+the options available over containers:
+
+	> Select an entry number, [A] to add new image or [C] to create new project: 3
+
+	You selected the container baserver-merged-ce-6.1-qat-153-debug
+	The container is running; Possible operations:
+
+	 S: Stop it
+	 R: Restart it
+	 A: Attach to it
+	 L: See the Logs
+
+	What do you want to do? [A]:
+
+
+Briefly, here's what the options mean - even though they should be relatively
+straightforward:
+
+* _Stop it_: Stops the container. Then the container is stopped you'll be able
+	to delete the container or start it again
+* _Restart it_: Guess what? It restarts it. Surprising, hein? :)
+* _Attach to it_: Attaches to the docker container. You'll then have a bash
+	shell and you'll be able to play with the server
+* _See the Logs_: Gets the logs from the server
+
+
+## Projects
+
+### Definition and structure
+
+A project is built on top of a core image; but instead of being a clean install
+it's meant to replicate a real project's environment. As a best practice, it
+should also have a well defined structure that can be stored on a VCS
+repository.
+
+Projects should be cloned / checked out in the _projects_ directory. I recommend
+every project to be versioned in a different _git_ or _svn_ repository. Here's
+the structure I have:
+
+	pedro@orion:~/tex/pentaho/cbf2 (master *) $ tree  -l ./projects/
+	./projects/
+	└── project-nasa-samples -> ../../project-nasa-samples/
+			├── _dockerfiles
+			└── solution
+					└── public
+							├── Mars_Photo_Project
+							│   ├── Mars_Photo_Project.cda
+							│   ├── Mars_Photo_Project.cdfde
+							│   ├── Mars_Photo_Project.wcdf
+							│   ├── css
+							│   │   └── styles.css
+							│   ├── img
+							│   │   └── nasaicon.png
+							│   └── js
+							│       └── functions.js
+							└── ktr
+									├── NASA\ API\ KEY.txt
+									├── curiosity.ktr
+									├── getPages.ktr
+									└── mars.ktr
+
+All the solution files are going to be automatically imported, including
+metadata for datasources creation.
+
+The directory \_dockerfiles is a special one; You can override the default
+Dockerfile that's used to build a project image (the file in
+_dockerfiles/buildProject/Dockerfile_) and just drop a project specific
+_Dockerfile_ in that directory using the former one as an example. Note that you
+should _not_ change the _FROM_ line, as it will be dynamically replaced. This is
+what you want for project level configurations, like installing / restoring a
+specific database, an apache server on front or any fine tuned configurations.
+
 
 ### Project images
 
+The first thing we need to do is to create a project. To do that is very simple:
+we select one of the projects on our _projects_ directory and a core image to
+install it against. This separations aims at really simplifying upgrades / tests
+/ etc
+
+
+	> Select an entry number, [A] to add new image or [C] to create new project: C
+
+	Choose a project to build an image for:
+
+	 [0] project-nasa-samples
+
+	> Choose project: 0
+
+	Select the image to use for the project
+
+	 [0] baserver-ee-6.0.1.0-386
+	 [1] baserver-merged-ce-6.1-qat-153
+	 [2] baserver-merged-ee-6.1.0.0-192
+
+	> Choose image: 2
+
+
+Once we have the project image created, we have access to the same options we
+had for the core images, which is basically launching a container or deleting
+the image.
+
+
 ### Project containers
 
+Like the images, project containers work very similarly to core containers. But
+we'll also have 2 extra options available:
 
+* _Export the solution_: Exports the solution to our project folder
+* _Import the solution_: Imports the solution from our project folder into the
+	running containers. This would be equivalent to rebuilding the image
+
+
+## Taking it further
+
+This is, first and foremost, a developer's tool and methodology. I'll make no
+considerations or recommendations in regards to using this containers in a
+production environment or not because I have simply no idea how that works as
+we're mostly agnostic ro those methods.
+
+Pentaho's stance is clearly explained
+[here](https://support.pentaho.com/hc/en-us/articles/208047856):
+
+
+	As deployments increase in complexity and our clients rapidly add new software
+	components and expand software footprints, we have seen a definitive shift
+	away from traditional installation methods to more automated/scriptable
+	deployment approaches. At Pentaho, our goal is to ensure our clients continue
+	to enjoy flexibility to adapt our technology to their environments and
+	individual standards.
+
+	Throughout 2015, Pentaho worked with customers who use various deployment
+	technologies in development, test, and production environments. We have seen
+	that the range of technologies used for scripted software deployment can vary
+	as widely as the internal IT standards of our clients. In short, we have not
+	found critical mass in any single deployment pattern.
+
+	To support our clients in their adoption of these technologies, Pentaho takes
+	the perspective that our clients should continue to be autonomous in their
+	selection and implementation of automated deployment and configuration
+	management.
+
+	Pentaho will provide documented best practices, based on our experience and
+	knowledge of our product, to assist our clients in understanding the
+	scriptable and configurable options within our product, along with our
+	deployment best practices. Due to the diversity of technology options, Pentaho
+	customer support will remain focused on the behavior of the Pentaho software
+	and will provide expertise on the Pentaho products to help customers
+	troubleshoot individual scripts or containers.
 
 
 Have fun. Tips and suggestions to pedro.alves _at_ webdetails.pt
