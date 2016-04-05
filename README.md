@@ -16,6 +16,7 @@ Also provides script utilities to get the client tools
 
 * A system with docker. I'm on a mac, so I have docker-machine
 * A decent shell; either linux or mac should work, cygwin should as well
+* lftp
 
 For docker, please follow the instructions for your operating system. I use a
 mac with homebrew, so I use docker machine (4Gb mem, 40Gb disk, YMMV)
