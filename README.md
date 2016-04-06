@@ -22,7 +22,7 @@ mac with homebrew, so I use docker machine (4Gb mem, 40Gb disk, YMMV)
 
 	brew install docker
 	brew install docker-machine
-	docker-machine create -d virtualbox --virtualbox-memory 4096 --virtualbox-disk-size 2000 env
+	docker-machine create -d virtualbox --virtualbox-memory 4096 --virtualbox-disk-size 40000 dev
 
 
 ## How to use
@@ -44,7 +44,7 @@ access to using the _getBinariesFromBox.sh_ script, but all the rest of the
 world can still use this.
 
 You should put the official software files under the
-software/v.v.v directory. It's important to follow this 3 number thingy
+software/v.v.v directory. It's important to follow this 3 number representation
 
 This works for both _CE_ and _EE_. This actually works _better_ for EE, since
 you can also put the patches there and they will be processed.
