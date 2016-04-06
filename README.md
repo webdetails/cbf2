@@ -325,6 +325,67 @@ we'll also have 2 extra options available:
 	running containers. This would be equivalent to rebuilding the image
 
 
+## The client tools
+
+This also provides 2 utilities to handle the client tools; One of them, the
+_getClients.sh_, is probably something you can't use since it's for internal
+pentaho people only. 
+
+The other one, _startClients.sh_, may be more useful; It requires the client
+tools to be downloaded into a dir called _clients/_ with a certain structure:
+
+	pedro@orion:~/tex/pentaho/cbf2 (master *) $ tree -L 4 clients/
+	clients/
+	├── pad-ce
+	│   └── 6.1.0.0
+	├── pdi-ce
+	│   ├── 6.1-QAT
+	│   │   └── 156
+	│   │       └── data-integration
+	│   ├── 6.1.0.0
+	│   │   └── 192
+	│   │       └── data-integration
+	│   └── 7.0-QAT
+	│       └── 57
+	│           └── data-integration
+	├── pdi-ee-client
+	│   └── 6.1.0.0
+	│       └── 192
+	│           ├── data-integration
+	│           ├── jdbc-distribution
+	│           └── license-installer
+	├── pme-ce
+	│   └── 6.1.0.0
+	│       └── 182
+	│           └── metadata-editor
+	├── prd-ce
+	│   └── 6.1.0.0
+	│       └── 182
+	│           └── report-designer
+	└── psw-ce
+			└── 6.1.0.0
+
+If you use this, then the _startClients.sh_ simplifies launching them; Note
+that, unlike the platform, this will run on the local machine, not on a docker
+VM:
+
+edro@orion:~/tex/pentaho/cbf2 (master *) $ ./startClients.sh
+
+	Clients found:
+	--------------
+
+	 [0] pdi-ce: 6.1-QAT-156
+	 [1] pdi-ce: 6.1.0.0-192
+	 [2] pdi-ce: 7.0-QAT-57
+	 [3] pdi-ee-client: 6.1.0.0-192
+	 [4] pme-ce: 6.1.0.0-182
+	 [5] prd-ce: 6.1.0.0-182
+
+	Select a client:
+
+
+
+
 ## Taking it further
 
 This is, first and foremost, a developer's tool and methodology. I'll make no

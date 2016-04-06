@@ -111,7 +111,7 @@ lftp -c "lcd $tooldir; open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; \
   ";
 
 unzip $tooldir/$product-*-$buildno.zip -d $tooldir
-echo rm $tooldir/$product-*-$buildno.zip 
+rm $tooldir/$product-*-$buildno.zip 
 
 echo Done. You may want to use the ./startClient.sh command
 
