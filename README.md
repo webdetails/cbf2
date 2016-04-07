@@ -324,6 +324,10 @@ we'll also have 2 extra options available:
 * _Import the solution_: Imports the solution from our project folder into the
 	running containers. This would be equivalent to rebuilding the image
 
+Note that by design CBF2 only exports the folders in public that are already
+part of the project. You'll need to manually create the directory if you add a
+top level one."
+
 
 ## The client tools
 
