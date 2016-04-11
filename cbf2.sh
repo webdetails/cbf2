@@ -283,13 +283,73 @@ else
 			fi
 
 			if [ $operation == "E" ]; then
-				echo "[Error] Not done yet"
-				exit 1
+
+				read -e -p "Username for the export operation? [admin]: " user
+				user=${user:-admin}
+				read -e -p "Password for the export operation? [password]: " password
+				password=${password:-password}
+
+				project=$(echo $dockerImage | sed -E -e 's/pdu-(.*)-baserver.*/\1/ ' )
+				serverDir=ee;
+				if [[ $dockerImage =~ ce ]]; then
+					serverDir=ce;
+				fi
+
+				echo "Exporting $dockerImage to project $project."
+				
+				echo "Please note that by design CBF2 only exports the folders in public that are already part of the project. You'll need to manually create the directory if you add a top level one."
+				echo
+
+				pushd projects/$project/solution/public/ > /dev/null
+				
+				DIRS=$( ls -d -1 */ )
+				IFS=$'\n';
+
+				for dir in $DIRS
+				do
+					dir=$( echo $dir | sed -E -e 's/\/$//')
+					echo Exporting public/$dir...
+
+					docker exec $dockerImage /pentaho/biserver-$serverDir/import-export.sh --export -a http://127.0.0.1:8080/pentaho -u $user -p $password  -w false -fp /pentaho/export.zip -f /public/$dir
+					docker cp $dockerImage:/pentaho/export.zip .
+					unzip -o export.zip > /dev/null
+					rm export.zip
+
+				done;
+
+				echo
+
+				popd > /dev/null
+
 			fi
 
 			if [ $operation == "I" ]; then
-				echo "[Error] Not done yet"
-				exit 1
+
+				read -e -p "Username for the import operation? [admin]: " user
+				user=${user:-admin}
+				read -e -p "Password for the import operation? [password]: " password
+				password=${password:-password}
+
+				project=$(echo $dockerImage | sed -E -e 's/pdu-(.*)-baserver.*/\1/ ' )
+				serverDir=ee;
+				if [[ $dockerImage =~ ce ]]; then
+					serverDir=ce;
+				fi
+
+				echo "Importing project $project to $dockerImage..."
+
+				# Zipping the files
+				pushd projects/$project/solution/ > /dev/null
+				zip -r import.zip public -x "*.DS_Store"
+
+				# Sending it and importing
+				docker cp import.zip $dockerImage:/pentaho/ 
+				
+				docker exec $dockerImage /pentaho/biserver-$serverDir/import-export.sh --import -a http://127.0.0.1:8080/pentaho -u $user -p $password -fp /pentaho/import.zip -r true --permission=true -f / -c UTF-8 -o true > /dev/null
+
+				rm import.zip
+				popd > /dev/null
+
 			fi
 
 		else

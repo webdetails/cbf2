@@ -57,12 +57,12 @@ if [ $CHOICE -eq 0 ]; then
 	# Nightly builds. Get the list of them
 	echo Connecting to box to get the latest nightly builds...
 
-	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort=name [0-9]*QAT " );
+	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ;cls -1  * | grep -e '^[0-9].*' |  grep -v \"Releases\" | grep -v \"NIGHTLY\" | grep -v \"SNAPSHOT\"" );
 
 	OPTIONS=();
 	for versionDir in $result
 	do
-		OPTIONS=("${OPTIONS[@]}" $(echo $versionDir | cut -d- -f1) )
+		OPTIONS=("${OPTIONS[@]}" $(echo $versionDir | cut -d/ -f1) )
 	done;
 
 	promptUser "Nightly versions found " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
@@ -70,7 +70,7 @@ if [ $CHOICE -eq 0 ]; then
 
 	# Getting the latest build number
 
-	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort date $version-QAT | head -n 1");
+	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort date $version | head -n 1");
 	BUILD=$(echo $result | cut -f2 -d/)
 
 
@@ -82,20 +82,20 @@ if [ $CHOICE -eq 0 ]; then
 	read -e -p "Which server ('ee', 'merged-ee', 'ce' or 'merged-ce')? [$VARIANT]: " variant
 	variant=${variant:-$VARIANT}
 
-	DOWNLOAD_DIR=$SOFTWARE_DIR/$version-QAT-$buildno
+	DOWNLOAD_DIR=$SOFTWARE_DIR/$version-$buildno
 	mkdir -p $DOWNLOAD_DIR
 
 	if [[ $variant =~ ce  ]]; then
 
-		echo Downloading $version-QAT-$buildno $variant...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-QAT/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno.zip";
+		echo Downloading $version-$buildno $variant...
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno.zip";
 
 	else
 
 		# EE - download the bundles (ba and plugins)
-		echo Downloading $version-QAT-$buildno $variant and plugins...
+		echo Downloading $version-$buildno $variant and plugins...
 
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-QAT/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno-dist.zip \
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno-dist.zip \
 			paz-plugin-ee-*-dist.zip \
 			pir-plugin-ee-*-dist.zip \
 			pdd-plugin-ee-*-dist.zip"
@@ -138,21 +138,31 @@ then
 	DOWNLOAD_DIR=$SOFTWARE_DIR/$minorVersion
 	mkdir -p $DOWNLOAD_DIR
 
-	OPTIONS=("ee" "ce")
+	OPTIONS=("ee" "ce" "merged-ce" "merged-ee")
 	promptUser "You want EE or CE?" "0"
 	variant=${OPTIONS[$CHOICE]}
 
-	if [ "$variant" == "ce" ]; then
+
+	# Caveat - In 6.1 (at least?) the stable version is actually 6.1.0.1, and not
+	# 6.1.1.0.... Yay for coherency...
+	dotDotVersion=0;
+
+	if [ "$minorVersion" == "6.1.0" ]; then
+		dotDotVersion=1;
+	fi
+	echo  Sable release is $minorVersion.$dotDotVersion
+
+	if [[ $variant =~ ce ]]; then
 
 		# CE is actually easier; We'll download from $version-Releases/$version-.$minorVersion.0/ce/baserver
 		echo Downloading $minorVersion CE...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/; mget -O $DOWNLOAD_DIR biserver-ce-*zip ce/biserver-ce-*zip"; 2>/dev/null
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR biserver-$variant-*zip ce/biserver-$variant-*zip"; 2>/dev/null
 
 	else
 
 		# EE - download the bundles (ba and plugin), and then the patches
 		echo " Downloading $minorVersion EE and plugins..."
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.0/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip ee/biserver-[^m]*zip \
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip ee/biserver-[^m]*zip \
 			paz-plugin-ee-*.zip ee/paz-plugin-ee-*.zip \
 			pir-plugin-ee-*.zip ee/pir-plugin-ee-*.zip \
 			pdd-plugin-ee-*.zip ee/pdd-plugin-ee-*.zip" 2>/dev/null
