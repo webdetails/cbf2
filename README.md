@@ -6,20 +6,19 @@ It's not community only; You don't actually build anything; But still rocks!
 
 ## Purpose
 
-The goal of this project is to quickly spin a working pentaho server on docker
-containers. 
-
-Also provides script utilities to get the client tools
+The goal of this project is to quickly spin a working Pentaho server on docker
+containers. This will also provide script utilities to get the client tools.
 
 
 ## Requirements
 
 * A system with docker. I'm on a mac, so I have docker-machine
-* A decent shell; either linux or mac should work, cygwin should as well
+* A decent shell; either Minux or Mac should work out of the box, Cygwin should
+	as well
 * lftp
 
-For docker, please follow the instructions for your operating system. I use a
-mac with homebrew, so I use docker machine (4Gb mem, 40Gb disk, YMMV)
+For docker, please follow the instructions for your specific operating system. I
+use a Mac with Homebrew, so I use docker-machine (4Gb mem, 40Gb disk, YMMV)
 
 	brew install docker
 	brew install docker-machine
@@ -33,29 +32,29 @@ There are a few utilities here:
  * getBinariesFromBox.sh - Connects to box and builds the main images for the
 	 servers (requires access to box. Later I'll do something that doesn't require
 	 that)
- * cbf2.sh - What you need to use
- * getClients.sh - An utility to get the clients tools
- * startClient.sh - An utility to start the client tools
+ * cbf2.sh - What you need to use to build the images
+ * getClients.sh - A utility to get the clients tools
+ * startClient.sh - A utility to start the client tools
 
 
 ## The _software_ directory
 
 This is the main starting point. If you're a pentaho employee you will have
 access to using the _getBinariesFromBox.sh_ script, but all the rest of the
-world can still use this.
+world can still use this by manually putting the files here.
 
-You should put the official software files under the
-software/v.v.v directory. It's important to follow this 3 number representation
+You should put the official software files under the software/v.v.v directory.
+It's very important that you follow this 3 number representation
 
 This works for both _CE_ and _EE_. This actually works _better_ for EE, since
 you can also put the patches there and they will be processed.
 
-For EE, you should use the official _-dist.zip_ artifacts. For CE, the normal
-_.zip_ file.
+For EE, you should use the official _-dist.zip_ artifacts. For CE, use the
+normal _.zip_ file.
 
 ## The _licenses_ directory
 
-For EE, simply place the _*.lic_ license files on the licenses subdirectory.
+For EE, just place the _*.lic_ license files on the licenses subdirectory.
 They will be installed on the images for EE builds.
 
 ### Released versions:
@@ -64,7 +63,7 @@ X.X.X, and inside drop the server, plugins and patches
 
 ### Nightly Builds
 
-Have the build directly in that directory
+Drop the build artifacts directly in that directory
 
 
 Example:
@@ -106,7 +105,7 @@ Example:
 
 ## CBF2: The main thing
 
-CBF1 was an ant script; CBF2 is a bash script. So yeah, you want cbf2.sh. If
+CBF1 was an ant script but CBF2 is a bash script. So yeah, you want cbf2.sh. If
 you are on windows... well, not sure I actually care, but you should be able to
 just use cygwin. 
 
@@ -156,17 +155,17 @@ There are 4 main concepts here:
 * Project containers
 
 These should be straightforward to understand if you're familiar with
-[docker](http://docker.com), but in a nutshell there are 2 fundamental concepts:
-_images_ and _containers_. An image is an inert, immutable file; The container
-is an instance of an image, and it's a container that will run and allow us to
-access the Pentaho platform
+[docker](http://docker.com), but in a nutshell there are two fundamental
+concepts: _images_ and _containers_. An image is an inert, immutable file; The
+container is an instance of an image, and it's a container that will run and
+allow us to access the Pentaho platform
 
 
 ## Accessing the platform
 
 When we run the container, it exposes a few ports, most importantly 8080. So in
 order to see Pentaho running all we need to do is to access the machine where
-docker is running. This part may vary depending on the operating system; on a
+docker is running. This part may vary depending on the operating system; On a
 Mac, and using docker-machine, there's a separate VM running the things, so I'm
 able to access the platform by using the following URL:
 
@@ -180,7 +179,7 @@ artifacts that are provided on the _software_ directory. So the first thing we
 should do is add a core image. The option _[A]_ allows us to select which image
 to add from an official distribution archive.
 
-When we select this option, we are prompted to chose the version we want to
+When we select this option, we are prompted to choose the version we want to
 build: 
 
 	> Select an entry number, [A] to add new image or [C] to create new project: A
@@ -199,7 +198,7 @@ CBF2 will correctly know how to handle EE dist files, you'll be presented with
 the EULA, patches will be automatically processed and licenses will be
 installed.
 
-Once an image is build, if we select that core image number you'll have the
+Once an image is built, if we select that core image number you'll have the
 option to launch a new container or delete the image:
 
 	> Select an entry number, [A] to add new image or [C] to create new project: 0
@@ -209,7 +208,7 @@ option to launch a new container or delete the image:
 
 ### Core containers
 
-From a core image you can launch a container; This will allow us to explore a
+You can launch a container from a core image. This will allow us to explore a
 completely clean version of the image you selected. This is useful for some
 tests, but I'd say the big value would come out of the project images. Here are
 the options available over containers:
@@ -227,10 +226,10 @@ the options available over containers:
 	What do you want to do? [A]:
 
 
-Briefly, here's what the options mean - even though they should be relatively
+Briefly, here are the options mean - even though they should be relatively
 straightforward:
 
-* _Stop it_: Stops the container. Then the container is stopped you'll be able
+* _Stop it_: Stops the container. When the container is stopped you'll be able
 	to delete the container or start it again
 * _Restart it_: Guess what? It restarts it. Surprising, hein? :)
 * _Attach to it_: Attaches to the docker container. You'll then have a bash
@@ -242,14 +241,14 @@ straightforward:
 
 ### Definition and structure
 
-A project is built on top of a core image; but instead of being a clean install
+A project is built on top of a core image. Instead of being a clean install
 it's meant to replicate a real project's environment. As a best practice, it
 should also have a well defined structure that can be stored on a VCS
 repository.
 
-Projects should be cloned / checked out in the _projects_ directory. I recommend
+Projects should be cloned / checked out in to the _projects_ directory. I recommend
 every project to be versioned in a different _git_ or _svn_ repository. Here's
-the structure I have:
+the structure that I have:
 
 	pedro@orion:~/tex/pentaho/cbf2 (master *) $ tree  -l ./projects/
 	./projects/
@@ -287,10 +286,10 @@ specific database, an apache server on front or any fine tuned configurations.
 
 ### Project images
 
-The first thing we need to do is to create a project. To do that is very simple:
-we select one of the projects on our _projects_ directory and a core image to
-install it against. This separations aims at really simplifying upgrades / tests
-/ etc
+The first thing that we need to do is to create a project. To do that is very
+simple: we select one of the projects on our _projects_ directory and a core
+image to install it against. This separations aims at really simplifying
+upgrades / tests / etc
 
 
 	> Select an entry number, [A] to add new image or [C] to create new project: C
@@ -318,7 +317,7 @@ the image.
 ### Project containers
 
 Like the images, project containers work very similarly to core containers. But
-we'll also have 2 extra options available:
+we'll also have two extra options available:
 
 * _Export the solution_: Exports the solution to our project folder
 * _Import the solution_: Imports the solution from our project folder into the
@@ -326,12 +325,12 @@ we'll also have 2 extra options available:
 
 Note that by design CBF2 only exports the folders in public that are already
 part of the project. You'll need to manually create the directory if you add a
-top level one."
+top level one.
 
 
 ## The client tools
 
-This also provides 2 utilities to handle the client tools; One of them, the
+This also provides two utilities to handle the client tools; One of them, the
 _getClients.sh_, is probably something you can't use since it's for internal
 pentaho people only. 
 
@@ -393,9 +392,9 @@ edro@orion:~/tex/pentaho/cbf2 (master *) $ ./startClients.sh
 ## Taking it further
 
 This is, first and foremost, a developer's tool and methodology. I'll make no
-considerations or recommendations in regards to using this containers in a
+considerations or recommendations in regards to using these containers in a
 production environment or not because I have simply no idea how that works as
-we're mostly agnostic ro those methods.
+we're mostly agnostic on those methods.
 
 Pentaho's stance is clearly explained
 [here](https://support.pentaho.com/hc/en-us/articles/208047856):
