@@ -112,6 +112,8 @@ else
 	echo
 	read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
 
+	choice=$( tr '[:lower:]' '[:upper:]' <<< "$choice" )
+
 	# Did the user accept it?
 	if ! [ $choice == "Y" ]; then
 		echo "Sorry, can't  continue without accepting the license agreement. Bye"

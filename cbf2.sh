@@ -146,6 +146,8 @@ done
 echo
 read -e -p "> Select an entry number, [A] to add new image or [C] to create new project: " choice
 
+choice=$( tr '[:lower:]' '[:upper:]' <<< "$choice" )
+
 if [ -z $choice ]
 then
 	echo You have to make a selection
@@ -181,6 +183,8 @@ else
 
 		read -e -p "> What do you want to do? (L)aunch a new container or (D)elete the image? [L]: " operation
 		operation=${operation:-L}
+
+		operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
 		if ! [ $operation == "L" ] && ! [ $operation == "D" ]
 		then
@@ -249,6 +253,8 @@ else
 
 			read -e -p "What do you want to do? [A]: " operation
 			operation=${operation:-A}
+
+			operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
 			if ! [ $operation == "S" ] && ! [ $operation == "R" ]  && ! [ $operation == "A" ] && ! [ $operation == "E" ] && ! [ $operation == "I" ] && ! [ $operation == "L" ] 
 			then
@@ -363,6 +369,8 @@ else
 
 			read -e -p "What do you want to do? [S]: " operation
 			operation=${operation:-S}
+
+			operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
 			if ! [ $operation == "S" ]   && ! [ $operation == "D" ]
 			then
