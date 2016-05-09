@@ -266,6 +266,7 @@ the structure that I have:
 							│   │   └── nasaicon.png
 							│   └── js
 							│       └── functions.js
+							├── exportManifest.xml
 							└── ktr
 									├── NASA\ API\ KEY.txt
 									├── curiosity.ktr
@@ -372,7 +373,7 @@ If you use this, then the _startClients.sh_ simplifies launching them; Note
 that, unlike the platform, this will run on the local machine, not on a docker
 VM:
 
-edro@orion:~/tex/pentaho/cbf2 (master *) $ ./startClients.sh
+pedro@orion:~/tex/pentaho/cbf2 (master *) $ ./startClients.sh
 
 	Clients found:
 	--------------
