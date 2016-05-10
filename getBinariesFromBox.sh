@@ -123,9 +123,9 @@ then
 	# Now for the minor vesions
 
 	echo Connecting to box to get the latest dot versions for $version...
-	subVersions=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/ ; cls -1 --sort=name [0-9S]* " | grep -v '\-C');
+	subVersions=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/ ; cls -1 --sort=name '[0-9S]*' " | grep -v '\-C');
 
-	minorVersions=$(echo "$subVersions" | egrep -o '^\d+\.\d+\.\d+' | sort -u )
+	minorVersions=$(echo "$subVersions" | egrep -o '^[0-9]+\.[0-9]+\.[0-9]+' | sort -u )
 
 	echo "Minor versions found: $minorVersions"
 	read -a OPTIONS <<< $minorVersions
