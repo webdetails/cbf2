@@ -7,7 +7,7 @@
 #
 
 #BOX_USER=pedro.alves@pentaho.com
-#BOX_PASS=XXXXXX
+#BOX_PASSWORD=XXXXXX
 
 if [ -z $BOX_USER ]
 then
