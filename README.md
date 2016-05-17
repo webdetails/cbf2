@@ -398,7 +398,7 @@ production environment or not because I have simply no idea how that works as
 we're mostly agnostic on those methods.
 
 Pentaho's stance is clearly explained
-[here](https://support.pentaho.com/hc/en-us/articles/208047856):
+[here](https://support.pentaho.com/hc/en-us/articles/210384343):
 
 
 	As deployments increase in complexity and our clients rapidly add new software
