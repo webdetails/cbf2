@@ -23,6 +23,7 @@ use a Mac with Homebrew, so I use docker-machine (4Gb mem, 40Gb disk, YMMV)
 	brew install docker
 	brew install docker-machine
 	docker-machine create -d virtualbox --virtualbox-memory 4096 --virtualbox-disk-size 40000 dev
+	eval $(docker-machine env dev)
 
 
 ## How to use
