@@ -12,19 +12,13 @@ containers. This will also provide script utilities to get the client tools.
 
 ## Requirements
 
-* A system with docker. I'm on a mac, so I have docker-machine
+* A system with docker
 * A decent shell; either Minux or Mac should work out of the box, Cygwin should
 	as well
 * lftp
 
-For docker, please follow the instructions for your specific operating system. I
-use a Mac with Homebrew, so I use docker-machine (4Gb mem, 40Gb disk, YMMV)
-
-	brew install docker
-	brew install docker-machine
-	docker-machine create -d virtualbox --virtualbox-memory 4096 --virtualbox-disk-size 40000 dev
-	eval $(docker-machine env dev)
-
+For docker, please follow the instructions for your specific operating system.
+[Docker](http://docker.com) has clients for the main operating systems.
 
 ## How to use
 
