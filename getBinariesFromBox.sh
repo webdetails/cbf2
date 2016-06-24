@@ -171,7 +171,7 @@ then
 		for subV in $subVersions
 		do
 			# echo subversion: $subV
-			if [[ $subV =~ $minorVersion.[^0] ]]; then
+			if [[ $subV =~ $minorVersion\.[^0][0-9.-]*/$ ]]; then
 				echo " Downloading $subV patches..."
 
 				# There are 2 possible formats - right on the dir and on a patches subdir
