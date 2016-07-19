@@ -152,10 +152,11 @@ echo
 echo Adding the structure to the build
 echo
 
-mkdir $tmpDir/public
-cp -R $PROJECTS_DIR/$project/solution/* $tmpDir/
-pushd $tmpDir
-zip -r solution.zip *
+solutionTmpDir=$tmpDir/solutionDir
+mkdir $solutionTmpDir
+cp -R $PROJECTS_DIR/$project/solution/* $solutionTmpDir/
+pushd $solutionTmpDir
+zip -r ../solution.zip *
 popd
 
 DOCKERTAG=pdu-$project-$image
