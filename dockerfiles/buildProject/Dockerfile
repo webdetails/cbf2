@@ -20,7 +20,7 @@ RUN mv /pentaho/solution.zip /pentaho/biserver-*/pentaho-solutions/system/defaul
 # Configure mondrian logs
 
 RUN perl -ibak -p0e 's#(</log4j:configuration>)#   <category name="mondrian">      <priority value="DEBUG"/>   </category>   <category name="mondrian.sql">      <priority value="DEBUG"/>   </category><category name="mondrian.olap.fun"><priority value="INFO"/></category><category name="mondrian.rolap.NoCacheMemberReader"><priority value="INFO"/></category><category name="mondrian.i18n.LocalizingDynamicSchemaProcessor"><priority value="INFO"/></category><category name="mondrian.rolap.RolapConnection"><priority value="INFO"/></category><category name="mondrian.olap.ResultBase"><priority value="INFO"/></category><category name="mondrian.rolap.agg.AggregationManager"><priority value="INFO"/></category><category name="mondrian.rolap.SqlStatement"><priority value="INFO"/></category><category name="mondrian.olap.RoleImpl"><priority value="INFO"/></category><category name="mondrian.rolap.RolapMember"><priority value="INFO"/></category>$1#s' /pentaho/biserver-*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
- perl -ibak -p0e 's/(PENTAHOCONSOLE.*?value=.)ERROR/$1DEBUG/s' /pentaho/biserver-*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
+ perl -ibak -p0e 's/(PENTAHOCONSOLE.*?value=.)(?:ERROR|INFO)/$1DEBUG/s' /pentaho/biserver-*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
 
 
 
