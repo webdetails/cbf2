@@ -283,7 +283,7 @@ else
 			fi
 
 			if [ $operation == "L" ]; then
-				docker logs -f $dockerImage
+				docker logs --tail 500 -f $dockerImage
 				echo Done
 				exit 0
 			fi
