@@ -145,9 +145,13 @@ then
 
 	# Caveat - In 6.1 (at least?) the stable version is actually 6.1.0.1, and not
 	# 6.1.1.0.... Yay for coherency...
+	# Actually... the same also happens for 5.4.0.1...
 	dotDotVersion=0;
 
 	if [ "$minorVersion" == "6.1.0" ]; then
+		dotDotVersion=1;
+	fi
+	if [ "$minorVersion" == "5.4.0" ]; then
 		dotDotVersion=1;
 	fi
 	echo  Sable release is $minorVersion.$dotDotVersion
