@@ -25,7 +25,7 @@ LICENSES_DIR=licenses
 
 # Get list of files
 
-SERVERFILES=$( ls -1 $SOFTWARE_DIR/*/biserver* )
+SERVERFILES=$( ls -1 $SOFTWARE_DIR/*/*server* )
 
 IFS=$'\n';
 n=-1
@@ -46,7 +46,7 @@ promptUser "Servers found on the $SOFTWARE_DIR dir:" $(( ${#OPTIONS[@]} - 1 )) "
 serverChoiceIdx=$CHOICE
 server=${OPTIONS[$CHOICE]}
 serverFile=${SERVERFILESARRAY[$serverChoiceIdx]}
-DOCKERTAG=$(echo $server | sed -E -e 's/biserver/baserver/; s/(-dist)?\.zip//' | tr '[:upper:]' '[:lower:]')
+DOCKERTAG=$(echo $server | sed -E -e ' s/pentaho-/ba/; s/biserver/baserver/; s/(-dist)?\.zip//' | tr '[:upper:]' '[:lower:]')
 
 # echo "Server chosen: $server ($serverChoiceIdx); File: $serverFile; Docker tag: $DOCKERTAG"
 
@@ -108,7 +108,7 @@ else
 	done
 
 	# EULA
-	less $tmpDirInstallers/biserver*/license.txt
+	less $tmpDirInstallers/*server*/license.txt
 	echo
 	read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
 

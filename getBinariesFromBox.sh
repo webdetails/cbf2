@@ -68,6 +68,15 @@ if [ $CHOICE -eq 0 ]; then
 	promptUser "Nightly versions found " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
 	version=${OPTIONS[$CHOICE]}
 
+	# Logic to get the server prefix; 4.x, 5.x and 6.x use biserver-*, 7.x plus uses
+	# pentaho-server-*
+
+	if [[ $version =~ ^[456] ]]; then
+		serverPrefix="biserver"
+	else
+		serverPrefix="pentaho-server"
+	fi
+
 	# Getting the latest build number
 
 	result=$(lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; cls -1 --sort date $version | head -n 1");
@@ -78,8 +87,10 @@ if [ $CHOICE -eq 0 ]; then
 	read -e -p "Latest build is $BUILD. Which one do you want to download? [$BUILD]: " buildno
 	buildno=${buildno:-$BUILD}
 
-	# Ask for product
-	read -e -p "Which server ('ee', 'merged-ee', 'ce' or 'merged-ce')? [$VARIANT]: " variant
+	# Ask for product; This will depend on the version
+	
+
+	read -e -p "Which server ('ee' or 'ce')? [$VARIANT]: " variant
 	variant=${variant:-$VARIANT}
 
 	DOWNLOAD_DIR=$SOFTWARE_DIR/$version-$buildno
@@ -88,14 +99,14 @@ if [ $CHOICE -eq 0 ]; then
 	if [[ $variant =~ ce  ]]; then
 
 		echo Downloading $version-$buildno $variant...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno.zip";
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*-$buildno.zip";
 
 	else
 
 		# EE - download the bundles (ba and plugins)
 		echo Downloading $version-$buildno $variant and plugins...
 
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR biserver-$variant-*-$buildno-dist.zip \
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*-$buildno-dist.zip \
 			paz-plugin-ee-*-dist.zip \
 			pir-plugin-ee-*-dist.zip \
 			pdd-plugin-ee-*-dist.zip"
@@ -119,6 +130,14 @@ then
 	promptUser "Stable versions found " $(( ${#OPTIONS[@]} - 1 )) "Choose a version" 
 	version=${OPTIONS[$CHOICE]}
 
+	# Logic to get the server prefix; 4.x, 5.x and 6.x use biserver-*, 7.x plus uses
+	# pentaho-server-*
+
+	if [[ $version =~ ^[456] ]]; then
+		serverPrefix="biserver"
+	else
+		serverPrefix="pentaho-server"
+	fi
 
 	# Now for the minor vesions
 
@@ -138,7 +157,7 @@ then
 	DOWNLOAD_DIR=$SOFTWARE_DIR/$minorVersion
 	mkdir -p $DOWNLOAD_DIR
 
-	OPTIONS=("ee" "ce" "merged-ce" "merged-ee")
+	OPTIONS=("ee" "ce")
 	promptUser "You want EE or CE?" "0"
 	variant=${OPTIONS[$CHOICE]}
 
@@ -160,13 +179,13 @@ then
 
 		# CE is actually easier; We'll download from $version-Releases/$version-.$minorVersion.0/ce/baserver
 		echo Downloading $minorVersion CE...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR biserver-$variant-*zip ce/biserver-$variant-*zip"; 2>/dev/null
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*zip ce/$serverPrefix-$variant-*zip"; 2>/dev/null
 
 	else
 
 		# EE - download the bundles (ba and plugin), and then the patches
 		echo " Downloading $minorVersion EE and plugins..."
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR biserver-[^m]*zip ee/biserver-[^m]*zip \
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR $serverPrefix-[^m]*zip ee/$serverPrefix-[^m]*zip \
 			paz-plugin-ee-*.zip ee/paz-plugin-ee-*.zip \
 			pir-plugin-ee-*.zip ee/pir-plugin-ee-*.zip \
 			pdd-plugin-ee-*.zip ee/pdd-plugin-ee-*.zip" 2>/dev/null
