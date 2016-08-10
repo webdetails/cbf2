@@ -83,22 +83,22 @@ then
 		sed -i '' -e 's/^# OPT=/OPT=/' ./spoon.sh
 		./spoon.sh
 
-	elif [${CLIENTS[$clientNo]} == "prd-ee" ] || [ ${CLIENTS[$clientNo]} == "prd-ce" ]
+	elif [ ${CLIENTS[$clientNo]} == "prd-ee" ] || [ ${CLIENTS[$clientNo]} == "prd-ce" ]
 	then
 		cd report-designer
 		./report-designer.sh
 
-	elif [${CLIENTS[$clientNo]} == "pme-ee" ] || [ ${CLIENTS[$clientNo]} == "pme-ce" ]
+	elif [ ${CLIENTS[$clientNo]} == "pme-ee" ] || [ ${CLIENTS[$clientNo]} == "pme-ce" ]
 	then
 		cd metadata-editor
 		./metadata-editor.sh
 
-	elif [${CLIENTS[$clientNo]} == "psw-ee" ] || [ ${CLIENTS[$clientNo]} == "psw-ce" ]
+	elif [ ${CLIENTS[$clientNo]} == "psw-ee" ] || [ ${CLIENTS[$clientNo]} == "psw-ce" ]
 	then
 		cd schema-workbench
 		./workbench.sh
 
-	elif [${CLIENTS[$clientNo]} == "pad-ee" ] || [ ${CLIENTS[$clientNo]} == "pad-ce" ]
+	elif [ ${CLIENTS[$clientNo]} == "pad-ee" ] || [ ${CLIENTS[$clientNo]} == "pad-ce" ]
 	then
 		cd pentaho-aggdesigner-ui
 		./startaggregationdesigner.sh
