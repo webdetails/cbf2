@@ -181,12 +181,12 @@ else
 		echo You selected the image $build
 		echo
 
-		read -e -p "> What do you want to do? (L)aunch a new container or (D)elete the image? [L]: " operation
+		read -e -p "> What do you want to do? (L)aunch a new container, (D)elete the image or (I)nspect before launch)? [L]: " operation
 		operation=${operation:-L}
 
 		operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
-		if ! [ $operation == "L" ] && ! [ $operation == "D" ]
+		if ! [ $operation == "L" ] && ! [ $operation == "D" ] && ! [ $operation == "I" ]
 		then
 			echo Invalid selection
 			exit 1;
@@ -218,6 +218,16 @@ else
 				docker run -p 8080:8080 -p 9001:9001 --name $build-debug $build
 
 			fi
+
+		fi
+
+		# Are we inspecting it? it?
+
+		if [ $operation == "I" ]
+		then
+
+			docker run --entrypoint bash -i -t --rm $build
+			exit 0
 
 		fi
 
