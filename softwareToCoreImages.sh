@@ -131,7 +131,7 @@ else
 		
 		targetDir="../../pentaho"
 		if [[ $dir =~ plugin ]]; then
-			targetDir="../../pentaho/biserver-ee/pentaho-solutions/system"
+			targetDir="../../pentaho/*server*/pentaho-solutions/system"
 		fi
 
 		echo Installing $dir...
@@ -187,12 +187,12 @@ EOT
 	find . -iname \*jar | while read jar
 	do
 
-		rm $( echo ../../pentaho/biserver-ee/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
+		rm $( echo ../../pentaho/*server*/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
 
 	done
 
 	# and copy them...
-	cp -R * ../../pentaho/biserver-ee/ > /dev/null 2>&1
+	cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
 	popd
 
 	echo Copying licenses...

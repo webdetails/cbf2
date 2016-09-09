@@ -326,7 +326,7 @@ else
 					dir=$( echo $dir | sed -E -e 's/\/$//')
 					echo Exporting public/$dir...
 
-					docker exec $dockerImage /pentaho/biserver-$serverDir/import-export.sh --export -a http://127.0.0.1:8080/pentaho -u $user -p $password  -w true -fp /pentaho/export.zip -f /public/$dir
+					docker exec $dockerImage /pentaho/*server-$serverDir/import-export.sh --export -a http://127.0.0.1:8080/pentaho -u $user -p $password  -w true -fp /pentaho/export.zip -f /public/$dir
 					docker cp $dockerImage:/pentaho/export.zip .
 					unzip -o export.zip > /dev/null
 					rm export.zip
@@ -361,7 +361,7 @@ else
 				# Sending it and importing
 				docker cp import.zip $dockerImage:/pentaho/ 
 				
-				docker exec $dockerImage /pentaho/biserver-$serverDir/import-export.sh --import -a http://127.0.0.1:8080/pentaho -u $user -p $password -fp /pentaho/import.zip -r true --permission=true -f / -c UTF-8 -o true > /dev/null
+				docker exec $dockerImage /pentaho/*server-$serverDir/import-export.sh --import -a http://127.0.0.1:8080/pentaho -u $user -p $password -fp /pentaho/import.zip -r true --permission=true -f / -c UTF-8 -o true > /dev/null
 
 				rm import.zip
 				popd > /dev/null
