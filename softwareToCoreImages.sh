@@ -126,17 +126,49 @@ else
 
 	mkdir $tmpDir/pentaho
 
-	for dir in $tmpDirInstallers/*/
+	# First, the server. Then the plugins. There's surely a smarter way to do this...
+	# I guess I'm just not smart enough
+
+	for dir in $tmpDirInstallers/*server*/
 	do
 		
 		targetDir="../../pentaho"
 		if [[ $dir =~ plugin ]]; then
-			targetDir="../../pentaho/*server*/pentaho-solutions/system"
+			targetDir=$( cd ../../pentaho/*server*/pentaho-solutions/system && pwd )
 		fi
 
 		echo Installing $dir...
 
 		pushd $dir > /dev/null
+
+		cat <<EOT > auto-install.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<AutomatedInstallation langpack="eng"> 
+   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+   <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
+      <installpath>$targetDir</installpath> 
+   </com.izforge.izpack.panels.target.TargetPanel> 
+   <com.izforge.izpack.panels.install.InstallPanel id="installpanel"/> 
+</AutomatedInstallation>
+EOT
+
+    java -jar installer.jar auto-install.xml > /dev/null
+
+		popd > /dev/null
+
+	done
+
+	for dir in $tmpDirInstallers/*plugin*/
+	do
+		
+		pushd $dir > /dev/null
+
+		targetDir="../../pentaho"
+		if [[ $dir =~ plugin ]]; then
+			targetDir=$( cd ../../pentaho/*server*/pentaho-solutions/system && pwd )
+		fi
+
+		echo Installing $dir...
 
 		cat <<EOT > auto-install.xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
