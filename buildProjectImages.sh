@@ -159,7 +159,7 @@ pushd $solutionTmpDir
 zip -r ../solution.zip *
 popd
 
-DOCKERTAG=pdu-$project-$image
+DOCKERTAG=$(echo pdu-$project-$image | tr '[:upper:]' '[:lower:]')
 
 echo
 echo All set - building docker image $DOCKERTAG
