@@ -216,11 +216,28 @@ else
             
             source "$BASEDIR/setPorts.sh"
             
+            # Check for docker volumes
+            projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
+
+            if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
+            then
+                source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
+
+                volumeList=""
+                for volume in "${VOLUMES[@]}" ; do
+
+                    pathHost=${volume%%:*}
+                    pathContainer=${volume#*:}
+
+                    volumeList+=" -v $pathHost:$pathContainer"
+                done
+            fi
+                        
 			if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
 			then
-				eval "docker run $exposePorts -p $debugPort:8044 --name $build-debug -e DEBUG=true $build"
+				eval "docker run $exposePorts -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
 			else
-				eval "docker run $exposePorts --name $build-debug $build"
+				eval "docker run $exposePorts --name $build-debug $volumeList $build"
 			fi
 
 		fi
@@ -408,14 +425,31 @@ else
                 DEBUG=${DEBUG:-"n"}
 
                 source "$BASEDIR/setPorts.sh"
+                
+                # Check for docker volumes
+                projectName=$(echo $dockerImage | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
+                
+                if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
+                then
+                    source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
+
+                    volumeList=""
+                    for volume in "${VOLUMES[@]}" ; do
+
+                        pathHost=${volume%%:*}
+                        pathContainer=${volume#*:}
+
+                        volumeList+=" -v $pathHost:$pathContainer"
+                    done
+                fi
 
 				echo Starting...
 
                 if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
                 then
-                    eval "docker rm $dockerImage; docker run $exposePorts -p $debugPort:8044 -e DEBUG=true --name $dockerImage $dockerId"
+                    eval "docker rm -v $dockerImage; docker run $exposePorts -p $debugPort:8044 -e DEBUG=true --name $dockerImage $volumeList $dockerId"
                 else
-                    eval "docker rm $dockerImage; docker run $exposePorts --name $dockerImage $dockerId"
+                    eval "docker rm -v $dockerImage; docker run $exposePorts --name $dockerImage $volumeList $dockerId"
                 fi
             
 				echo $dockerImage started successfully
