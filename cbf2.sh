@@ -36,6 +36,7 @@ cd $BASEDIR
 DOCKER_CONTAINERS=()
 DOCKER_STATUS=()
 DOCKER_IDS=()
+DOCKER_IMAGES=()
 
 
 # Get list of files
@@ -77,7 +78,7 @@ echo --------------------------
 echo 
 
 
-RUNNING_CONTAINERS=$( docker ps -a -f "name=baserver" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" | grep -v 'pdu-' )
+RUNNING_CONTAINERS=$( docker ps -a -f "name=baserver" --format "{{.ID}}XX{{.Names}}XX{{.Status}}XX{{.Image}}" | grep -v 'pdu-' )
 
 for container in $RUNNING_CONTAINERS
 do
@@ -92,6 +93,7 @@ do
 
 	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
+  	DOCKER_IMAGES[$n]=${ENTRY[6]}
 	TYPE[$n]="CONTAINER"
 	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
 done
@@ -122,7 +124,7 @@ echo -----------------------------
 echo 
 
 
-RUNNING_CONTAINERS=$( docker ps -a -f "name=pdu" --format "{{.ID}}XX{{.Names}}XX{{.Status}}" )
+RUNNING_CONTAINERS=$( docker ps -a -f "name=pdu" --format "{{.ID}}XX{{.Names}}XX{{.Status}}XX{{.Image}}" )
 
 for container in $RUNNING_CONTAINERS
 do
@@ -137,6 +139,7 @@ do
 
 	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
+  	DOCKER_IMAGES[$n]=${ENTRY[6]}
 	TYPE[$n]="CONTAINER"
 	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
 done
@@ -207,16 +210,34 @@ else
 		if [ $operation == "L" ]
 		then
 
-			read -e -p "Do you want to start the image $build in debug mode? [y/N]: " -n 1 DEBUG
+            read -e -p "Do you want to start the image $build in debug mode? [y/N]: " -n 1 DEBUG
 
 			DEBUG=${DEBUG:-"n"}
+            
+            source "$BASEDIR/setPorts.sh"
+            
+            # Check for docker volumes
+            projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
 
+            if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
+            then
+                source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
+
+                volumeList=""
+                for volume in "${VOLUMES[@]}" ; do
+
+                    pathHost=${volume%%:*}
+                    pathContainer=${volume#*:}
+
+                    volumeList+=" -v $pathHost:$pathContainer"
+                done
+            fi
+                        
 			if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
 			then
-				docker run -p 8080:8080 -p 8044:8044 -p 9001:9001 --name $build-debug -e DEBUG=true $build
+				eval "docker run $exposePorts -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
 			else
-				docker run -p 8080:8080 -p 9001:9001 --name $build-debug $build
-
+				eval "docker run $exposePorts --name $build-debug $volumeList $build"
 			fi
 
 		fi
@@ -234,10 +255,11 @@ else
 	else
 
 		# Action over the containers
-		dockerImage=${DOCKER_CONTAINERS[$choice]}
+		dockerId=${DOCKER_IMAGES[$choice]}
+        dockerImage=${DOCKER_CONTAINERS[$choice]}
 
 		echo
-		echo You selected the container $dockerImage
+		echo "You selected the container $dockerImage"
 		echo
 
 
@@ -254,6 +276,7 @@ else
 			echo " R: Restart it"
 			echo " A: Attach to it"
 			echo " L: See the Logs"
+			echo " P: See exposed ports"
 
 			if [[ $dockerImage =~ ^pdu ]]; then
 				echo " E: Export the solution"
@@ -266,7 +289,7 @@ else
 
 			operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
-			if ! [ $operation == "S" ] && ! [ $operation == "R" ]  && ! [ $operation == "A" ] && ! [ $operation == "E" ] && ! [ $operation == "I" ] && ! [ $operation == "L" ] 
+			if ! [ $operation == "S" ] && ! [ $operation == "R" ]  && ! [ $operation == "A" ] && ! [ $operation == "E" ] && ! [ $operation == "I" ] && ! [ $operation == "L" ] && ! [ $operation == "P" ] 
 			then
 				echo Invalid selection
 				exit 1;
@@ -294,6 +317,13 @@ else
 
 			if [ $operation == "L" ]; then
 				docker logs --tail 500 -f $dockerImage
+				echo Done
+				exit 0
+			fi
+
+			if [ $operation == "P" ]; then
+                echo "[Container] -> [Host]"
+				docker port $dockerImage
 				echo Done
 				exit 0
 			fi
@@ -389,8 +419,39 @@ else
 			fi
 
 			if [ $operation == "S" ]; then
+            
+                read -e -p "Do you want to start the image $dockerImage in debug mode? [y/N]: " -n 1 DEBUG
+
+                DEBUG=${DEBUG:-"n"}
+
+                source "$BASEDIR/setPorts.sh"
+                
+                # Check for docker volumes
+                projectName=$(echo $dockerImage | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
+                
+                if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
+                then
+                    source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
+
+                    volumeList=""
+                    for volume in "${VOLUMES[@]}" ; do
+
+                        pathHost=${volume%%:*}
+                        pathContainer=${volume#*:}
+
+                        volumeList+=" -v $pathHost:$pathContainer"
+                    done
+                fi
+
 				echo Starting...
-				docker start $dockerImage
+
+                if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
+                then
+                    eval "docker rm -v $dockerImage; docker run $exposePorts -p $debugPort:8044 -e DEBUG=true --name $dockerImage $volumeList $dockerId"
+                else
+                    eval "docker rm -v $dockerImage; docker run $exposePorts --name $dockerImage $volumeList $dockerId"
+                fi
+            
 				echo $dockerImage started successfully
 				exit 0
 			fi
