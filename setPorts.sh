@@ -20,18 +20,29 @@ for port in "${PORTS[@]}" ; do
     
     portName=${port%%:*}
     portValue=${port#*:}
-    
+
+    # Check if the port is already been used
+    #opened=$(lsof -i :$portValue)
+    opened=$(netstat -na | grep -i -E "^tcp.*[\.|:]$portValue\s+")
+
     if [ "$portName" == "debugPort" ]
     then
+
+        # If the port is used, look for the next one free
+        while ! [ -z "$opened" ]; do
+
+            ((portValue++))
+            #opened=$(lsof -i :$portValue)
+            opened=$(netstat -na | grep -i -E "^tcp.*[\.|:]$portValue\s+")
+
+        done
+
         read $portName <<<$portValue
+
     else
 
         NAMES[$n]=$portName
         DEFAULTS[$n]=$portValue
-
-        # Check if the port is already been used
-        #opened=$(lsof -i :$portValue)
-        opened=$(netstat -na | grep -i -E "^tcp.*[\.|:]$portValue\s+")
 
         # If the port is used, look for the next one free
         while ! [ -z "$opened" ]; do

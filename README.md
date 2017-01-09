@@ -232,6 +232,43 @@ straightforward:
 * _See the Logs_: Gets the logs from the server
 
 
+## Custom definitions
+
+### Mapping ports
+
+CBF2 allows you to run multiple containers at the same time. If some exposed port is already in use in the host by some service, CBF2 will look for a new free port and use it.
+
+To include, change and/or delete exposed ports do the following:
+
+* Edit the setPorts.sh file
+* Do the proper changes in the PORTS list, at the top. Each line represents a port to be exposed, composed by a unique name and the default port used by the service inside the container.
+
+
+### Mounting docker volumes
+
+CBF2 allows you to mount Docker volumes as well.
+
+To configure new Docker volumes, do the following:
+
+* Create in the host the folder(s) to be mounted inside the container
+* Create/edit the file dockerVolumes.sh in the cbf2/projects/\<projectName\>/config folder
+* Define in the dockerVolumes.sh file the volumes to be mounted
+
+Use the following sample to mount 2 folder:
+
+	#!/bin/bash
+	
+	# Docker volumes mapping
+	# "host_folder:container_folder"
+	VOLUMES=(
+		"/tmp/volumes/folder1:/folder1"
+		"/tmp/volumes/folder2:/folder2"
+	)
+
+
+_NOTE_: To deal with permission folder issues, read the Docker manual. 
+
+
 ## Projects
 
 ### Definition and structure
