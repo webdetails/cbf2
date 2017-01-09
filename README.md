@@ -251,7 +251,7 @@ CBF2 allows you to mount Docker volumes as well.
 To configure new Docker volumes, do the following:
 
 * Create in the host the folder(s) to be mounted inside the container
-* Create/edit the file dockerVolumes.sh in the cbf2/projects/<projectName>/config folder
+* Create/edit the file dockerVolumes.sh in the cbf2/projects/\<projectName\>/config folder
 * Define in the dockerVolumes.sh file the volumes to be mounted
 
 Use the following sample to mount 2 folder:
