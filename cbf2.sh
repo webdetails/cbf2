@@ -304,7 +304,7 @@ else
 
 			if [ $operation == "R" ]; then
 				echo Restarting...
-				docker stop $dockerImage
+				docker restart $dockerImage
 				echo $dockerImage restarted successfully
 				exit 0
 			fi
@@ -420,38 +420,8 @@ else
 
 			if [ $operation == "S" ]; then
             
-                read -e -p "Do you want to start the image $dockerImage in debug mode? [y/N]: " -n 1 DEBUG
-
-                DEBUG=${DEBUG:-"n"}
-
-                source "$BASEDIR/setPorts.sh"
-                
-                # Check for docker volumes
-                projectName=$(echo $dockerImage | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
-                
-                if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
-                then
-                    source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
-
-                    volumeList=""
-                    for volume in "${VOLUMES[@]}" ; do
-
-                        pathHost=${volume%%:*}
-                        pathContainer=${volume#*:}
-
-                        volumeList+=" -v $pathHost:$pathContainer"
-                    done
-                fi
-
 				echo Starting...
-
-                if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
-                then
-                    eval "docker rm -v $dockerImage; docker run $exposePorts -p $debugPort:8044 -e DEBUG=true --name $dockerImage $volumeList $dockerId"
-                else
-                    eval "docker rm -v $dockerImage; docker run $exposePorts --name $dockerImage $volumeList $dockerId"
-                fi
-            
+				docker start $dockerImage
 				echo $dockerImage started successfully
 				exit 0
 			fi
