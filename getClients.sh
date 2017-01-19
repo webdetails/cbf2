@@ -38,6 +38,7 @@ DIR=clients
 
 echo Release available - Branch: 5.4.0.9 , Buind number: 162
 echo Release available - Branch: 6.0.1.0 , Buind number: 386
+echo Release available - Branch: 7.0.0.0 , Buind number: 25
 
 
 # Get list of files
