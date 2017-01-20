@@ -7,8 +7,8 @@ ADD tmp/licenses /pentaho/licenses/
 ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
 
 RUN cd /pentaho && \
-  license-installer/install_license.sh install -q  /pentaho/licenses/*lic && \ 
-  mv /root/.pentaho/.installedLicenses.xml /pentaho/*server* && \ 
+  license-installer/install_license.sh install -q  /pentaho/licenses/*lic && \
+  mv /root/.pentaho/.installedLicenses.xml /pentaho/*server* && \
   /etc/init.d/postgresql start && \
   cd /pentaho/*server*/data/postgresql; \
   psql -U postgres -f create_jcr_postgresql.sql; \
@@ -19,7 +19,7 @@ RUN cd /pentaho && \
 	cd /pentaho ; \
   sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/*server*/tomcat/bin/startup.sh; \
   mkdir /home/pentaho && groupadd -r pentaho && useradd -r -g pentaho -p $(perl -e'print crypt("pentaho", "aa")' ) -G sudo pentaho && \ 
-  chown -R pentaho.pentaho /pentaho && \ 
+  chown -R pentaho.pentaho /pentaho && \
   chown -R pentaho.pentaho /home/pentaho && \
 	if [ $( ls -1 /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-*.jar | head -n 1 | sed -E -e 's/.*pentaho-platform-api-(.).+/\1/' )  -lt "6"  ]; then update-java-alternatives -s java-7-oracle && echo Java 7 enabled ; else echo Java 8 enabled; fi && \
 	/etc/init.d/postgresql stop
