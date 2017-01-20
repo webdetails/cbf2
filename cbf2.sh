@@ -297,7 +297,7 @@ else
 
 			if [ $operation == "S" ]; then
 				echo Stopping...
-				docker stop -t 60 $dockerImage
+				docker stop -t 10 $dockerImage
 				echo $dockerImage stopped successfully
 				exit 0
 			fi
