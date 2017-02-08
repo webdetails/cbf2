@@ -12,7 +12,7 @@
 #
 ###############################################################################
 
-VERSION=0.9
+VERSION=1.0
 
 # Lists the clients and starts / delets
 BASEDIR=$(dirname $0)

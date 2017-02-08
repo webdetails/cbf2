@@ -2,6 +2,8 @@
 
 # Lists the clients and starts / delets
 BASEDIR=$(dirname $0)
+source "$BASEDIR/utils.sh"
+cd $BASEDIR
 
 
 #VERSIONS=()
@@ -49,10 +51,10 @@ fi
 echo 
 echo You selected ${CLIENTS[$clientNo]}: ${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
 
-read -e -p "What do you want to do? (L)aunch it or (D)elete it? [L]: " operation
+read -e -p "What do you want to do? (L)aunch it, (D)elete it, or (S)end to docker? [L]: " operation
 operation=${operation:-L}
 
-if ! [ $operation == "L" ] && ! [ $operation == "D" ]
+if ! [ $operation == "L" ] && ! [ $operation == "D" ] && ! [ $operation == "S" ]
 then
 	echo Invalid selection
 	exit 1;
@@ -111,8 +113,27 @@ then
 
 fi
 
+# Docker magic!
 
-echo done
+if [ $operation == "S" ]
+then
+
+	read -a OPTIONS <<< $( docker ps --format "{{.Names}}" )
+	promptUser "Select a running container " "0"
+	container=${OPTIONS[$CHOICE]}
+
+	echo Copying $DIR/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]} to $container:/root/
+	
+	cd $DIR/${CLIENTS[$clientNo]}/${BRANCHES[$clientNo]}/${BUILDNOS[$clientNo]}
+	
+	docker exec $container rm -rf /root/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
+	docker cp * $container:/root/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
+
+
+
+fi
+
+echo Done
 
 cd $BASEDIR
 
