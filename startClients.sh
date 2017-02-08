@@ -113,7 +113,12 @@ then
 
 fi
 
-# Docker magic!
+# Docker magic! The reason for this is that in mac, docker host is not on the
+# same network of the clients; This means we can't test the big data aspects
+# of namely PDI
+#
+# The spark-client image from github.com:pmalves/hadoop-cluster-docker works
+# specially well with this
 
 if [ $operation == "S" ]
 then
@@ -127,9 +132,8 @@ then
 	cd $DIR/${CLIENTS[$clientNo]}/${BRANCHES[$clientNo]}/${BUILDNOS[$clientNo]}
 	
 	docker exec $container rm -rf /root/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
-	docker cp * $container:/root/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
-
-
+	docker cp . $container:/root/${CLIENTS[$clientNo]}-${BRANCHES[$clientNo]}-${BUILDNOS[$clientNo]}
+	docker cp ~/.pentaho $container:/root/
 
 fi
 
