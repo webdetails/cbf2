@@ -12,7 +12,7 @@
 #
 ###############################################################################
 
-VERSION=1.0
+VERSION=1.1
 
 # Lists the clients and starts / delets
 BASEDIR=$(dirname $0)
@@ -210,34 +210,43 @@ else
 		if [ $operation == "L" ]
 		then
 
-            read -e -p "Do you want to start the image $build in debug mode? [y/N]: " -n 1 DEBUG
+			read -e -p "Do you want to start the image $build in debug mode? [y/N]: " -n 1 DEBUG
 
 			DEBUG=${DEBUG:-"n"}
-            
-            source "$BASEDIR/setPorts.sh"
-            
-            # Check for docker volumes
-            projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
 
-            if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
-            then
-                source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
+			source "$BASEDIR/setPorts.sh"
 
-                volumeList=""
-                for volume in "${VOLUMES[@]}" ; do
+			# Check for docker volumes
+			projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
 
-                    pathHost=${volume%%:*}
-                    pathContainer=${volume#*:}
+			if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
+			then
+				source "$BASEDIR/projects/$projectName/config/dockerVolumes.sh"
 
-                    volumeList+=" -v $pathHost:$pathContainer"
-                done
-            fi
+				volumeList=""
+				for volume in "${VOLUMES[@]}" ; do
+
+					pathHost=${volume%%:*}
+					pathContainer=${volume#*:}
+
+					volumeList+=" -v $pathHost:$pathContainer"
+				done
+			fi
+
+			# Allow to specify a network for docker
+			
+			DOCKER_NETWORK_OPT=""
+			if [ -n ${CBF2_DOCKER_NETWORK} ]
+			then
+				DOCKER_NETWORK_OPT="--net=${CBF2_DOCKER_NETWORK}"
+			fi
+
                         
 			if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
 			then
-				eval "docker run $exposePorts -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
+				eval "docker run $exposePorts $DOCKER_NETWORK_OPT -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
 			else
-				eval "docker run $exposePorts --name $build-debug $volumeList $build"
+				eval "docker run $exposePorts $DOCKER_NETWORK_OPT --name $build-debug $volumeList $build"
 			fi
 
 		fi
