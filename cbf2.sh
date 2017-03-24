@@ -246,7 +246,7 @@ else
 			then
 				eval "docker run $exposePorts $DOCKER_NETWORK_OPT -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
 			else
-				eval "docker run $exposePorts $DOCKER_NETWORK_OPT --name $build-debug $volumeList $build"
+				eval "docker run $exposePorts $DOCKER_NETWORK_OPT --name $build $volumeList $build"
 			fi
 
 		fi
