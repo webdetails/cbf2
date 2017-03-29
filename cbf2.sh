@@ -244,9 +244,9 @@ else
                         
 			if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
 			then
-				eval "docker run $exposePorts $DOCKER_NETWORK_OPT -p $debugPort:8044 --name $build-debug -e DEBUG=true $volumeList $build"
+				eval "docker run $exposePorts $DOCKER_NETWORK_OPT -p $debugPort:8044 --name $build-debug --hostname $build-debug -e DEBUG=true $volumeList $build"
 			else
-				eval "docker run $exposePorts $DOCKER_NETWORK_OPT --name $build-debug $volumeList $build"
+				eval "docker run $exposePorts $DOCKER_NETWORK_OPT --name $build --hostname $build $volumeList $build"
 			fi
 
 		fi
