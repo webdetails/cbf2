@@ -7,6 +7,8 @@ PORTS=( "httpPort:8080"
         "pgPort:5432"
         "debugPort:8044"
         "disPort:9001"
+				"lumadaLocalPort:1337"
+        "wsLocalPort:2337"
       )
       
 NAMES=()
