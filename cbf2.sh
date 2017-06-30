@@ -214,10 +214,15 @@ else
 
 			DEBUG=${DEBUG:-"n"}
 
-			source "$BASEDIR/setPorts.sh"
-
 			# Check for docker volumes
 			projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
+
+			if [ $projectName ] && [ -f $BASEDIR/projects/$projectName/config/setPorts.sh ]
+			then
+				source "$BASEDIR/projects/$projectName/config/setPorts.sh"
+			fi
+                        
+			source "$BASEDIR/setPorts.sh"
 
 			if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
 			then
