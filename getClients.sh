@@ -19,7 +19,7 @@ then
 fi
 
 #VERSIONS=()
-VERSIONS=(7.0-QAT 7.1-QAT)
+VERSIONS=(8.0-QAT)
 BOX_URL=${BOX_URL:-ftp.box.com/CI}
 DIR=clients
 
@@ -39,6 +39,7 @@ DIR=clients
 echo Release available - Branch: 5.4.0.9 , Buind number: 162
 echo Release available - Branch: 6.0.1.0 , Buind number: 386
 echo Release available - Branch: 7.0.0.0 , Buind number: 25
+echo Release available - Branch: 7.0.1.0 , Buind number: 12
 
 
 # Get list of files
