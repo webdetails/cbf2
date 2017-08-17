@@ -236,7 +236,7 @@ else
 			# Allow to specify a network for docker
 			
 			DOCKER_NETWORK_OPT=""
-			if [ -n ${CBF2_DOCKER_NETWORK} ]
+			if [ ! -z ${CBF2_DOCKER_NETWORK+x} ]
 			then
 				DOCKER_NETWORK_OPT="--net=${CBF2_DOCKER_NETWORK}"
 			fi
