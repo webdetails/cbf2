@@ -61,10 +61,17 @@ for port in "${PORTS[@]}" ; do
     
 done
 
+CBF2_BINDING_INTERFACE_OPT=""
+if [ ! -z ${CBF2_BINDING_INTERFACE+x} ]
+then
+	CBF2_BINDING_INTERFACE_OPT="${CBF2_BINDING_INTERFACE}:"
+fi
+
+
 exposePorts=""
 for index in ${!NAMES[*]}
 do
-    exposePorts+=" -p ${USED[$index]}:${DEFAULTS[$index]}"
+    exposePorts+=" -p ${CBF2_BINDING_INTERFACE_OPT}${USED[$index]}:${DEFAULTS[$index]}"
 done
 
 #echo $exposePorts

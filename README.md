@@ -420,6 +420,15 @@ pedro@orion:~/tex/pentaho/cbf2 (master *) $ ./startClients.sh
 	Select a client:
 
 
+## Variables and configurations
+
+Some system variables allow to fine tune the behavior of CBF2:
+
+* CBF2\_DOCKER\_NETWORK: Specifies a different docker network to connect to
+* CBF2\_BINDING\_INTERFACE: Specifies to which interface the binding will occur
+	(by default it's 0.0.0.0)
+
+
 
 
 ## Taking it further
