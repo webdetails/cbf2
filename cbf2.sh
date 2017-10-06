@@ -147,7 +147,7 @@ done
 
 
 echo
-read -e -p "> Select an entry number, [A] to add new image or [C] to create new project: " choice
+read -e -p "> Select an entry number, [A] to add new image or [C] to create new project or [N] to create a new project structure: " choice
 
 choice=$( tr '[:lower:]' '[:upper:]' <<< "$choice" )
 
@@ -165,6 +165,11 @@ fi
 # Create project
 if [ $choice == "C" ]; then
 	source "$BASEDIR/buildProjectImages.sh"
+fi
+
+# New  project structure
+if [ $choice == "N" ]; then
+	source "$BASEDIR/buildProjectStructure.sh"
 fi
 
 

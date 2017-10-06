@@ -1,0 +1,22 @@
+<Schema name="carSvg">
+  <Dimension name="SvgElementId">
+    <Hierarchy hasAll="true">
+      <Table name="carSvg" schema="Kettle"/>
+      <Level name="SvgElementId" uniqueMembers="false" column="svgElementId" type="String">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Value">
+    <Hierarchy hasAll="true">
+      <Table name="carSvg" schema="Kettle"/>
+      <Level name="Value" uniqueMembers="false" column="value" type="Numeric">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="carSvg">
+    <Table name="carSvg" schema="Kettle"/>
+    <DimensionUsage name="SvgElementId" source="SvgElementId"/>
+    <DimensionUsage name="Value" source="Value"/>
+    <Measure name="Value" column="value" aggregator="sum"/>
+  </Cube>
+</Schema>

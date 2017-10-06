@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<themes root-folder="reportviewer/themes">
+  <onyx>
+    <file>Onyx.css</file>
+  </onyx>
+  <crystal>
+    <file>Crystal.css</file>
+  </crystal>
+  <slate>
+    <file>Slate.css</file>
+  </slate>
+  <sapphire>
+    <file>Sapphire.css</file>
+  </sapphire>
+</themes>

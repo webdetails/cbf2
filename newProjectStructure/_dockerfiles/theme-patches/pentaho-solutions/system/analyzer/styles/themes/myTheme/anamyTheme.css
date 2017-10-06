@@ -1,0 +1,1414 @@
+/*!
+ * PENTAHO CORPORATION PROPRIETARY AND CONFIDENTIAL
+ *
+ * Copyright 2017 Pentaho Corporation (Pentaho). All rights reserved.
+ *
+ * NOTICE: All information including source code contained herein is, and
+ * remains the sole property of Pentaho and its licensors. The intellectual
+ * and technical concepts contained herein are proprietary and confidential
+ * to, and are trade secrets of Pentaho and may be covered by U.S. and foreign
+ * patents, or patents in process, and are protected by trade secret and
+ * copyright laws. The receipt or possession of this source code and/or related
+ * information does not convey or imply any rights to reproduce, disclose or
+ * distribute its contents, or to manufacture, use, or sell anything that it
+ * may describe, in whole or in part. Any reproduction, modification, distribution,
+ * or public display of this information without the express written authorization
+ * from Pentaho is strictly prohibited and in violation of applicable laws and
+ * international treaties. Access to the source code contained herein is strictly
+ * prohibited to anyone except those individuals and entities who have executed
+ * confidentiality and non-disclosure agreements or other agreements with Pentaho,
+ * explicitly covering such access.
+ */
+
+/******** NEW SKIN STYLES *************/
+
+/* Hide browser scroll bar */
+body {
+  background-color: transparent;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+#fieldList .disabled {
+  color: #999 !important;
+  opacity: 0.45;
+  font-style: italic;
+}
+
+.disabled {
+  color: #999 !important;
+}
+
+div.active {
+  background-color: #dce7ed;
+}
+
+#fieldList #fieldListTop {
+  background-color: #fff;
+  border-bottom: 1px solid #CCC;
+}
+
+.pentaho-titled-toolbar {
+  color: #333;
+  font-size: 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+}
+
+#fieldList #fieldListHeading #availableFields {
+  color: #333;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  font-size: 14px;
+}
+
+#fieldList #fieldListHeading #analysisArea {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+}
+
+#fieldList #fieldListTop .fieldListOptions {
+  background-color: #fff;
+  border-bottom: 0px solid  #cbdde8;
+}
+
+#fieldList #fieldListTop #searchField {
+  background: white;
+  border: 1px solid #CCC;
+  padding: 2px 5px;
+  height: 20px;
+}
+
+#fieldList #fieldListTop .fieldListStatus {
+  background-color: white;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+#fieldList #fieldListTop #viewFieldOptions {
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 0px solid gray;
+  border-right: 0px solid gray;
+}
+
+#fieldList #fieldListTop #fieldListCount {
+  font-style: italic;
+}
+
+.fieldList .fieldListTree {
+  background-color: white;
+  padding-top: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100% !important;
+}
+
+#fieldList .commonView .uncommon {
+  display: none;
+}
+
+#fieldListTree .folder {
+  font-weight: bold;
+}
+
+#fieldListTree .field {
+  background-color: white;
+}
+
+.fieldListTree #fieldListTreeContent .measure:hover,
+.fieldListTree #fieldListTreeContent .attribute:hover  {
+  background-color: ${MAINCOLOR};
+  border: 1px solid ${MAINCOLOR};
+  transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  -webkit-transition: background .3s ease-in-out;
+  color: #ffffff;
+}
+
+.fieldListTree #fieldListTreeContent .measureSelected {
+  background-color: ${MAINCOLOR};
+  border: 1px solid ${MAINCOLOR};
+}
+
+.cvTooltip {
+  border: 1px solid #CCC;
+  background: white;
+  color: black;
+}
+
+.fieldTooltipTitle {
+  background-color: #b3c4ff;
+  font-weight: bold;
+  color: white;
+}
+
+.btnPressed {
+  border: 1px solid ${MAINCOLOR} !important;
+  background: #F8F8F8;
+}
+
+.reportDisplayFormatPressed {
+  background-color: #F8F8F8;
+  border: 1px solid ${MAINCOLOR};
+}
+
+.btnActive {
+  border: 1px solid ${MAINCOLOR} !important;
+  background: rgba(255, 255, 255, .2);
+}
+
+#main_toolbar .reportBtn,
+.additional  .reportBtn {
+  color: white;
+  border: solid 1px #F8F8F8;
+}
+
+#main_toolbar button.disabled {
+  color: white !important;
+}
+
+#reportBtns a {
+  color: black;
+}
+
+#reportBtns a:visited {
+  color: black;
+}
+
+#reportBtns a:hover {
+  text-decoration: underline;
+}
+
+/* End Report Buttons Bar */
+.pressed {
+  background-color: #D3D3D3;
+  border-top: 1px solid #a1b0e5;
+  border-left: 1px solid #a1b0e5;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* Report summary bar */
+.reportSummary {
+  background-color: #FFF;
+  border-top: 0px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  font-size: 13px;
+  color: #333;
+}
+
+/*.filterPaneToggle {
+  background-image: url(../../../images/report/icon_filters_fold.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.filterSummary .hide {
+  background-image: url(../../../images/report/icon_filters_unfold.png);
+}*/
+.filterSummary .hide:hover {
+
+  /*background-position: 0 -60px;*/
+
+  /*background-image: url(../../../images/report/icon_filters_unfoldH.png);*/
+}
+
+/* End report summary bar */
+
+/* Field zones */
+.commonDragObject {
+  border: 1px solid gray;
+  font-size: 77%;
+}
+
+.filterDragObject {
+  background-color: #fff4ca;
+}
+
+.metricDragObject {
+  background-color: #d1dcff;
+}
+
+.attributeDragObject {
+  background-color: #ffeeab;
+}
+
+.dropZoneAttributes {
+  border: 1px solid silver;
+  background: url(../../../images/report/attribute_metric_outline.png) white no-repeat 4px 2px;
+  background-color: #fff7d6;
+}
+
+.dropZoneMeasures {
+  border: 1px solid silver;
+  background: url(../../../images/report/attribute_metric_outline.png) white no-repeat 4px 2px;
+  background-color: #e9efff;
+}
+
+.reportLayout {
+  border: 1px solid #B3B3B3;
+  border-left: 0px;
+  border-right: 0px;
+  background-color: #CCC;
+}
+
+.reportLayout .attributeItem {
+  background: url(../../../images/report/gem_attribute.png) no-repeat;
+  margin: 2px 0 2px 2px;
+}
+
+.reportLayout .attributeItemHover {
+  background: url(../../../images/report/gem_attribute_hover.png) no-repeat;
+}
+
+.reportLayout .attributeMultiChartItem {
+  background: url(../../../images/report/gem_attribute_grid.png) no-repeat;
+  margin: 2px 0 2px 2px;
+}
+
+.reportLayout .attributeMultiChartItemHover {
+  background: url(../../../images/report/gem_attribute_grid_hover.png) no-repeat;
+}
+
+.reportLayout .metricItem {
+  background: url(../../../images/report/gem_metric.png) no-repeat;
+}
+
+.reportLayout .metricItemHover {
+  background: url(../../../images/report/gem_metric_hover.png) no-repeat;
+}
+
+.reportLayout .metricDisabled {
+  background: url(../../../images/report/gem_metric_disabled.gif) no-repeat !important;
+}
+
+.dropZoneItem {
+  font-size: 77%;
+}
+
+/* End fields stuff */
+
+/* Filter related styles */
+
+.reportFilter {
+  background-color: #F8F8F8;
+  border-top: 0px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  border-right: 0px solid #CCC;
+  border-left: 0px solid #CCC;
+}
+
+.filterPaneHint {
+  font-size: 14px;
+  color: #333;
+}
+
+.filterGroup {
+  font-size: 13px;
+  border-bottom: 0px solid #abc9d9;
+}
+
+.filters .filterItemMouseOver {
+  background-color: ${MAINCOLOR};
+  color: #ffffff;
+}
+
+.filterIndent {
+  width: auto;
+}
+
+/******** END NEW SKIN STYLES *************/
+
+/******** TEMP STYLES *************/
+.timePresets {
+  display: none;
+}
+
+/******** END TEMP STYLES *************/
+
+/* Main Report Content */
+.reportRefresh {
+  background-color: rgb(239, 202, 202);
+  border-bottom: 1px solid rgb(132, 132, 132);
+}
+
+.reportArea {
+  background-color: #fff;
+}
+
+.reportArea .reportEmpty,
+.reportArea .noData {
+  color: #333;
+  font-family: opensanslight;
+}
+
+/* Pivot Table Styles */
+.pivotTable {
+  font-size: .86em;
+}
+
+.pivotTable .pivotTableRowLabelHeaderContainer {
+  border-right: 2px solid #CCC;
+}
+
+.pivotTable .pivotTableRowLabelHeaderContainer table {
+  border-bottom: 2px solid #CCC;
+}
+
+.pivotTable .pivotTableColumnHeaderContainer {
+  border-right: 1px solid #CCC;
+}
+
+.pivotTable .pivotTableColumnHeaderContainer table {
+  border-bottom: 2px solid #CCC;
+}
+
+.pivotTable .pivotTableDataContainer {
+  border-right: 1px solid #CCC;
+}
+
+.pivotTable .pivotTableRowLabelContainer {
+  border-right: 2px solid #CCC;
+}
+
+.pivotTable .pivotTableContent a {
+  color: #005EAA;
+  text-decoration: underline;
+}
+
+.pivotTable .slicer {
+  background-color: white;
+}
+
+.pivotTable .columnHeaders td {
+  color: #333;
+  border: 1px solid #CCC;
+  border-left: none;
+  border-bottom: none;
+}
+
+.pivotTable .columnHeaders td.last {
+  border-right: none;
+}
+
+.pivotTable .columnHeaders .columnheading {
+  background-color: #fce52d;
+}
+
+.pivotTable .columnHeaders .columnheading:hover {
+  background-color: #dce7ed;
+}
+
+.pivotTable .columnHeaders .columnPropHeading {
+  background-color: #fff7d6;
+}
+
+.pivotTable .columnHeaders .columnPropHeading:hover {
+  background-color: #ece5c6;
+}
+
+.pivotTable .columnHeaders .member {
+  background-color: #F8F8F8;
+}
+
+.pivotTable .columnHeaders .member:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .columnHeaders .memberSubTotal {
+  background-color: #F8F8F8;
+  font-weight: bold;
+}
+
+.pivotTable .columnHeaders .memberSubTotal:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .columnHeaders .metricNoData {
+  background-color: #d1dcff;
+}
+
+.pivotTable .columnHeaders .metric {
+  background-color: #BCE9F9;
+}
+
+.pivotTable .columnHeaders .metric:hover {
+  background-color: #4AC3F0;
+}
+
+.pivotTable .columnHeaders .metricHover {
+  background-color: #85a1ff !important;
+}
+
+.pivotTable .columnHeaders .grandTotal:hover {
+  background-color: #d1dcff;
+}
+
+.pivotTable .rowLabelHeaders td {
+  color: #333;
+  background-color: #FCE52D;
+  border: 1px solid #CCC;
+  border-right: none;
+}
+
+.pivotTable .rowLabelHeaders td:hover {
+  background-color: #dce7ed;
+}
+
+.pivotTable .rowLabelHeaders .rowPropHeader {
+  background-color: #fff7d6;
+}
+
+.pivotTable .rowLabelHeaders .rowPropHeader:hover {
+  background-color: #ece5c6;
+}
+
+.pivotTable .rowHeaders td {
+  border: 1px solid #CCC;
+  border-top: none;
+  border-right: none;
+}
+
+.pivotTable .rowHeaders .subTotal {
+  background-color: #e5e5e5;
+  font-weight: bold;
+}
+
+.pivotTable .rowHeaders .subTotal:hover {
+  background-color: #c2c2c2;
+}
+
+.pivotTable .rowHeaders .inner {
+  background-color: #F8F8F8;
+}
+
+.pivotTable .rowHeaders .inner:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .rowHeaders .outer {
+  background-color: #F8F8F8;
+}
+
+.pivotTable .rowHeaders .outer:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .cells td {
+  border-bottom: 1px solid #CCC;
+}
+
+.pivotTable .cells .rowSubTotal {
+  background-color: #e5e5e5;
+  font-weight: bold;
+}
+
+.pivotTable .cells .colSubTotal {
+  background-color: #e5e5e5;
+}
+
+.pivotTable .cells .colGrandTotal {
+  font-weight: bold;
+  background-color: #d3d3d3;
+}
+
+.pivotTable .highlightedCell {
+  background-color: #CCCCCC !important;
+}
+
+.pivotTable .highlightedRow {
+  background-color: #999999 !important;
+}
+
+.pivotTable .highlightedColumn {
+  background-color: #999999 !important;
+}
+
+.pivotTable .highlighted {
+  background-color: #AAAAAA !important;
+}
+
+.pivotTable .rowHeaders .highlighted {
+  color: #FFFFFF !important;
+}
+
+.pivotTable .columnHeaders .highlighted {
+  color: #FFFFFF !important;
+}
+
+.pivotTable .cell-style-green {
+  background-color: #66FF66;
+}
+
+.pivotTable .cell-style-yellow {
+  background-color: yellow;
+}
+
+.pivotTable .cell-style-red {
+  background-color: #FF6666;
+}
+
+.pivotTable .cells  .databar-red {
+  background-color: #FF7D7D;
+}
+
+.pivotTable .cells  .databar-green {
+  background-color: #7DFF7D;
+}
+
+.pivotTable .cells  .databar-blue {
+  background-color: #AAAAFF;
+}
+
+.rowTruncate {
+  background-color: #999999;
+  color: white;
+}
+
+.colTruncate {
+  background-color: #999999;
+  color: white;
+}
+
+.reportMain .trashcan {
+
+  /* set in globalCrystal now */
+}
+
+.reportMain .trashActive {
+
+  /* set in globalCrystal now */
+}
+
+/* Dojo widget styles */
+
+/* Dojo popup menus */
+body .dojodijit.Menu {
+  border: 1px solid #ccc;
+  background: white !important;
+}
+
+body .dojoMenuItem2Disabled .dojoMenuItem2Label,
+body .dojoMenuItem2Disabled .dojoMenuItem2Accel {
+  color: #999;
+  font-size: 11px;
+}
+
+body .dojoMenuItem2 .dojoMenuItem2Label,
+body .dojoMenuItem2 .dojoMenuItem2Accel {
+  font-size: 11px;
+}
+
+body .dojoMenuSeparator2Top {
+  border-bottom: 1px solid #ccc;
+}
+
+body .dojoMenuSeparator2Bottom {
+  border: none;
+}
+
+#progressPane .dojoFloatingPaneClient {
+  background-color: white;
+  overflow: hidden;
+}
+
+#progressPane .dojoFloatingPaneTitleBar {
+  cursor: move;
+  background-color: #9dace0;
+}
+
+.pivotTable .rowLabelHeaders .resizeHandle {
+  border: transparent  solid 2px;
+}
+
+.pivotTable .columnHeaders .resizeHandle {
+  border: transparent solid 2px;
+}
+
+.pivotTable .resizeIndicator {
+  border: 2px gray solid;
+}
+
+.rptInfoTitle {
+  color: ${MAINCOLOR};
+}
+
+.rptInfo {
+  border: 2px solid #848484;
+  background-color: #ffffff;
+}
+
+.rptInfoContent {
+  background-color: #FFFFFF;
+  font-family: OpenSansRegular, Helvetica, Arial, Sans serif;
+}
+
+.cvRptInfoTooltipHeader {
+  background-color: #DFDFDF;
+  font-family: OpenSansRegular, Helvetica, Arial, Sans serif;
+  font-size: 100%;
+  background-image: url('../../../images/report/about.png');
+  background-repeat: no-repeat;
+  background-position: 2px 6px;
+}
+
+.cvRptInfoTooltipTitle {
+  font-size: 100%;
+  font-family: OpenSansRegular, Helvetica, Arial, Sans serif;
+}
+
+.cvRptInfoTooltipBody_2 {
+  font-size: 100%;
+}
+
+.cvRptInfoTooltipFooter {
+  font-size: 100%;
+}
+
+.refreshPaneComplete {
+  background-image: url(../../../images/report/icon_refreshing_done.png);
+  background-repeat: no-repeat;
+  background-position: 0%;
+}
+
+.progressPaneUp {
+  background-image: url(../../../images/report/refreshingHeader.gif);
+  background-repeat: no-repeat;
+}
+
+.progressPaneContent {
+  font-size: 85%;
+  font-family: OpenSansRegular, Helvetica, Arial, Sans serif;
+  background-image: url(../../../images/report/refreshingMiddle.gif);
+  background-repeat: repeat-y;
+}
+
+.progressPaneDown {
+  background-image: url(../../../images/report/refreshingFooter.gif);
+}
+
+#refreshDates {
+  border-top: 1px solid #ced3e5;
+}
+
+.cmdActionsBtn {
+  border: 1px solid #848484;
+  background: url(../../../images/report/9x9_arrow_down.png) 57px center no-repeat;
+  background-color: #E6E6E6;
+  color: #333;
+  font-size: 12px;
+}
+
+.autoRefreshDirtyPane {
+  background-color: rgb(0, 0, 0);
+  filter: Alpha(Opacity=20);
+  opacity: 0.2;
+}
+
+.titleLink {
+}
+
+.reportName {
+  font-weight: normal;
+  padding-top: 0;
+}
+
+.fieldListItem {
+  background-color: white;
+}
+
+.fieldListItem-selected {
+  background-color: ${MAINCOLOR};
+  !important;
+}
+
+/* theme-specific menu item styling */
+.pentaho-menu-outer,
+.tundra .dijitMenu,
+.tundra .dijitMenuBar {
+  border: 1px solid #CCC;
+  background: #FFF;
+  font-style: 14px;
+}
+
+.pentaho-menu .pentaho-menuitem .dijitMenuItemLabel {
+  font-size: 12px;
+}
+
+.pentaho-menu .dijitMenuItemHover {
+  background-color: ${MAINCOLOR};
+}
+
+.pentaho-menuitem .dijitMenuItemHover {
+  background-color: ${MAINCOLOR};
+}
+
+.pentaho-menu .pentaho-menuitem span.checked {
+  background: url(images/checkmark.png) no-repeat center center;
+}
+
+.dijitMenuSeparator {
+  background: #fff;
+}
+
+.pentaho-menu .dijitMenuSeparatorTop {
+  height: auto;
+  margin-top: 3px;
+  border-bottom: 1px solid #CCC;
+}
+
+.tundra .dijitMenuSeparatorBottom {
+  height: auto;
+  margin-top: 1px;
+  border-top: 0 none;
+}
+
+/* added by brett */
+.dijitTitlePane {
+  background-color: #fff;
+}
+
+.pentahoPropertiesPanel .dijitTitlePaneContentInner {
+  background-color: #fff;
+}
+
+#chartBtnWrapper .reportViewAs {
+  color: #333;
+  font-size: 12px;
+  padding: 0;
+  margin: 0 10px 0 0;
+  line-height: 24px;
+}
+
+/**  **/
+#pageLoadingMessage {
+  color: #333;
+}
+
+.pentahoPropertiesPanel .propPanel_gemBar {
+  background-color: #F8F8F8;
+  border: none;
+  border-top: 1px solid #CCC;
+  border-radius: 0px;
+  margin-bottom: 20px;
+}
+
+.gemPlaceholder>span {
+  color: #999;
+}
+
+.tundra .dijitSplitterV,
+.tundra .dijitGutterV {
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 1px solid #CCC;
+  border-right: 0;
+}
+
+.rubberBand {
+  border: 2px solid #1973bc;
+  background-color: #F8F8F8;
+}
+
+.viz-image.PIVOT {
+  background: url(images/viz/PIVOT.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_AREA {
+  background: url(images/viz/CCC_AREA.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_BAR {
+  background: url(images/viz/CCC_BAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_BARLINE {
+  background: url(images/viz/CCC_BARLINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_BARNORMALIZED {
+  background: url(images/viz/CCC_BARNORMALIZED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_BARSTACKED {
+  background: url(images/viz/CCC_BARSTACKED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_HEATGRID {
+  background: url(images/viz/CCC_HEATGRID.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_HORZBAR {
+  background: url(images/viz/CCC_HORZBAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_HORZBARNORMALIZED {
+  background: url(images/viz/CCC_HORZBARNORMALIZED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_HORZBARSTACKED {
+  background: url(images/viz/CCC_HORZBARSTACKED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_LINE {
+  background: url(images/viz/CCC_LINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_PIE {
+  background: url(images/viz/CCC_PIE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_SCATTER {
+  background: url(images/viz/CCC_SCATTER.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.CCC_SUNBURST {
+  background: url(images/viz/CCC_SUNBURST.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.LINE {
+  background: url(images/viz/LINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.OPEN_LAYERS {
+  background: url(images/viz/OPEN_LAYERS.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.PCT_STACKED_HORIZONTAL_BAR {
+  background: url(images/viz/PCT_STACKED_HORIZONTAL_BAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+.viz-image.SCATTER {
+  background: url(images/viz/SCATTER.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+#standardDialog .filterDetails {
+  height: 295px;
+}
+
+#RP_closeDiv>#RP_closeButton {
+  background-position: 0 0;
+}
+
+.tundra .right-column .pentahoFormatCombo.dijitComboBox {
+  width: calc(100% - 12px);
+  padding-left: 10px;
+  border-radius: 4px;
+}
+
+/* fields list */
+.fieldListTree .folderContent {
+  margin-bottom: 20px;
+}
+
+.fieldListTree .field {
+  margin-left: 14px;
+  padding: 0 11px 0 22px;
+}
+
+.fieldListTree #fieldListTreeContent .field {
+  background-position: 2px 3px;
+}
+
+.folderOpen {
+  background: url(images/folders-arrows.png) no-repeat left center;
+  background-position: -23px 0px;
+}
+
+.fieldListTree .folder.folderClose {
+  background: url(images/folders-arrows.png) no-repeat left center;
+  margin-bottom: 20px;
+  background-position: -20px -20px;
+}
+
+/* main panels */
+.tundra .pentaho-titled-toolbar .dijitArrowNode,
+.filterSummary .hide {
+  background: url(images/folders-arrows.png) no-repeat left center;
+  background-position: -23px -5px;
+}
+
+.filterSummary .hide {
+  background: url(images/folders-arrows.png) no-repeat left center;
+  background-position: -23px 2px;
+}
+
+.tundra .pentaho-titled-toolbar.dijitClosed .dijitArrowNode{
+  background: url(images/folders-arrows.png) no-repeat left center;
+  background-position: -23px -20px;
+  padding-bottom: 12px;
+}
+
+.filterPaneToggle {
+  background: url(images/folders-arrows.png) no-repeat left center;
+  background-position: -20px -17px;
+}
+
+/* properties > report options button */
+.dijitButton,
+.dijitButton:link,
+.dijitButton:visited,
+.dijitButton:hover,
+.dijitButton:active,
+.dijitButton:focus {
+  vertical-align: middle;
+  background: transparent;
+  filter: none;
+  width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  color: ${MAINCOLOR};
+  padding: 9px 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  border-radius: 4px;
+  border: 0 none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: 0;
+  outline: 0 none;
+  border: 1px solid ${MAINCOLOR};
+}
+
+.dijitButton:hover,
+.dijitButton:active,
+.dijitButton:focus {
+  background: ${MAINCOLOR};
+  border-color: ${MAINCOLOR};
+  color: #FFF
+}
+
+/* filters bar */
+.filters {
+  margin: 0;
+  min-height: 0;
+}
+
+.helpIcon {
+  margin: 5px;
+}
+
+.standardDialogFooter #dlgHelp {
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 14px;
+  color: ${MAINCOLOR};
+}
+
+.standardDialogFooter #dlgHelp:hover {
+  color: #0F2B5B
+}
+
+.filterItem i {
+  margin: 2px;
+  display: block;
+  float: left;
+}
+
+.filterItem > span {
+  height: 26px;
+  line-height: 26px;
+}
+
+.filterItemList {
+  line-height: 26px;
+  height: 26px;
+}
+
+.filterPaneHint {
+  padding: 20px 0;
+}
+
+.filterPaneToggle {
+  height: 25px;
+  width: 20px;
+  margin: 0;
+}
+
+.filterSummary span {
+  height: 20px;
+  line-height: 25px;
+  padding: 0;
+}
+
+.statusBar {
+  padding: 0 10px 0 0;
+  line-height: 25px;
+}
+
+.reportName {
+  padding: 0;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+a.appCmdLink,
+a.appCmdLink:link,
+a.appCmdLink:visited,
+a.appCmdLink:hover,
+a.appCmdLink:active {
+  color: #005da6;
+  font-family: opensansregular;
+}
+
+a.appCmdLink:hover,
+a.appCmdLink:active {
+  color: #0F2B5B;
+}
+
+input#RO_emptyCellDisplay {
+  display: block;
+  width: 370px !important;
+  margin-top: 5px;
+}
+
+select#RO_showEmptyEnum {
+  display: block;
+  width: 370px;
+  margin-top: 5px;
+}
+
+#RO_DrillThroughLink {
+  padding-left: 10px;
+}
+
+#standardDialog table#RO_totalsWrapper {
+    width: 48%;
+    float: left;
+}
+
+#standardDialog table#RO_freezePanesWrapper {
+  width: 48%;
+  float: right;
+}
+
+.dijitTabController {
+  height: 32px !important;
+}
+
+.tundra .dijitTabPaneWrapper {
+  top: 32px !important;
+}
+
+#standardDialog .dialog-content table {
+  width: 100%;
+}
+
+#standardDialog .dialog-content table.checkboxTable {
+  width: auto;
+}
+
+.checkboxTable .tabbedLabel {
+  padding-right: 8px;
+}
+
+#FT_FILTER_PRESET tr,
+#FT_PARAMETER tr {
+  display: block;
+}
+
+#standardDialog .labelTitle {
+  padding-left: 10px;
+}
+
+#standardDialog .label {
+  display: block;
+  padding-top: 0;
+  padding-left: 0;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  color: #999;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+#standardDialog .label-padding-top {
+  padding-top: 20px;
+}
+
+#standardDialog .tabbedLabel {
+  padding-left: 0 !important;
+  font-size: 14px;
+}
+
+#standardDialog .checkbox-control {
+  line-height: 14px;
+}
+
+.pentahoTabContainerTopChildWrapper select,
+#FT_FILTER_PICKLIST select,
+#FT_FILTER_MATCH select,
+#FT_FILTER_RANGE select {
+  height: 24px;
+}
+
+#standardDialog .colorPicker {
+  margin-top: 4px;
+  margin-left: 5px;
+}
+
+#standardDialog .colorLabel {
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+}
+
+#standardDialog .colorPicker#CP_labelColorDiv,
+#standardDialog .colorPicker#CP_legendColorDiv {
+  margin-left: 0;
+}
+
+#standardDialog .inlineInput#CP_backgroundColorEndWrapper {
+  margin-left: 20px;
+}
+
+#standardDialog .inlineInput input[type="text"],
+#FT_FILTER_PICKLIST input[type="text"],
+#FT_PARAMETER input[type="text"],
+#FT_FILTER_MATCH input[type="text"],
+#FT_FILTER_PRESET input[type="text"] {
+  padding: 0px 5px;
+  line-height: 22px;
+}
+
+#standardDialog .inlineInput {
+  line-height: 24px;
+}
+
+#CP_valueAxisLowerLimit,
+#CP_valueAxisLowerLimitSecondary {
+  margin-right: 20px;
+}
+
+#standardDialog input.inputChk,
+#standardDialog input[type="checkbox"] {
+  margin: 0;
+  padding: 0;
+}
+
+#standardDialog .input-padding-bottom {
+  padding-bottom: 10px;
+}
+
+#standardDialog .select-padding-top {
+  padding-top: 15px !important;
+}
+
+#standardDialog .colorPicker#CP_legendBackgroundColorDiv {
+  margin-left: 0;
+}
+
+.pentaho-tabPanel {
+  overflow-y: auto;
+}
+
+#standardDialog #FT_searchBy {
+  height: 24px;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0 10px;
+}
+
+#FT_openDatePicker {
+  float: left !important;
+  margin-left: 5px;
+}
+
+#FT_range2_row {
+  margin-left: 3px;
+}
+
+#standardDialog .selectableList {
+  border-color: #CCC;
+}
+
+#standardDialog .fieldDrill input[type="checkbox"] {
+  margin-left: -37px;
+}
+
+select#pdfPageSize,
+select#excelPageSize {
+  height: auto;
+}
+
+input#AL_fileLabel {
+  width: 319px;
+}
+
+input#AL_filePicker {
+  height: 33px;
+  padding-top: 0;
+  padding-bottom: 0;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+td.valueCell input[type="text"] {
+  width: 280px;
+  margin-left: 5px;
+}
+
+div#AL_enableCheckboxDIV table tr td {
+  padding: 5px;
+}
+
+div#AL_linkParamsDiv {
+  color: #212121;
+}
+
+div#AL_linkParamsDiv div {
+  border-right: 1px solid #E0E0E0 !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+  border-left: 1px solid #E0E0E0 !important;
+}
+
+div#standardDialog div#AL_linkParamsDiv table td.paramCell,
+div#standardDialog div#AL_linkParamsDiv table td.valueCell {
+  padding: 10px !important;
+}
+
+div#standardDialog div#AL_linkParamsDiv table#AL_linkParamsTable td.paramCell,
+div#standardDialog div#AL_linkParamsDiv table#AL_linkParamsTable td.valueCell {
+  border-right: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+div#standardDialog div#AL_linkParamsDiv > table td.paramCell,
+div#standardDialog div#AL_linkParamsDiv > table td.valueCell {
+  background-color: #CCDFED;
+  border: 1px solid #99BEDB;
+}
+
+div#standardDialog div#AL_linkParamsDiv table tr:nth-child(even) {
+  background-color: #F0F0F0;
+}
+
+div#AL_linkParamsDiv > table {
+  border-collapse: collapse;
+}
+
+#AL_enableCheckboxDIV .dialogLabel,
+.arithNbrDlgLbl {
+    margin-top: 7px;
+}
+
+.arithNbrDlgTitle {
+  padding-bottom: 20px;
+}
+
+#arithNumberDlg table td {
+  padding-bottom: 10px;
+}
+
+#arithNumberDlg input[type="button"] {
+  background: ${MAINCOLOR};
+  color: #FFF;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0 none;
+  padding: 8px 16px;
+  line-height: 21px;
+  cursor: pointer;
+}
+
+#arithNumberDlg #MA_content {
+  border-color: #CCC;
+}
+
+div#measure-properties-dialog-header {
+  padding-left: 0;
+}
+
+div#measure-properties-dialog div.pentahoFormatCombo.dijitComboBox,
+div#measure-properties-dialog div.dijitArrowButtonContainer {
+  border-radius: 4px;
+}
+
+div#measure-properties-dialog div.dijitArrowButtonContainer {
+  border-left: none;
+}
+
+div#measure-properties-dialog div#widget_MP_formatText {
+  padding-left: 5px;
+  width: calc(100% - 7px);
+}
+
+div#measure-properties-dialog select#MP_aggType {
+  height: 33px;
+}
+
+span.dijit.dijitReset.dijitInline.dijitButton {
+  height: 33px;
+  padding: 0;
+}
+
+span.dijitReset.dijitInline.dijitButtonNode.pentaho-button {
+  height: 100%;
+  width: 100%;
+}
+
+span.dijitReset.dijitInline.dijitButtonText {
+  margin-top: 9px;
+}
+
+input.x-tbar-page-number {
+  padding: 0 2px;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;
+}
+
+#attribute-properties-dialog .left-column {
+  width: 34%;
+}
+
+#attribute-properties-dialog .right-column {
+  width: 66%;
+}
