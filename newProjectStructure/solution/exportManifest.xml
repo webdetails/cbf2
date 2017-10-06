@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ExportManifest xmlns:ns2="http://www.pentaho.com/schema/">
+    <ExportManifestInformation exportDate="21-09-2017 03:03:10 UTC" exportBy="admin" rootFolder="/" manifestVersion="2"/>
+   
+
+    <ExportManifestMondrian file="carSvg.mondrian.xml">
+        <catalogName>carSvg</catalogName>
+        <xmlaEnabled>true</xmlaEnabled>
+        <parameters>
+            <entries>
+                <entry key="EnableXmla" value="true"/>
+                <entry key="Provider" value="mondrian"/>
+                <entry key="DataSource" value="carSvg"/>
+            </entries>
+        </parameters>
+    </ExportManifestMondrian>
+	
+    <ExportManifestMetadata domainId="carSvg.xmi" file="carSvg.xmi"/>
+
+    <ExportManifestDatasource>
+        <accessType>NATIVE</accessType>
+        <accessTypeValue>NATIVE</accessTypeValue>
+        <attributes>
+            <entry>
+                <key>PORT_NUMBER</key>
+                <value>8080</value>
+            </entry>
+        </attributes>
+        <changed>false</changed>
+        <connectSql></connectSql>
+        <connectionPoolingProperties/>
+        <dataTablespace></dataTablespace>
+        <databaseName>pentaho</databaseName>
+        <databasePort>8080</databasePort>
+        <databaseType>
+            <defaultDatabaseName>pentaho</defaultDatabaseName>
+            <defaultDatabasePort>8080</defaultDatabasePort>
+            <defaultOptions/>
+            <extraOptionsHelpUrl>https://help.pentaho.com/Documentation/7.0/0L0/0Y0/090</extraOptionsHelpUrl>
+            <name>Pentaho Data Services</name>
+            <shortName>KettleThin</shortName>
+            <supportedAccessTypes>NATIVE</supportedAccessTypes>
+            <supportedAccessTypes>JNDI</supportedAccessTypes>
+        </databaseType>
+        <extraOptions/>
+        <extraOptionsOrder/>
+        <forcingIdentifiersToLowerCase>false</forcingIdentifiersToLowerCase>
+        <forcingIdentifiersToUpperCase>false</forcingIdentifiersToUpperCase>
+        <hostname>localhost</hostname>
+        <id>3c8a762a-d46b-4864-b598-061b1dd48418</id>
+        <indexTablespace></indexTablespace>
+        <informixServername></informixServername>
+        <initialPoolSize>0</initialPoolSize>
+        <maximumPoolSize>0</maximumPoolSize>
+        <name>carSvg</name>
+        <partitioned>false</partitioned>
+        <password>password</password>
+        <quoteAllFields>true</quoteAllFields>
+        <streamingResults>false</streamingResults>
+        <username>admin</username>
+        <usingConnectionPool>false</usingConnectionPool>
+        <usingDoubleDecimalAsSchemaTableSeparator>false</usingDoubleDecimalAsSchemaTableSeparator>
+    </ExportManifestDatasource>
+</ns2:ExportManifest>

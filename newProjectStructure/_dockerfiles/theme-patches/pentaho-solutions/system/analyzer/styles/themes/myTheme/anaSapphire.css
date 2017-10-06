@@ -1,0 +1,876 @@
+/*!
+ * PENTAHO CORPORATION PROPRIETARY AND CONFIDENTIAL
+ *
+ * Copyright 2002 - 2014 Pentaho Corporation (Pentaho). All rights reserved.
+ *
+ * NOTICE: All information including source code contained herein is, and
+ * remains the sole property of Pentaho and its licensors. The intellectual
+ * and technical concepts contained herein are proprietary and confidential
+ * to, and are trade secrets of Pentaho and may be covered by U.S. and foreign
+ * patents, or patents in process, and are protected by trade secret and
+ * copyright laws. The receipt or possession of this source code and/or related
+ * information does not convey or imply any rights to reproduce, disclose or
+ * distribute its contents, or to manufacture, use, or sell anything that it
+ * may describe, in whole or in part. Any reproduction, modification, distribution,
+ * or public display of this information without the express written authorization
+ * from Pentaho is strictly prohibited and in violation of applicable laws and
+ * international treaties. Access to the source code contained herein is strictly
+ * prohibited to anyone except those individuals and entities who have executed
+ * confidentiality and non-disclosure agreements or other agreements with Pentaho,
+ * explicitly covering such access.
+ */
+
+/******** NEW SKIN STYLES *************/
+
+/* Hide browser scroll bar */
+body {
+  background-color: transparent;
+}
+
+a:hover {
+  cursor:pointer;
+}
+
+#fieldList .disabled {
+  color: #777 !important;
+  opacity: 0.45;
+  font-style: italic;
+}
+
+.disabled {
+  color: #999999 !important;
+}
+
+div.active {
+  background-color: #dce7ed;
+}
+
+
+#fieldList #fieldListTop {
+  background-color: #fff;
+#  border-top: 4px solid #f2ce17;
+}
+
+.pentaho-titled-toolbar {
+  color: #505b5f;
+  font-size: 16px;
+}
+
+#fieldList #fieldListHeading #availableFields{
+  color: #505b5f;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+  font-size: 14px;
+}
+
+#fieldList #fieldListHeading #analysisArea {
+  font-size: 14px;
+  font-weight: normal;
+  color: #505b5f;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+}
+
+
+#fieldList #fieldListTop .fieldListOptions {
+  background-color: #fff;
+  border-bottom: 0px solid  #cbdde8;
+}
+
+#fieldList #fieldListTop #searchField {
+  background: white;
+  border: 1px solid  #cbdde8;
+  padding: 2px;
+}
+
+#fieldList #fieldListTop .fieldListStatus {
+  background-color: white;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+#fieldList #fieldListTop #viewFieldOptions {
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-bottom: 0px solid gray;
+  border-right: 0px solid gray;
+}
+
+#fieldList #fieldListTop #fieldListCount {
+  font-style: italic;
+}
+
+.fieldList .fieldListTree {
+  background-color: white;
+}
+
+#fieldList .commonView .uncommon {
+  display: none;
+}
+
+#fieldListTree .folder {
+  font-weight: bold;
+}
+
+#fieldListTree .field {
+  background-color: white;
+}
+
+.cvTooltip {
+  border: solid #999999 1px;
+  background: white;
+  color: black;
+}
+
+.fieldTooltipTitle {
+  background-color: #b3c4ff;
+  font-weight: bold;
+  color: white;
+}
+
+.btnPressed {
+  border: 1px solid #7fa4b6 !important;
+  background: #f4f5f7;
+}
+
+.reportDisplayFormatPressed {
+  background-color: #f4f5f7;
+  border: 1px solid #7fa4b6;
+}
+
+.btnActive {
+  border: 1px solid #3D6380 !important;
+  background: rgba(255, 255, 255, .2);
+}
+
+#main_toolbar .reportBtn, .additional  .reportBtn {
+  color: white;
+  border: solid 1px #f1f1f1;
+}
+
+#main_toolbar button.disabled{
+  color: white !important;
+}
+
+
+#reportBtns A {
+  color: black;
+}
+
+#reportBtns A:visited {
+  color: black;
+}
+
+#reportBtns A:hover {
+  text-decoration: underline;
+}
+
+/* End Report Buttons Bar */
+
+.pressed {
+  background-color: #D3D3D3;
+  border-top: 1px solid #a1b0e5;
+  border-left: 1px solid #a1b0e5;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* Report summary bar */
+.reportSummary {
+  background-color: #FFF;
+  border-top: 0px solid #abc9d9;
+  border-bottom: 1px solid #abc9d9;
+  font-size: 13px;
+  color:#26363d;
+}
+
+/*.filterPaneToggle {
+  background-image: url(../../../images/report/icon_filters_fold.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.filterSummary .hide {
+  background-image: url(../../../images/report/icon_filters_unfold.png);
+}*/
+
+.filterSummary .hide:hover {
+  /*background-position: 0 -60px;*/
+  /*background-image: url(../../../images/report/icon_filters_unfoldH.png);*/
+}
+
+
+/* End report summary bar */
+
+/* Field zones */
+.commonDragObject {
+  border: 1px solid gray;
+  font-size: 77%;
+}
+
+.filterDragObject {
+  background-color: #fff4ca;
+}
+
+.metricDragObject {
+  background-color: #d1dcff;
+}
+
+.attributeDragObject {
+  background-color: #ffeeab;
+}
+
+.dropZoneAttributes {
+  border: 1px solid silver;
+  background: url(../../../images/report/attribute_metric_outline.png) white no-repeat 4px 2px;
+  background-color: #fff7d6;
+}
+
+.dropZoneMeasures {
+  border: 1px solid silver;
+  background: url(../../../images/report/attribute_metric_outline.png) white no-repeat 4px 2px;
+  background-color: #e9efff;
+}
+
+.reportLayout {
+  border: 1px solid #B3B3B3;
+  border-left: 0px;
+  border-right: 0px;
+  background-color:#CCC;
+}
+
+.reportLayout .attributeItem {
+  background: url(../../../images/report/gem_attribute.png) no-repeat;
+  margin: 2px 0 2px 2px;
+}
+
+.reportLayout .attributeItemHover {
+  background: url(../../../images/report/gem_attribute_hover.png) no-repeat;
+}
+
+.reportLayout .attributeMultiChartItem {
+  background: url(../../../images/report/gem_attribute_grid.png) no-repeat;
+  margin: 2px 0 2px 2px;
+}
+
+.reportLayout .attributeMultiChartItemHover {
+  background: url(../../../images/report/gem_attribute_grid_hover.png) no-repeat;
+}
+
+.reportLayout .metricItem {
+  background: url(../../../images/report/gem_metric.png) no-repeat;
+}
+
+.reportLayout .metricItemHover {
+  background: url(../../../images/report/gem_metric_hover.png) no-repeat;
+}
+
+.reportLayout .metricDisabled {
+  background: url(../../../images/report/gem_metric_disabled.gif) no-repeat !important;
+}
+
+.dropZoneItem {
+  font-size: 77%;
+}
+
+/* End fields stuff */
+
+/* Filter related styles */
+
+.reportFilter {
+  background-color: #f5f6f8;
+  border-top: 0px solid #abc9d9;
+  border-bottom: 1px solid #abc9d9;
+  border-right: 0px solid #abc9d9;
+  border-left: 0px solid #abc9d9;
+
+}
+
+.filterPaneHint {
+  font-size: 21px;
+  color: #3D6380;
+  font-family: opensanslight;
+}
+
+.filterGroup {
+  font-size: 13px;
+  border-bottom: 0px solid #abc9d9;
+}
+
+.filters .filterItemMouseOver {
+  background-color: #dce7ed;
+}
+.filterIndent{
+	width: auto;
+}
+/******** END NEW SKIN STYLES *************/
+/******** TEMP STYLES *************/
+.timePresets {display:none;}
+
+/******** END TEMP STYLES *************/
+
+
+/* Main Report Content */
+.reportRefresh {
+  background-color: rgb(239, 202, 202);
+  border-bottom: 1px solid rgb(132, 132, 132);
+}
+
+.reportArea {
+  background-color: #fff;
+}
+
+.reportArea .reportEmpty, .reportArea .noData {
+  color: #3D6380;
+  font-family: opensanslight;
+}
+
+
+/* Pivot Table Styles */
+.pivotTable {
+  font-size: .86em;
+}
+
+.pivotTable .pivotTableRowLabelHeaderContainer {
+  border-right: 2px solid rgb(153,153,153);
+}
+
+.pivotTable .pivotTableRowLabelHeaderContainer TABLE {
+  border-bottom: 2px solid rgb(153,153,153);
+}
+
+
+
+.pivotTable .pivotTableColumnHeaderContainer {
+  border-right: 1px solid #999;
+}
+
+.pivotTable .pivotTableColumnHeaderContainer TABLE {
+  border-bottom: 2px solid rgb(153,153,153);
+}
+
+.pivotTable .pivotTableDataContainer {
+  border-right: 1px solid #999;
+}
+
+.pivotTable .pivotTableRowLabelContainer {
+  border-right: 2px solid rgb(153,153,153);
+}
+
+.pivotTable .pivotTableContent A {
+  color: #003D89;
+  text-decoration: underline;
+}
+
+.pivotTable .slicer {
+  background-color: white;
+}
+
+.pivotTable .columnHeaders TD {
+  color: #ffffff;
+  border: 1px solid #999;
+  border-left: none;
+  border-bottom: none;
+}
+
+.pivotTable .columnHeaders TD.last {
+  border-right: none;
+}
+
+.pivotTable .columnHeaders .columnheading {
+  background-color: #13426b;
+}
+
+.pivotTable .columnHeaders .columnheading:hover {
+  background-color: #f4364c;
+}
+
+.pivotTable .columnHeaders .columnPropHeading {
+  background-color: #fff7d6;
+}
+
+.pivotTable .columnHeaders .columnPropHeading:hover {
+  background-color: #ece5c6;
+}
+
+.pivotTable .columnHeaders .member {
+  background-color: #ffffff;
+    color: #000000;
+}
+
+.pivotTable .columnHeaders .member:hover {
+  background-color: #f4364c;
+}
+
+.pivotTable .columnHeaders .memberSubTotal {
+  background-color: #ffffff;
+  font-weight: bold;
+}
+
+.pivotTable .columnHeaders .memberSubTotal:hover {
+  background-color: #f4364c;
+}
+
+.pivotTable .columnHeaders .metricNoData {
+  background-color: #d1dcff;
+}
+
+.pivotTable .columnHeaders .metric {
+  background-color: #13426b;
+      color: #ffffff;
+}
+
+.pivotTable .columnHeaders .metric:hover {
+  background-color: #f4364c;
+}
+
+.pivotTable .columnHeaders .metricHover {
+  background-color: #85a1ff !important;
+}
+
+.pivotTable .columnHeaders .grandTotal:hover {
+  background-color: #d1dcff;
+}
+
+.pivotTable .rowLabelHeaders TD {
+  color: #ffffff;
+  background-color: #13426b;
+  border: 1px solid #999;
+  border-right: none;
+}
+
+.pivotTable .rowLabelHeaders TD:hover {
+  background-color: #f4364c;
+}
+
+
+.pivotTable .rowLabelHeaders .rowPropHeader {
+  background-color: #fff7d6;
+}
+
+.pivotTable .rowLabelHeaders .rowPropHeader:hover {
+  background-color: #ece5c6;
+}
+
+.pivotTable .rowHeaders TD {
+  border: 1px solid #999;
+  border-top: none;
+  border-right: none;
+}
+
+
+.pivotTable .rowHeaders .subTotal {
+  background-color: #ebebeb;
+  font-weight: bold;
+}
+
+.pivotTable .rowHeaders .subTotal:hover {
+  background-color: #c2c2c2;
+}
+
+.pivotTable .rowHeaders .inner {
+  background-color: #ffffff;
+}
+
+.pivotTable .rowHeaders .inner:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .rowHeaders .outer {
+  background-color: #ffffff;
+}
+
+.pivotTable .rowHeaders .outer:hover {
+  background-color: #d1d1d1;
+}
+
+.pivotTable .cells TD {
+  border-bottom: 1px solid #999;
+}
+
+.pivotTable .cells .rowSubTotal {
+  background-color: #ebebeb;
+  font-weight: bold;
+}
+
+.pivotTable .cells .colSubTotal {
+  background-color: #ebebeb;
+}
+
+.pivotTable .cells .colGrandTotal {
+  font-weight: bold;
+  background-color:#d3d3d3;
+}
+
+.pivotTable .highlightedCell {
+  background-color: #CCCCCC !important;
+}
+
+.pivotTable .highlightedRow {
+  background-color: #999999 !important;
+}
+
+.pivotTable .highlightedColumn {
+  background-color: #999999 !important;
+}
+
+.pivotTable .highlighted {
+  background-color: #AAAAAA !important;
+}
+
+.pivotTable .rowHeaders .highlighted {
+  color: #FFFFFF !important;
+}
+
+.pivotTable .columnHeaders .highlighted {
+  color: #FFFFFF !important;
+}
+
+.pivotTable .cell-style-green {
+  background-color: #66FF66;
+}
+
+.pivotTable .cell-style-yellow {
+  background-color: yellow;
+}
+
+.pivotTable .cell-style-red {
+  background-color: #FF6666;
+}
+
+.pivotTable .cells  .databar-red
+{
+  background-color: #FF7D7D;
+}
+
+.pivotTable .cells  .databar-green
+{
+  background-color: #7DFF7D;
+}
+
+.pivotTable .cells  .databar-blue
+{
+  background-color: #AAAAFF;
+}
+
+.rowTruncate {
+  background-color: #999999;
+  color: white;
+}
+
+.colTruncate {
+  background-color: #999999;
+  color: white;
+}
+
+.reportMain .trashcan {
+  /* set in globalCrystal now */
+}
+
+.reportMain .trashActive {
+  /* set in globalCrystal now */
+}
+
+/* Dojo widget styles */
+
+/* Dojo popup menus */
+body .dojodijit.Menu {
+  border: 1px solid #ccc;
+  background:white !important;
+}
+
+body .dojoMenuItem2Disabled .dojoMenuItem2Label,
+body .dojoMenuItem2Disabled .dojoMenuItem2Accel {
+  color: #ddd;
+  font-size: 11px;
+}
+
+body .dojoMenuItem2 .dojoMenuItem2Label,
+body .dojoMenuItem2 .dojoMenuItem2Accel {
+  font-size: 11px;
+}
+
+body .dojoMenuSeparator2Top {
+  border-bottom: 1px solid #ccc;
+}
+
+body .dojoMenuSeparator2Bottom {
+  border: none;
+}
+
+#progressPane .dojoFloatingPaneClient {
+  background-color: white;
+  overflow: hidden;
+}
+
+#progressPane .dojoFloatingPaneTitleBar {
+  cursor: move;
+  background-color: #9dace0;
+}
+
+
+.pivotTable .rowLabelHeaders .resizeHandle{
+  border: transparent  solid 2px;
+}
+
+
+.pivotTable .columnHeaders .resizeHandle{
+  border: transparent solid 2px;
+}
+
+.pivotTable .resizeIndicator{
+  border: 2px gray solid;
+}
+
+.rptInfoTitle {
+  color:#9dace0;
+}
+.rptInfo {
+  border: 2px solid #848484;
+  background-color: #ffffff;
+}
+.rptInfoContent {
+  background-color: #FFFFFF;
+  font-family: OpenSansRegular,  Helvetica, Arial, Sans serif;
+}
+
+.cvRptInfoTooltipHeader {
+  background-color: #DFDFDF;
+  font-family: OpenSansRegular,  Helvetica, Arial, Sans serif;
+  font-size:100%;
+  background-image: url('../../../images/report/about.png');
+  background-repeat: no-repeat;
+  background-position: 2px 6px;
+}
+
+.cvRptInfoTooltipTitle {
+  font-size:100%;
+  font-family: OpenSansRegular,  Helvetica, Arial, Sans serif;
+}
+
+.cvRptInfoTooltipBody_2 {
+  font-size:100%;
+}
+
+.cvRptInfoTooltipFooter {
+  font-size:100%;
+}
+.refreshPaneComplete {
+  background-image:url(../../../images/report/icon_refreshing_done.png);
+  background-repeat:no-repeat;
+  background-position:0%;
+}
+.progressPaneUp {
+  background-image:url(../../../images/report/refreshingHeader.gif);
+  background-repeat:no-repeat;
+}
+
+.progressPaneContent {
+  font-size:85%;
+  font-family: OpenSansRegular,  Helvetica, Arial, Sans serif;
+  background-image:url(../../../images/report/refreshingMiddle.gif);
+  background-repeat:repeat-y;
+}
+
+.progressPaneDown {
+  background-image:url(../../../images/report/refreshingFooter.gif);
+}
+
+#refreshDates{
+  border-top: 1px solid #ced3e5;
+}
+
+.cmdActionsBtn{
+  border: 1px solid #848484;
+  background: url(../../../images/report/9x9_arrow_down.png) 57px center no-repeat;
+  background-color:#E6E6E6;
+  color:black;
+  font-size: 12px;
+}
+
+.autoRefreshDirtyPane{
+  background-color: rgb(0, 0, 0);
+  filter: Alpha(Opacity=20);
+  opacity: 0.2;
+}
+
+.titleLink{}
+
+.reportName{
+	font-weight: normal;
+	padding-top: 0;
+}
+.fieldListItem{
+  background-color: white;
+}
+.fieldListItem-selected{
+  background-color: #d7e9cd; !important;
+}
+
+/* theme-specific menu item styling */
+.pentaho-menu-outer {
+  border: 1px solid #CCC;
+}
+.pentaho-menu .dijitMenuItemHover {
+  background-color: #dce7ed;
+}
+.dijitMenuSeparator{
+	background: #fff;
+}
+.dijitMenuSeparator td.dijitMenuSeparatorIconCell {
+  padding-left: 2px;
+}
+.dijitMenuSeparator td.dijitMenuSeparatorLabelCell {
+  padding-right: 2px;
+}
+.pentaho-menu .dijitMenuSeparatorTop {
+  height: auto;
+  margin-top: 3px;
+  border-bottom: 1px solid #cbdde8;
+
+}
+.tundra .dijitMenuSeparatorBottom{
+	 height: auto;
+  margin-top: 1px;
+  border-top: 0px solid #cbdde8;
+}
+
+/* added by brett */
+.dijitTitlePane{
+	background-color: #fff;
+}
+.pentahoPropertiesPanel .dijitTitlePaneContentInner {
+background-color: #fff;
+}
+
+#chartBtnWrapper .reportViewAs {
+  color: #505b5f;
+  font-size: 13px;
+  font-family: OpensansLight,  Helvetica, Arial, Sans serif;
+}
+
+/**  **/
+#pageLoadingMessage {
+  color: #0560AB;
+}
+
+.pentahoPropertiesPanel .propPanel_gemBar{
+	background-color: #f5f6f8;
+	border: 1px solid #dce7ed;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+}
+.gemPlaceholder>span{
+	color:#26363d;
+}
+.tundra .dijitSplitterV, .tundra .dijitGutterV {
+	border-top: 0;
+	border-bottom: 0;
+	border-left: 1px solid #dce7ed;
+	border-right: 0;
+}
+.rubberBand{
+ border: 2px solid #1973bc;
+  background-color: #f5f6f8;
+}
+
+.viz-image.PIVOT {
+  background: url(images/viz/PIVOT.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_AREA {
+  background: url(images/viz/CCC_AREA.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_BAR {
+  background: url(images/viz/CCC_BAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_BARLINE {
+  background: url(images/viz/CCC_BARLINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_BARNORMALIZED {
+  background: url(images/viz/CCC_BARNORMALIZED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_BARSTACKED {
+  background: url(images/viz/CCC_BARSTACKED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_HEATGRID {
+  background: url(images/viz/CCC_HEATGRID.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_HORZBAR {
+  background: url(images/viz/CCC_HORZBAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_HORZBARNORMALIZED {
+  background: url(images/viz/CCC_HORZBARNORMALIZED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_HORZBARSTACKED {
+  background: url(images/viz/CCC_HORZBARSTACKED.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_LINE {
+  background: url(images/viz/CCC_LINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_PIE {
+  background: url(images/viz/CCC_PIE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_SCATTER {
+  background: url(images/viz/CCC_SCATTER.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.CCC_SUNBURST {
+  background: url(images/viz/CCC_SUNBURST.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.LINE {
+  background: url(images/viz/LINE.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.OPEN_LAYERS {
+  background: url(images/viz/OPEN_LAYERS.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.PCT_STACKED_HORIZONTAL_BAR {
+  background: url(images/viz/PCT_STACKED_HORIZONTAL_BAR.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+.viz-image.SCATTER {
+  background: url(images/viz/SCATTER.png) no-repeat;
+  width: 168px;
+  height: 119px;
+}
+
+#standardDialog .filterDetails {
+  height: 295px;
+}
+
+#RP_closeDiv>#RP_closeButton {
+  background-position: 0 0;
+}
+
+.tundra .right-column .pentahoFormatCombo.dijitComboBox {
+  width: calc(100% - 2px); /* 2px accounts for the left and right border */
+}

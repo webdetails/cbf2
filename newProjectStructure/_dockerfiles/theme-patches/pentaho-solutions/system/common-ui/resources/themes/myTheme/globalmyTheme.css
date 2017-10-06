@@ -1,0 +1,8060 @@
+/*
+* This program is free software; you can redistribute it and/or modify it under the
+* terms of the GNU Lesser General Public License, version 2.1 as published by the Free Software
+* Foundation.
+*
+* You should have received a copy of the GNU Lesser General Public License along with this
+* program; if not, you can obtain a copy at http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+* or from the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+* See the GNU Lesser General Public License for more details.
+*
+* Copyright 2017 Pentaho Corporation.  All rights reserved.
+*/
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url('opensans-regular.eot');
+  src: url('opensans-regular.eot') format('embedded-opentype'), url('opensans-regular.woff') format('woff'), url('opensans-regular.ttf') format('truetype'), url('opensans-regular.svg#OpenSansRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'OpenSansLight';
+  src: url('opensans-light.eot');
+  src: url('opensans-light.eot') format('embedded-opentype'), url('opensans-light.woff') format('woff'), url('opensans-light.ttf') format('truetype'), url('opensans-light.svg#OpenSansLight') format('svg');
+}
+
+@font-face {
+  font-family: 'OpenSansItalic';
+  src: url('opensans-italic.eot');
+  src: url('opensans-italic.eot') format('embedded-opentype'), url('opensans-italic.woff') format('woff'), url('opensans-italic.ttf') format('truetype'), url('opensans-italic.svg#OpenSansItalic') format('svg');
+}
+
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url('opensans-bold.eot');
+  src: url('opensans-bold.eot') format('embedded-opentype'), url('opensans-bold.woff') format('woff'), url('opensans-bold.ttf') format('truetype'), url('opensans-bold.svg#OpenSansBold') format('svg');
+}
+
+html,
+body,
+html.bootstrap body {
+  margin: 0px;
+  padding: 0px;
+  font-family: OpenSansRegular, sans-serif;
+  font-size: 14px;
+  background: transparent;
+  color: #333;
+}
+
+a,
+a:link,
+a:visited {
+  color: ${MAINCOLOR};
+}
+
+a,
+a:active,
+a:hover {
+  color: ${SECONDCOLOR};
+  text-decoration: none;
+}
+
+div {
+  outline: 0px;
+  hideFocus: true;
+}
+
+img {
+  outline: 0px;
+  -moz-user-focus: none;
+  user-focus: none;
+}
+
+strong,
+b {
+  font-weight: normal;
+  font-family: OpenSansBold, sans-serif;
+}
+
+label {
+  font-size: 13px;
+}
+
+div.pentaho-dialog.schedule-recurrence-dialog label {
+  font-size: 14px;
+}
+
+legend {
+  color: #777;
+}
+
+fieldset,
+fieldset.xul-fieldset {
+  padding: 0px;
+  width: auto;
+  border: 1px solid #CCC;
+}
+
+input[type='checkbox'] {
+  border: none;
+}
+
+input[type='radio'] {
+  border: none;
+}
+
+.groupOption {
+  padding-left: 0;
+}
+
+.bootstrap .pentaho-dialog p {
+  margin: 0;
+}
+
+input[type='text'],
+textarea,
+.bootstrap .pentaho-dialog input[type='text'] {
+  border: 1px solid #CCC;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 17px;
+  border-radius: 4px;
+  font-family: opensansregular;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 33px;
+  color: #666;
+}
+
+input[type='text']:focus,
+.bootstrap .pentaho-dialog input[type='text']:focus {
+  border-color: #414141;
+}
+
+textarea:disabled,
+input:not([type]):disabled,
+input[type="color" i]:disabled,
+input[type="date" i]:disabled,
+input[type="datetime" i]:disabled,
+input[type="datetime-local" i]:disabled,
+input[type="email" i]:disabled,
+input[type="month" i]:disabled,
+input[type="password" i]:disabled,
+input[type="number" i]:disabled,
+input[type="search" i]:disabled,
+input[type="tel" i]:disabled,
+input[type="text" i]:disabled,
+input[type="time" i]:disabled,
+input[type="url" i]:disabled,
+input[type="week" i]:disabled {
+  background-color: #F2F2F2;
+}
+
+div.povdiv input[type='text'] {
+  padding: 4px 2px 4px 4px;
+}
+
+input[type='text']#paramNameTextBox,
+input[type='text']#paramValueTextBox {
+  padding: 2px 10px;
+}
+
+#filterDropDownGroupbox input[type='text'] {
+  padding: 0;
+}
+
+input[type='text']#displayNameText {
+  padding: 0px 10px;
+}
+
+input#rowsNumberInput,
+div#widget_dijit_form_NumberTextBox_0 {
+    margin-top: 3px;
+}
+
+input#dijit_form_NumberTextBox_0 {
+    height: inherit;
+}
+
+SELECT,
+.gwt-ListBox {
+  border: 1px solid #CCC;
+  padding: 0;
+  font-size: 14px;
+  overflow: auto;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #666;
+  font-family: opensansregular;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+SELECT[size="1"],
+SELECT:not([size]),
+.gwt-ListBox[size="1"],
+.gwt-ListBox:not([size]) {
+  height: 33px;
+  padding: 0 30px 0 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(images/arrow_down_gray.svg) no-repeat;
+  background-size: 12px 12px;
+  background-position: right 8px center;
+}
+SELECT[size="1"]::-ms-expand,
+SELECT:not([size])::-ms-expand,
+.gwt-ListBox[size="1"]::-ms-expand,
+.gwt-ListBox:not([size])::-ms-expand {
+  display: none; /*hides dropdown arrow in IE*/
+}
+
+form SELECT {
+  padding: 0 5px;
+}
+
+select option,
+.gwt-ListBox option {
+  padding: 3px 10px;
+  font-family: opensansregular;
+}
+
+select option:focus, select option:hover {
+  color: #414141;
+  background-color: #CCCCCC;
+}
+
+.IE .scheduleEditor SELECT {
+  margin: 2px;
+}
+
+.IE .scheduleEditor FIELDSET TD {
+  padding-top: 0px !important;
+}
+
+.gwt-Label {
+  color: #333333;
+}
+
+.custom-list-item-selected .gwt-Label,
+.custom-list-item-hover .gwt-Label {
+  color: #FFFFFF;
+}
+
+*:focus {
+  outline: none;
+}
+
+.adminField {
+  margin-left: 4px;
+}
+
+table#contentCleanerPanel > tbody > tr > td > table {
+  margin-top: 20px;
+}
+
+#filterControlsGroupbox {
+ margin-left: -6px;
+ width: 101.6% !important;
+}
+
+#ldapTestMsgDialog {
+  max-height: none;
+}
+
+#ldapTreeDialogContent {
+  padding: 0 4px;
+}
+
+input.ldapPasswordInput.authValue.adminField {
+    height: auto;
+}
+
+.soria .dijitTreeRowSelected {
+  background-color: #E6EFF6;
+}
+
+.soria .dijitTreeRowHover {
+  background-color: #E6EFF6;
+}
+
+.dijitTreeRow {
+  padding: 4px;
+}
+
+.groupOption input[type="text"],
+.groupOption input[type="password"] {
+  margin-left: 0px;
+}
+
+.gwt-PasswordTextBox,
+input,
+input[type="password"] {
+  border: 1px solid #CCC;
+  padding: 10px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.gwt-PasswordTextBox,
+input,
+input[type="password"]:focus {
+	border: 1px solid #414141;
+}
+
+.scroll-panel {
+  position: relative;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.pentaho-page-background {
+  background: url('images/bg_page.png') repeat-x top left;
+  background-color: #FFF;
+}
+
+#pucHeader {
+  display: block;
+  height: 50px;
+  /*background: #005DA6; value from sapphire theme */
+  background: #f8f8f6;
+  filter: none;
+  -webkit-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.5);
+  padding: 30px 0 0;
+  position: relative;
+  border-top: 4px solid ${MAINCOLOR};
+}
+
+#mainMenubar > table {
+  border: 0 none;
+  border-spacing: 0;
+}
+
+#pucHeader #pucPerspectives {
+  padding: 3px;
+}
+
+#pucHeader #pucPerspectives .mantle-perspective-switcher {
+  height: auto;
+}
+
+.gwt-MenuBarPopup + .gwt-MenuBarPopup {
+  margin-top: -1px;
+}
+
+div#data-controlproperties-spacer {
+  width: 7px;
+}
+
+fieldset#filterDataGroupbox>table.vbox>tbody>tr>td>div,
+fieldset#filterDropDownGroupbox>table.vbox>tbody>tr>td>div {
+  margin: 4px;
+}
+
+textarea#sqlQueryText {
+  margin-top: -10px;
+  width: 252px !important;
+  border-radius: 0;
+}
+
+div#editQueryButton,
+div#mqlFilterEditButton {
+  margin-right: 10px;
+}
+
+button#sqlParameterButton {
+  margin-bottom: 19px;
+  margin-right: 10px;
+}
+
+button#mqlFilterSelectDataSourceBtn {
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+button#mqlParameterButton {
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+table#mqlFilterSelectedColumns>tbody>tr>td>div {
+  width: 250px !important;
+}
+
+div#filterDataDeck {
+  height: 350px !important;
+}
+
+div#staticSelectionTable {
+  margin-bottom: 110px;
+}
+
+div#filterTypeDeck>div>table>tbody>tr>td>div {
+  width: 250px !important;
+}
+
+div.sectionBar {
+  background-color: #F8F8F8 !important;
+}
+
+div.filterCondition table {
+  background-color: #ffffff; !important;
+}
+
+div.filterConditionAdd {
+  margin-top: 14px !important;
+}
+
+#editFilterDateRestriction, #editFilterPropDateFormat {
+  margin-bottom: 5px !important;
+}
+
+#editFilterPropDateFrom, #editFilterPropDateTo {
+  width: 95% !important;
+  margin-bottom: 5px !important;
+}
+
+select#schedule-main-gwt-listbox {
+  width: 112px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+table#email-yes-no-panel {
+  margin-bottom: 8px;
+}
+
+table#email-yes-no-panel td {
+  display: inline;
+}
+
+table#email-yes-no-panel td span,
+table#email-yes-no-panel td div {
+  display: block;
+  margin-bottom: 10px;
+}
+
+table#email-schedule-panel {
+  line-height: 14px;
+}
+
+table#email-schedule-panel input,
+table#email-schedule-panel textarea {
+  margin-bottom: 20px;
+  width: 644px;
+}
+
+table#email-schedule-panel tr:nth-child(2) input {
+  margin-bottom: 18px;
+}
+
+div#reportControlPanel select {
+  margin: 0;
+}
+div#reportControlPanel select[style*="overflow-y: scroll"] {
+  height: auto;
+  background: none;
+}
+
+form#REPORT_FORMAT_TYPE {
+  margin-left: -15px;
+}
+
+form#REPORT_FORMAT_TYPE p {
+  color: #666;
+}
+
+input[name="REPORT_FORMAT_TYPE"] + br {
+  display: none;
+}
+
+input[name="REPORT_FORMAT_TYPE"] {
+  margin: 0 3px 10px 1px;
+}
+
+table.recur-pattern-hp select {
+  width: 130px;
+}
+
+table.pentaho-schedule-create,
+div#toppanelinner {
+  padding: 0;
+}
+
+div#promptPanel div.prompt-panel {
+  padding: 4px 0 0 8px;
+}
+
+div#toppanel {
+  margin-top: 20px;
+}
+
+div.parameter div.parameter-label {
+  margin-bottom: 5px;
+}
+
+div#promptPanel div.parameter {
+  margin-bottom: 20px;
+}
+
+div#reportControlPanel {
+  margin: 0;
+  border: none;
+  background: none;
+}
+
+fieldset.schedule-editor-caption-panel {
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px 15px 15px 15px;
+}
+
+fieldset.schedule-editor-caption-panel table {
+  border-spacing: 0;
+}
+
+fieldset.schedule-editor-caption-panel legend {
+  padding: 0 2px;
+}
+
+table.parameter_table fieldset.parameter_fieldset {
+  margin-left: -9px;
+}
+
+table.parameter_table fieldset.parameter_fieldset input[type="radio"] {
+  margin-left: 10px;
+}
+
+div#reccurence-label {
+  margin-top: 0;
+}
+
+select.date-picker-select,
+select.blockout-select {
+  margin-right: 10px;
+  border-radius: 4px;
+  width: 70px;
+}
+
+div.blockout-label {
+  margin-right: 20px;
+}
+
+button#wizard-finish-button {
+  margin-left: 8px;
+}
+
+button#wizard-cancel-button,
+select#day-of-week-lb,
+input#day-of-month-tb {
+  margin-left: 10px;
+}
+
+fieldset#schedule-start-date-input input,
+input.start-date-picker,
+input.end-date-picker {
+  width: 131px;
+  background-image: url('./images/calendar-white.png'), -webkit-linear-gradient(right, ${MAINCOLOR}, ${MAINCOLOR} 30%, transparent 30%, transparent 100%);
+  background-image: url('./images/calendar-white.png'), linear-gradient(to left, ${MAINCOLOR}, ${MAINCOLOR} 30%, transparent 30%, transparent 100%);
+  background-repeat: no-repeat;
+  background-position: 90% 47%;
+}
+
+input.end-date-picker:disabled {
+  background-image: url('./images/calendar-gray.png'), -webkit-linear-gradient(right, #E4E4E4, #E4E4E4 30%, transparent 30%, transparent 100%);
+  background-image: url('./images/calendar-gray.png'), linear-gradient(to left, #E4E4E4, #E4E4E4 30%, transparent 30%, transparent 100%);
+}
+
+input.every-txtbox {
+  width: 60px;
+}
+
+table.recur-pattern-hp td,
+table#ror-inner-hp td,
+table#end-date-panel td {
+  vertical-align: middle !important;
+}
+
+table#end-date-panel {
+  margin-left: 30px;
+}
+
+table#end-date-panel tr:not(:last-child) td {
+  padding-bottom: 5px;
+}
+
+table#daily-recur-hp,
+table#day-n-of-month-radio,
+table#every-month-on-nth-day-radio,
+table#radio-buttons-panel {
+  margin-bottom: 10px;
+}
+
+table#blockout-start-panel td {
+  padding-top: 0 !important;
+}
+
+.recurrenceRadioButton input[type="radio"] {
+  margin: 0 5px 0 0;
+}
+
+div.pentaho-dialog.schedule-recurrence-dialog span.recurrenceRadioButton {
+  margin-left: 0;
+}
+
+table.weeklyRecurrencePanel .startLabel {
+  line-height: 14px;
+}
+
+table#weekly-recur span.day-of-week-checkbox {
+  padding: 0;
+}
+
+table#weekly-recur span.day-of-week-checkbox input[type="checkbox"] {
+  margin: 10px 5px 0 0;
+}
+
+table#weekly-recur tbody tr td:not(:first-child) span.day-of-week-checkbox input[type="checkbox"] {
+  margin-left: 15px;
+}
+
+div.schedule-name {
+  margin: 0 4px 5px 0;
+}
+
+div.schedule-name-info {
+  margin-top: 1px;
+}
+
+div.cron-label {
+  margin: 0 0 5px 0;
+}
+
+input#cron-tb {
+  width: 225px;
+  margin-bottom: 15px;
+}
+
+/* Standard button style. Should be applied to a <button> element to get full pseudo-styles. */
+button.pentaho-button,
+button.pentaho-button:link,
+button.pentaho-button:visited,
+button.pentaho-button:hover,
+button.pentaho-button:active,
+button.pentaho-button:focus,
+span.button-add-condition {
+  background: white;
+  filter: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: ${MAINCOLOR};
+  padding: 9px 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: 0 none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: 0;
+  outline: 0 none;
+  border: 1px solid ${MAINCOLOR};
+}
+
+button.pentaho-button#uploadMetaButton {
+  line-height:10px;
+}
+
+button.pentaho-button:hover,
+button.pentaho-button:active,
+button.pentaho-button:focus,
+span.button-add-condition:hover,
+span.button-add-condition:active,
+span.button-add-condition:focus {
+  background: ${MAINCOLOR};
+  border-color: ${MAINCOLOR};
+  color: #FFF
+}
+
+/* lighter gray with white text */
+button.pentaho-button.disabled,
+button.pentaho-button.disabled:link,
+button.pentaho-button.disabled:visited,
+button.pentaho-button.disabled:hover,
+button.pentaho-button.disabled:active,
+button.pentaho-button.disabled:focus,
+button.pentaho-button[disabled],
+button.pentaho-button[disabled]:link,
+button.pentaho-button[disabled]:visited,
+button.pentaho-button[disabled]:hover,
+button.pentaho-button[disabled]:active,
+button.pentaho-button[disabled]:focus {
+  background: #E4E4E4 !important;
+  color: #999 !important;
+  text-decoration: none !important;
+  cursor: default;
+  border: 1px solid #E4E4E4 !important;
+}
+
+div#FilterPanel div.povdiv {
+  padding-left: 0;
+}
+
+.pentaho-toggle-button {
+  background: transparent;
+  font-size: 14px;
+  color: ${MAINCOLOR};
+  padding: 4px 10px;
+  border: 1px solid ${MAINCOLOR};
+  border-right: none;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.pentaho-toggle-button:last-child {
+  border-right: 1px solid ${MAINCOLOR};
+}
+
+.pentaho-toggle-button-container .pentaho-toggle-button button,
+.pentaho-toggle-button button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: OpenSansRegular, Sans;
+  padding: 0 15px;
+  font-weight: 400;
+}
+
+.pentaho-toggle-button-horizontal {
+  margin: 0px 0px 2px 0px;
+}
+
+div#FilterPanel .pentaho-toggle-button-horizontal {
+  display: inline-block;
+}
+
+.pentaho-toggle-button-single {
+  border-radius: 4px;
+}
+
+.IE .pentaho-toggle-button-single {
+
+  /*background: url('images/bg_btn.png') repeat-x;
+  background-position: center center;*/
+}
+
+.pentaho-toggle-button-horizontal-first {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.pentaho-toggle-button-horizontal-last {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.pentaho-toggle-button-vertical {
+  margin: 0px 2px 0px 2px;
+}
+
+.pentaho-toggle-button-vertical-first {
+  margin: 2px 2px 0px 2px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.pentaho-toggle-button-vertical-last {
+  border-radius: 0px 0px 4px 4px;
+}
+
+/* Standard toggle button style. Should be applied to a <button> element to get full pseudo-styles. */
+.pentaho-toggle-button-up,
+.pentaho-toggle-button-up-disabled {
+}
+
+.IE .pentaho-toggle-button-up,
+.IE .pentaho-toggle-button-up-disabled {
+
+  /* background: url('images/bg_btn.png') repeat-x;
+   background-position: center center;*/
+}
+
+/* Applies the green glow to buttons */
+.pentaho-toggle-button-up-hovering,
+.pentaho-toggle-button-up:hover {
+  background-color: ${MAINCOLOR};
+  color: #FFF;
+}
+
+/* Standard toggle-button style. Should be applied to a <button> element to get full pseudo-styles. */
+.pentaho-toggle-button-down,
+.pentaho-toggle-button-down-disabled,
+.pentaho-toggle-button-down-hovering {
+  background: ${MAINCOLOR};
+  color: #FFF;
+  background-image: url(images/checkbox-hover.png);
+  background-repeat: no-repeat;
+  background-position: left 8px center;
+}
+
+.pentaho-toggle-button>.html-face {
+  padding: 0 6px;
+}
+
+.IE .pentaho-toggle-button-down,
+.IE .pentaho-toggle-button-down-disabled {
+
+  /* background: url('images/bg_btn_selected.png') repeat-x;
+   background-position: center center;*/
+}
+
+.IE .pentaho-toggle-button-down-hovering {
+
+  /*border: 0px solid #73FF02;
+  background: url('images/bg_btn_selected.png') repeat-x;
+  background-position: center center;*/
+}
+
+div#FilterPanel div.pentaho-toggle-button-down button {
+  color: #293b44;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+div#FilterPanel div.pentaho-toggle-button-up button {
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+/* Note: By default there is no padding on the bottom as the button area supplies the necessary amount. If your dialog
+has no buttons add an addition class to your element, pentaho-dialog-buttonless, to have full padding around the contents*/
+.pentaho-dialog,
+.bootstrap .modal.pentaho-dialog {
+  border: 1px solid #CCC;
+  z-index: 1050;
+  position: absolute;
+  background: #FFF;
+  padding: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: moz-none;
+  -ms-user-select: none;
+  user-select: none;
+/*  overflow: auto !important;*/
+  max-height: 90%;
+}
+
+/*
+For IE 9 and IE10, need to add padding to the bottom of some dialogs generated with XUL
+*/
+.IE9 .pentaho-dialog#emailTestDialog,
+.IE10 .pentaho-dialog#emailTestDialog {
+  padding-bottom: 20px !important;
+}
+
+.bootstrap .modal.pentaho-dialog {
+  margin: auto;
+  width: auto;
+  height: auto;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  -webkit-background-clip: none;
+  -moz-background-clip: none;
+  background-clip: border-box; /*default*/
+}
+
+.pentaho-dialog #override-description {
+  padding-bottom: 10px;
+}
+
+.pentaho-dialog#cannot-rename-dialog {
+  width: 310px;
+}
+
+.pentaho-dialog#dialogOverrideFolder,
+.pentaho-dialog#dialogRename {
+  width: 495px;
+}
+
+.pentaho-dialog#dialogOverrideFile {
+  width: 455px;
+}
+
+.pentaho-dialog#dialogRename INPUT {
+  width: 100%;
+}
+
+.IE .pentaho-dialog {
+
+  /*border: 1px solid #000000;
+  background: url('../images/wt_transparent.png') repeat;*/
+}
+
+.IE8 #browse-properties-dialog.new-schedule-dialog .schedule-dialog-content {
+  height: 425px !important;
+}
+
+.IE9 #browse-properties-dialog.new-schedule-dialog {
+  height: 500px !important;
+}
+
+.IE9 #browse-properties-dialog.new-schedule-dialog .schedule-dialog-content {
+  height: 415px !important;
+}
+
+.IE9 .schedule-recurrence-dialog {
+  height: 500px !important;
+}
+
+.IE9 .schedule-recurrence-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE9 .schedule-params-dialog {
+  height: 500px !important;
+}
+
+.IE9 .schedule-params-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE9 .schedule-email-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE10 #browse-properties-dialog.new-schedule-dialog {
+  height: 500px !important;
+}
+
+.IE10 .schedule-recurrence-dialog {
+  height: 500px !important;
+}
+
+.IE10 .schedule-recurrence-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE10 .schedule-params-dialog {
+  height: 500px !important;
+}
+
+.IE10 .schedule-params-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE10 .schedule-email-dialog .schedule-dialog-content {
+  height: 430px !important;
+}
+
+.IE .schedule-recurrence-dialog {
+  height: 500px !important;
+}
+
+.IE .schedule-params-dialog {
+  height: 500px !important;
+}
+
+.IE .schedule-email-dialog {
+  height: 500px !important;
+}
+
+.pentaho-dialog .Caption {
+  background: none;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: OpenSansLight;
+  color: #333;
+  padding-bottom: 20px;
+}
+
+.pentaho-dialog .Caption .dialog-close-button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.pentaho-dialog .button-panel.right {
+  text-align: right;
+}
+
+.pentaho-dialog .button-panel.center {
+  text-align: center;
+}
+
+.IE .pentaho-dialog .Caption {
+
+  /*background: url('images/bg_title.png') repeat-x;*/
+}
+
+.pentaho-dialog .button-panel {
+  margin: 30px 0 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+
+.pentaho-dialog .dialog-content {
+  padding: 0 !important;
+  /* font-size: 14px; */
+ /* line-height: 20px;*/
+  color: #333;
+}
+
+.pentaho-dialog .button-panel .pentaho-button {
+  margin-left: 10px;
+}
+
+.pentaho-dialog .button-panel button,
+.pentaho-dialog .button-panel button:link,
+.pentaho-dialog .button-panel button:visited,
+.pentaho-dialog .button-panel button:hover,
+.pentaho-dialog .button-panel button:active,
+.pentaho-dialog .button-panel button:focus {
+  background: transparent;
+  color: ${MAINCOLOR};
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid ${MAINCOLOR};
+  padding: 8px 20px;
+  line-height: 21px;
+}
+
+.pentaho-dialog .button-panel button:hover,
+.pentaho-dialog .button-panel button:active,
+.pentaho-dialog .button-panel button:focus {
+  background: ${MAINCOLOR};
+  border-color: ${MAINCOLOR};
+  color: #FFF;
+}
+
+.dialog-button-panel {
+  padding: 2px 0px;
+}
+
+/* The following classes are handing tons of intermediate and extraneous elements generated by the GWT dialog implementation */
+.pentaho-dialog .dialogTopCenterInner {
+}
+
+.pentaho-dialog .dialogMiddleCenter {
+  height: 100%;
+}
+
+.pentaho-dialog .dialogMiddleCenterInner {
+  height: 100%;
+  color: #777;
+}
+
+.pentaho-dialog .dialogMiddleLeft {
+  display: none;
+}
+
+.pentaho-dialog .dialogMiddleRight {
+  display: none;
+}
+
+.pentaho-dialog .dialogTopLeft {
+  display: none;
+}
+
+.pentaho-dialog .dialogTopRight {
+  display: none;
+}
+
+.pentaho-dialog .dialogBottomLeft {
+  display: none;
+}
+
+.pentaho-dialog .dialogBottomRight {
+  display: none;
+}
+
+button#schedule-dialog-select-button {
+  border-radius: 0 4px 4px 0;
+  padding: 0 20px;
+  height: 33px;
+}
+
+/* Find a home for these */
+.login-dialog {
+  z-index: 2000;
+}
+
+.error-login-dialog {
+  z-index: 2100;
+}
+
+/**/
+.glasspane {
+
+  /* Make sure to update .modal-backdrop style in bootstrap-namespaced.css with the changes below */
+
+  position: absolute;
+  background-color: #000 !important; /*#809eab;*/
+
+  /* IE8 css hack for opacity */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=80)" !important;
+  filter: alpha(opacity = 60) !important;
+  opacity: 0.6 !important;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 300;
+  margin: 0px;
+  padding: 0px;
+  display: none;
+}
+
+.pentaho-tabWidget {
+  display: inline-table;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 0px;
+  padding: 6px 8px;
+  border-top: solid 1px transparent;
+  border-left: solid 1px transparent;
+  border-right: solid 1px transparent;
+}
+
+.IE .pentaho-tabWidget {
+
+  /* background: url('images/tab_off.png') repeat-x;*/
+}
+
+.pentaho-tabWidget .pentaho-closebutton {
+  position: relative;
+  top: 3px;
+}
+
+input#FT_rankCount,
+input#FT_condOp1,
+select#FT_condOp,
+select#FT_condMetric,
+select#FT_rankMetric,
+select#FT_rankType,
+select#FT_attribute {
+  height: 24px;
+  padding: 0 5px 2px 2px;
+}
+
+input#FT_rankCount {
+  width: 40px;
+}
+
+.pentaho-tabWidget .pentaho-tabWidgetLabel {
+  margin: 0px;
+  padding-bottom: 0px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #999;
+  white-space: nowrap;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  padding: 0 8px;
+}
+
+.pentaho-tabWidget .pentaho-tabWidgetLabel:hover {
+  color: ${MAINCOLOR};
+}
+
+#sidepaneltabset .pentaho-tabWidgetLabel {
+  padding: 0 4px;
+}
+
+.dialog-content .pentaho-tabWidget .pentaho-tabWidgetLabel {
+  font-size: 14px;
+}
+
+.pentaho-tabWidget-selected {
+  border-top: solid 1px #CCC;
+  border-left: solid 1px #CCC;
+  border-right: solid 1px #CCC;
+  -moz-border-radius-topleft: 1px;
+  -moz-border-radius-topright: 1px;
+  -webkit-border-top-left-radius: 1px;
+  -webkit-border-top-right-radius: 1px;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
+  background: #FFF;
+}
+
+#contentArea .pentaho-tabWidget,
+#editContainer .pentaho-tabWidget {
+  border-top: 4px solid transparent;
+}
+
+#contentArea .pentaho-tabWidget-selected,
+#editContainer .pentaho-tabWidget-selected {
+  border-top: solid 4px ${MAINCOLOR};
+}
+
+.IE .pentaho-tabWidget-selected {
+
+  /*background: url('images/tab_on.png') repeat-x;*/
+}
+
+.pentaho-tabWidget-selected .pentaho-tabWidgetLabel {
+  margin: 0px;
+  padding-bottom: 0px;
+  white-space: nowrap;
+  color: #414141;
+}
+
+.pentaho-tabBar .pentaho-tabWidget-selected .pentaho-tabWidgetLabel {
+  margin: 0px;
+  padding-bottom: 0px;
+  white-space: nowrap;
+  color: ${MAINCOLOR};
+}
+
+#props-deck-1 .pentaho-tabWidget {
+  padding: 4px 8px;
+}
+
+.pentaho-tab-panel {
+  background: url('images/bg_admin_tab_panel.png') repeat-x 0 0px;
+  height: 35px;
+}
+
+.pentaho-tab-bar {
+  background: url('images/bg_admin_tab_panel.png') repeat-x 0 0px;
+  min-height: 35px;
+}
+
+.dialog-content  .pentaho-tab-bar {
+  height: 32px;
+}
+
+.pentaho-tabBar {
+  background: url('images/bg_admin_tab_panel.png') repeat-x top left;
+  height: 35px;
+}
+
+#sidepanelinner .pentaho-tabBar,
+#editContainer .pentaho-tabBar {
+  background: url('images/bg_admin_tab_panel.png') repeat-x bottom left;
+  height: 38px;
+}
+
+#props-deck-1 .pentaho-tabBar {
+  background: url('images/bg_admin_tab_panel.png') repeat-x bottom left;
+  height: 18px;
+}
+
+.pentaho-tabPanel {
+  border-top: 0px solid #E8E9EA;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  clear: both;
+  background-color: #fff;
+}
+
+.pentaho-tab-deck-panel {
+  border-top: 0px solid #E8E9EA;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  height: 100%;
+  background-color: #fff;
+  position: relative;
+}
+
+/* Webkit browsers only */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  #solutionNavigatorAndContentPanel .pentaho-tab-deck-panel>DIV {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+  }
+
+}
+
+/* properties dialog panels */
+#filePropertiesPermissionsTab,
+#filePropertiesGeneralTab {
+  padding: 8px;
+}
+
+.pucContentDeck .pentaho-tab-deck-panel {
+
+  /*background: url('../images/tab_panel_bg.png');*/
+}
+
+.pentaho-tabWidget-close {
+  margin-left: 4px;
+}
+
+/* ======================= Behins Scrollbar Styles ========================= */
+
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+
+.jspContainer {
+  overflow: hidden;
+  position: relative;
+}
+
+.jspPane {
+  position: absolute;
+}
+
+.jspVerticalBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 100%;
+  background: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#666666', endColorstr ='#666666', GradientType = 1);
+  font-size: 0px;
+}
+
+.jspHorizontalBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#666666', endColorstr ='#666666', GradientType = 1);
+  font-size: 0px;
+}
+
+/*.jspVerticalBar *,
+.jspHorizontalBar * {
+margin: 0;
+padding: 0;
+}
+*/
+.jspCap {
+  display: none;
+}
+
+.jspHorizontalBar .jspCap {
+  float: left;
+}
+
+.jspTrack {
+  position: relative;
+}
+
+.jspDrag {
+  background: #bbd;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.jspHorizontalBar .jspTrack {
+
+  /* Safari/Chrome */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333), color-stop(0.50, #777), color-stop(1, #333));  /* Firefox */
+  background: -moz-linear-gradient(top, #333, #777 50%, #333 100%);
+  border-top: 1px solid #b5b5b5;
+  border-bottom: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#777777', endColorstr ='#999999');
+}
+
+.jspVerticalBar .jspTrack {
+
+  /* Safari/Chrome */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, #333), color-stop(0.50, #777), color-stop(1, #333));  /* Firefox */
+  background: -moz-linear-gradient(left, #333, #777 50%, #333 100%);
+  border-left: 1px solid #b5b5b5;
+  border-right: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Firefox */
+  -moz-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Standard Form */
+  box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#7777777', endColorstr ='#9999999', GradientType = 1);
+}
+
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag {
+  float: left;
+  height: 100%;
+}
+
+.jspArrow {
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+}
+
+.jspArrow.jspDisabled {
+  cursor: default;
+}
+
+.jspVerticalBar .jspArrow {
+  height: 16px;
+}
+
+.jspVerticalBar .jspArrowDown {
+
+  /* Safari/Chrome */
+  -webkit-border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;  /* Firefox */
+  -moz-border-radius-bottomleft: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Firefox */
+  -moz-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Standard Form */
+  box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  background: url("../images/scroll_bottom_arrow.png") no-repeat center center;  /* Safari/Chrome */
+  background: url("../images/scroll_bottom_arrow.png") center center no-repeat, -webkit-gradient(linear, left top, right top, color-stop(0, #282828), color-stop(0.50, #353535), color-stop(1, #282828));  /* Firefox */
+  background: url("../images/scroll_bottom_arrow.png") no-repeat scroll center center, -moz-linear-gradient(center top, #282828, #353535 50%, #282828 100%);
+}
+
+.jspVerticalBar .jspArrowUp {
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Safari/Chrome */
+  -moz-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Standard Form */
+  box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  background: url("../images/scroll_top_arrow.png") no-repeat center center;  /* Safari/Chrome */
+  background: url("../images/scroll_top_arrow.png") no-repeat center center, -webkit-gradient(linear, left top, right top, color-stop(0, #282828), color-stop(0.50, #353535), color-stop(1, #282828));  /* Firefox */
+  background: url("../images/scroll_top_arrow.png") no-repeat center center, -moz-linear-gradient(top, #282828, #353535 50%, #282828 100%);
+}
+
+.jspHorizontalBar .jspArrowLeft {
+
+  /* Safari/Chrome */
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;  /* Firefox */
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Firefox */
+  -moz-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Standard Form */
+  box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  background: url("../images/scroll_left_arrow.png") no-repeat center center;  /* Safari/Chrome */
+  background: url("../images/scroll_left_arrow.png") no-repeat center center, -webkit-gradient(linear, left top, left bottom, color-stop(0, #282828), color-stop(0.50, #353535), color-stop(1, #282828));  /* Firefox */
+  background: url("../images/scroll_left_arrow.png") no-repeat center center, -moz-linear-gradient(left, #282828, #353535 50%, #282828 100%);
+}
+
+.jspHorizontalBar .jspArrowRight {
+
+  /* Safari/Chrome */
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;  /* Firefox */
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomright: 4px;  /* Firefox */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid #b5b5b5;  /* Safari/Chrome */
+  -webkit-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Firefox */
+  -moz-box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;  /* Standard Form */
+  box-shadow: black 0px 0px 1px, rgba(0, 0, 0, 0.699219) 0px 0px 1px inset;
+  background: url("../images/scroll_right_arrow.png") no-repeat center center;
+  background-repeat: no-repeat;  /* Safari/Chrome */
+  background: url("../images/scroll_right_arrow.png") no-repeat center center, -webkit-gradient(linear, left top, left bottom, color-stop(0, #282828), color-stop(0.50, #353535), color-stop(1, #282828));  /* Firefox */
+  background: url("../images/scroll_right_arrow.png") no-repeat center center, -moz-linear-gradient(left, #282828, #353535 50%, #282828 100%);
+}
+
+.jspHorizontalBar .jspArrow {
+  width: 16px;
+  float: left;
+  height: 16px;
+}
+
+.jspVerticalBar .jspArrow:focus {
+  outline: none;
+}
+
+.jspVerticalBar .jspDrag {
+  width: 8px;
+  border-radius: 4px;
+  border: 1px solid black;  /* Safari/Chrome */
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Firefox */
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Standard Form */
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Safari/Chrome */
+  background: url("../images/scroll_grabber.png") no-repeat center center, -webkit-gradient(linear, left top, right top, color-stop(0, #111), color-stop(0.50, #222), color-stop(1, #111));  /* Firefox */
+  background: url("../images/scroll_grabber.png") no-repeat center center, -moz-linear-gradient(left, #111, #222 50%, #111 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#777777', endColorstr ='#5555555', GradientType = 1);
+}
+
+.jspHorizontalBar .jspDrag {
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid black;  /* Safari/Chrome */
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Firefox */
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Standard Form */
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7), 0 0 3px rgba(255, 255, 255, 1) inset;  /* Firefox */
+  background: url("../images/scroll_grabber_horz.png") no-repeat center center, -webkit-gradient(linear, left top, left bottom, color-stop(0, #111), color-stop(0.50, #222), color-stop(1, #111));  /* Safari/Chrome */
+  background: url("../images/scroll_grabber_horz.png") no-repeat center center, -moz-linear-gradient(top, #111, #222 50%, #111 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#7777777', endColorstr ='#555555');
+}
+
+.jspHorizontalBar .jspTrack {
+  padding-top: 2px;
+}
+
+.jspVerticalBar .jspTrack {
+  padding-left: 2px;
+}
+
+.jspCorner {
+  background: #eeeef4;
+  float: left;
+  height: 100%;
+}
+
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner {
+  margin: 0 -3px 0 0;
+}
+
+/* ======================= End Scrollbar Styles ========================= */
+
+/* ======================= Toolbar Styles ========================= */
+
+.toolbar,
+table.toolbar {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  background-color: #fff;
+  border-top: none;
+  border-left: none;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #CCC;
+}
+
+.IE .toolbar,
+.IE table.toolbar {
+  background-color: #fff;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #CCC;
+}
+
+.xul-editPanel-title {
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #b5b5b5;
+}
+
+.xul-editPanel-title-label {
+  color: #333;
+}
+
+.xul-editPanel {
+  border: 1px solid #CCC;
+}
+
+.xul-editPanel .xul-editPanel-title,
+.xul-editPanel-title {
+  background-color: #FFF;
+  border-bottom: 1px solid #CCC;
+}
+
+.xul-editPanel .xul-editPanel-title-label,
+.xul-editPanel-title-label {
+  color: #333;
+}
+
+.dialog-content .xul-editPanel,
+.xul-editPanel {
+  border: 1px solid #CCC;
+  background-color: #fff;
+  height: 468px;
+}
+
+.content-toolbar {
+  height: 32px;
+}
+
+.content-toolbar-button {
+  width: 28px;
+}
+
+.content-toolbar-separator {
+  width: 20px;
+}
+
+.toolbar-group-label-disabled {
+  color: #777;
+}
+
+.toolbar-group-label {
+  color: #000;
+}
+
+.toolbar-button {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
+  margin: 0px;
+  width: 22px;
+  height: 22px;
+  -webkit-user-select: none;
+  outline: none;
+  margin-left: 5px !important;
+}
+
+.IE .toolbar-button {
+  border: 1px solid transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+.toolbar-button.toolbar-button-hovering {
+  border: 1px solid ${MAINCOLOR};
+  background: none;
+  cursor: pointer;
+  margin: 0px;
+  width: 22px;
+  height: 22px;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.IE .toolbar-button.toolbar-button-hovering {
+  background: none;
+  border: 1px solid ${MAINCOLOR};
+}
+
+.toolbar-toggle-button {
+  border: 1px solid rgba(0, 0, 0, 0);
+  margin: 0px;
+  width: 22px;
+  height: 22px;
+  -webkit-user-select: none;
+}
+
+.IE .toolbar-toggle-button {
+  border: 1px solid transparent;
+}
+
+.toolbar-toggle-button-down {
+  margin: 0px;
+  width: 22px;
+  height: 22px;
+  -webkit-user-select: none;
+}
+
+.IE .toolbar-toggle-button-down {
+  border: 1px solid #3d6380 !important;
+
+  /* override the transparent value set in toolbar-toggle-button*/
+}
+
+.toolbar-toggle-button-down-hovering {
+  border: 1px solid ${MAINCOLOR};
+  margin: 0px;
+  cursor: pointer;
+}
+
+.IE .toolbar-toggle-button-down-hovering {
+  border: 1px solid ${MAINCOLOR} !important;
+  background: none;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.toolbar-toggle-button-hovering {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid ${MAINCOLOR};
+  cursor: pointer;
+  margin: 0px;
+}
+
+.IE .toolbar-toggle-button-hovering {
+  background: none;
+  border: 1px solid #E6EFF6;
+  cursor: pointer;
+  margin: 0px;
+}
+
+.toolbar-combo-button {
+  margin: 1px;
+  padding-right: 14px;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-image: url("../images/comboArrow.png");
+  background-color: transparent;
+  width: 22px;
+  height: 22px;
+}
+
+.toolbar-combo-button-hovering {
+  background-color: #E8E8E8;
+  border: 1px solid #AAA;
+  cursor: pointer;
+  margin: 0px;
+  width: 22px;
+  height: 22px;
+}
+
+.toolbar-button-disabled {
+  background-color: transparent;
+}
+
+.toolbar-button-disabled-hovering {
+}
+
+.toolbar-combo-button-disabled {
+  margin: 1px;
+  padding-right: 14px;
+  background-color: transparent;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-image: url("../images/comboArrow.png");
+}
+
+.toolbar-combo-button-hovering {
+  border: 1px solid #AAA;
+  margin: 0px;
+}
+
+.pentaho-titled-toolbar {
+
+  /* background-color: #F8F8F8;*/
+}
+
+.IE .pentaho-titled-toolbar {
+
+  /*background: url('images/bg_title.png') repeat-x;*/
+}
+
+.pentaho-titled-toolbar .pentaho-titled-toolbar-label {
+  color: #333;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.pentaho-bottom-bar {
+  background: #F8F8F8;
+}
+
+.IE .pentaho-bottom-bar {
+
+  /* background: url('images/bg_bottom_bar.png') repeat-x 0px -4px; */
+}
+
+.pentaho-transparent {
+  background-color: transparent;
+}
+
+.pentaho-gradient {
+  background: #F8F8F8; /* Old browsers */
+}
+
+.IE .pentaho-gradient {
+}
+
+.pentaho-rounded-panel {
+  padding: 4px 4px 4px 4px;
+}
+
+.IE .pentaho-rounded-panel {
+
+  /*background: url('../images/wt_transparent.png') repeat;*/
+}
+
+/* BEGIN IE FIXES Admin View
+ BISERVER-8275: The Home page in the Admin Perspective is shortened
+ if the Document Mode is Standards instead of Quirks mode.
+
+ In other browsers it works cause probably their rendering in Almost-Standards mode.
+
+ The present solution for IE/Standards mode
+ establishes intermediate coordinate systems
+ in the tables, using position:relative,
+ so that div children of that table's cells,
+ that need to assume the containing cell's height,
+ can use absolute positioning relative to its direct table.
+*/
+
+/* Have no other way to refer to this table */
+
+/* Setup 0,0 coordinates for absolute content inside the cells of the table */
+body.IE>table {
+  position: relative;
+}
+
+/* inside one of the tds of the referred table */
+.IE td #pucContent {
+  height: 100%;
+}
+
+/* Sometimes this div also has the class applicationShell */
+.IE #pucContent>div {
+  position: absolute;
+  height: auto; /* reset applicationShell 100% setting, otherwise bottom and top don't work well */
+  top: 0px;
+  bottom: 13px; /* Unfortunately, have to hardcode the effect of pentaho-rounded-panel class */
+  left: 0px;
+  right: 0px;
+}
+
+.IE #pucContent>div>div {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+
+/* admin table */
+.IE #adminContentPanel {
+  position: relative; /* Start a new 0,0 coordinate system */
+  height: 100%;
+  width: 100%;
+}
+
+/* the div inside one of the table cells should take all available height */
+.IE #adminContentPanel>tbody>tr>td>div {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+/* END IE FIXES Admin View */
+.pentaho-shine {
+  background-color: transparent;
+}
+
+.IE .pentaho-shine {
+
+  /* background: url('../images/shine_bg.png') repeat;*/
+}
+
+.pentaho-background {
+
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+.pentaho-toolbar-background {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.IE .pentaho-background {
+
+  /*background: url('../images/wt_transparent.png') repeat;*/
+}
+
+.pentaho-padding-sm {
+  padding: 4px;
+}
+
+.pentaho-padding-lg {
+  padding: 8px;
+}
+
+.pentaho-tooltip-background {
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  -webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.2);
+}
+
+.IE .pentaho-tooltip-background {
+
+  /*background: url('../images/wt_transparent.png') repeat;*/
+}
+
+.pentaho-tooltip-contents {
+
+  /*padding: 4px;
+  border: 1px solid #abc9d9;
+   background-color: #eff2f4; */
+}
+
+.pentaho-shadow {
+
+  /*
+   -webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.3);
+   -moz-box-shadow:    0px 3px 5px rgba(50, 50, 50, 0.3);
+   box-shadow:         0px 3px 5px rgba(50, 50, 50, 0.3);*/
+}
+
+.pentaho-shadow-inset-glow {
+
+  /*  -moz-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  -webkit-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;*/
+}
+
+.pentaho-shadow-no-offset {
+
+  /*  -moz-box-shadow: 1px 1px 5px 0px #333333;
+  -webkit-box-shadow: 1px 1px 5px 0px #333333;
+  box-shadow: 1px 1px 5px 0px #333333;*/
+}
+
+.pentaho-rounded-panel2 {
+
+  /*border: 1px solid black;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  -moz-box-shadow: 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  -webkit-box-shadow: 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, .6) inset;  */
+}
+
+.pentaho-rounded-panel2-shadowed {
+
+  /*  border: 1px solid black;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  -moz-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  -webkit-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;*/
+}
+
+.pentaho-rounded-panel-bottom-lr {
+
+  /*  -moz-border-radius: 0px 0px 7px 7px;
+  -webkit-border-radius: 0px 0px 7px 7px;
+  border-radius: 0px 0px 7px 7px;*/
+}
+
+.pentaho-shadow-right-side {
+
+  /*  -moz-box-shadow: 2px 2px 4px 0 #333333;
+  -webkit-box-shadow: 2px 2px 4px 0 #333333;
+  box-shadow: 2px 2px 4px 0 #333333;*/
+}
+
+.pentaho-rounded-panel-right {
+
+  /*  border-top: 1px solid rgba(255, 255, 255, 0.59375);
+  border-right: 1px solid rgba(255, 255, 255, 0.59375);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.59375);
+  -moz-border-radius: 0px 5px 5px 0px;
+  -webkit-border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;*/
+}
+
+.pentaho-rounded-panel-top-right {
+
+  /*  border-top: 1px solid rgba(255, 255, 255, 0.59375);
+  border-right: 1px solid rgba(255, 255, 255, 0.59375);
+  -moz-border-radius: 0px 5px 0px 0px;
+  -webkit-border-radius: 0px 5px 0px 0px;
+  border-radius: 0px 5px 0px 0px;*/
+}
+
+.pentaho-rounded-panel-top-left {
+
+  /*  border-top: 1px solid black;
+  border-left: 1px solid black;
+  -moz-border-radius: 5px 0px 0px 0px;
+  -webkit-border-radius: 5px 0px 0px 0px;
+  border-radius: 5px 0px 0px 0px;*/
+}
+
+.pentaho-disclosure-panel {
+  width: 100%;
+}
+
+.pentaho-disclosure-panel .header td {
+  text-shadow: 1px 2px 2px rgba(22, 24, 27, 0.5);
+  color: white;
+  font-size: 13px;
+}
+
+.pentaho-disclosure-panel-openicon {
+  width: 16px;
+  height: 16px;
+  background: url('../images/disclosure_open.png') no-repeat scroll transparent;
+}
+
+.pentaho-disclosure-panel-closeicon {
+  width: 16px;
+  height: 16px;
+  background: url('../images/disclosure_close.png') no-repeat scroll transparent;
+}
+
+.pentaho-disclosure-panel-open {
+  width: 100%;
+  padding: 6px 6px 0px 6px;
+}
+
+.pentaho-disclosure-panel-dropdown {
+  padding: 0px 10px 0px 10px;
+  overflow: hidden;
+}
+
+.pentaho-disclosure-panel-open .header {
+  text-decoration: none;
+  cursor: pointer;
+  cursor: hand;
+  background: black; /* Old browsers */
+  -moz-box-shadow: 2px 2px 6px 1px #333333;
+  -webkit-box-shadow: 2px 2px 6px 1px #333333;
+  box-shadow: 2px 2px 6px 1px #333333;
+  padding: 4px 4px 4px 4px;
+}
+
+.IE .pentaho-disclosure-panel-open .header {
+  border: none;  /*background: url("images/bg_btn.png")*/
+}
+
+.pentaho-disclosure-panel-closed {
+  width: 100%;
+  padding: 6px 6px 0px 6px;
+}
+
+.pentaho-disclosure-panel-closed .header {
+  text-decoration: none;
+  cursor: pointer;
+  cursor: hand;
+  background: black; /* Old browsers */
+  border: 1px solid rgba(255, 255, 255, 0.59375);
+  padding: 4px 4px 4px 4px;
+}
+
+.IE .pentaho-disclosure-panel-closed .header {
+  border: none;  /*background: url("images/bg_btn.png")*/
+}
+
+.contrast-color {
+
+  /* color: white; */
+}
+
+.contrast-background {
+}
+
+.section-header-outer {
+  padding: 1px;
+}
+
+.section-header-middle {
+  padding: 1px;
+}
+
+.section-header-inner {
+  vertical-align: middle;
+  padding-left: 4px;
+}
+
+/* ======================= File Chooser Styles ========================= */
+.pentaho-file-chooser-selection {
+  background-color: #dbdbdb;
+}
+
+/* ======================= Launcher Styles ========================= */
+.pentaho-launcher-panel-shadowed {
+  border: 1px solid black;
+  border-radius: 4px;
+  -moz-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  -webkit-box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+  box-shadow: 1px 1px 5px 0px #333333, 0 0 1px 1px rgba(255, 255, 255, .6) inset;
+}
+
+.IE .pentaho-launcher-panel-shadowed {
+
+  /* background: url('../images/wt_transparent.png') repeat;*/
+}
+
+.pentaho-launcher-shine {
+  background-color: transparent;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.35)), to(rgba(255, 255, 255, 0.15)));
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.15) 100%) repeat scroll 0 0 transparent;
+}
+
+.IE .pentaho-launcher-shine {
+
+  /*background: url('../images/container_bg.png') repeat;*/
+}
+
+/* ======================= Login Styles ========================= */
+.login-panel {
+  height: 100%;
+  width: 100%;
+  font-size: 13px;
+  text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 0px;
+  padding: 5px;
+}
+
+.login-panel-label {
+  font-size: 13px;
+  text-shadow: rgba(255, 255, 255, 0.398438) 0px 1px 0px;
+}
+
+.pentaho-light-text {
+  color: #888888;
+}
+
+.panel-content {
+  background: transparent;
+}
+
+.pentaho-listbox-tb {
+  border-top: 1px solid #9f9f9f;
+  border-bottom: 1px solid #9f9f9f;
+  background-color: white
+}
+
+.pentaho-listbox {
+  border: 1px solid #CCC;
+  background-color: white;
+  overflow: auto;
+}
+
+.pentaho-listitem {
+  background-color: #ffffff;
+  color: #333;
+  cursor: pointer;
+}
+
+.pentaho-listitem-selected {
+  background-color: ${MAINCOLOR};
+  color: #FFF;
+  cursor: default;
+  outline: none;
+}
+
+.pentaho-listitem-disabled {
+  background-color: #ffffff;
+  color: #999;
+  cursor: default;
+}
+
+.pentaho-listitem-hover {
+  background-color: #CCCCCC;
+  color: #414141;
+  cursor: pointer;
+}
+
+.pentaho-listitem-label {
+  padding-left: 4px;
+}
+
+.pentaho-menuitem {
+  background-color: #ffffff;
+  padding: 2px;
+  color: #000000;
+}
+
+.pentaho-menuitem-label {
+}
+
+.pentaho-menuitem.pentaho-menuitem-hover {
+  background-color: #CCCCCC;
+  color: #414141;
+  padding: 2px;
+  cursor: default;
+}
+
+.pentaho-menu-outer {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 2px;
+}
+
+.pentaho-menu-separator {
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  height: 5px;
+  padding: 0;
+}
+
+.pentaho-menu-separator-inner {
+  border-top: 1px solid #000000;
+}
+
+.pentaho-checkmenuitem {
+  width: 16px;
+  height: 16px;
+  background: url('../images/checkbox-empty.png') no-repeat center;
+}
+
+.pentaho-checkmenuitem.menuitem-checked {
+  width: 16px;
+  height: 16px;
+  background: url('../images/checkbox.png') no-repeat center;
+}
+
+.pentaho-menuitem-disabled {
+  color: #808080;
+}
+
+.pentaho-droppanel {
+  background-color: #D4D6DB;
+  border: 1px solid rgba(0, 0, 0, 0.592);
+  margin: 0 10px;
+}
+
+.pentaho-savebutton-small {
+  width: 22px;
+  height: 22px;
+  background: url('images/save_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-saveasbutton-small {
+  width: 22px;
+  height: 22px;
+  background: url('images/saveas_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-openbutton-small {
+  width: 26px;
+  height: 22px;
+  background: url('images/open_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-newbutton-small {
+  width: 22px;
+  height: 22px;
+  background: url('images/new_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+.back-icon {
+  width: 22px;
+  height: 22px;
+  background: url('images/back_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+#mqlFilterGroupbox #mqlFilterEditButton img.image-button-pressed,
+#mqlFilterGroupbox #mqlFilterEditButton img.image-button-over,
+#sqlFilterGroupbox #editQueryButton img.image-button-pressed,
+#sqlFilterGroupbox #editQueryButton img.image-button-over,
+#mqlFilterGroupbox #mqlFilterEditButton img.image-button,
+#sqlFilterGroupbox #editQueryButton img.image-button,
+.pentaho-editbutton {
+  width: 22px;
+  height: 22px;
+  background: url('images/edit_22.png') no-repeat center;
+  cursor: pointer;
+}
+
+#mqlFilterGroupbox #mqlFilterEditButton img.disabled-image-button-pressed,
+#mqlFilterGroupbox #mqlFilterEditButton img.disabled-image-button-over,
+#sqlFilterGroupbox #editQueryButton img.disabled-image-button-pressed,
+#sqlFilterGroupbox #editQueryButton img.disabled-image-button-over,
+#mqlFilterGroupbox #mqlFilterEditButton img.disabled-image-button,
+#sqlFilterGroupbox #editQueryButton img.disabled-image-button,
+.pentaho-editbutton.pentaho-imagebutton-disabled {
+  width: 22px;
+  height: 22px;
+  background: url('images/edit_22_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-addbutton {
+  width: 22px;
+  height: 22px;
+  background: url('images/add.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-addbutton.pentaho-imagebutton-disabled {
+  width: 22px;
+  height: 22px;
+  background: url('images/add_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-addcombobutton {
+  width: 22px;
+  height: 22px;
+  background: url('../images/add_combo.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-addcombobutton.pentaho-imagebutton-disabled {
+  width: 22px;
+  height: 22px;
+  background: url('../images/add_combo_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-exportbutton {
+  width: 22px;
+  height: 22px;
+  background: url('../images/export.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-exportbutton.pentaho-imagebutton-disabled {
+  width: 22px;
+  height: 22px;
+  background: url('../images/export_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.fieldList .fieldListTop .clearSearchField,
+.clearSearchField.pentaho-deletebutton,
+.pentaho-deletebutton {
+  width: 22px;
+  height: 22px;
+  background: url('images/remove.png') no-repeat center;
+  cursor: pointer;
+  top: 0px;
+}
+
+.clearSearchField.pentaho-deletebutton.pentaho-imagebutton-disabled,
+.pentaho-deletebutton.pentaho-imagebutton-disabled {
+  width: 22px;
+  height: 22px;
+  background: url('images/remove_disabled.png') no-repeat center;
+  cursor: default;
+  top: 0px;
+}
+
+.pentaho-datasourcebutton {
+  width: 22px;
+  height: 22px;
+  background: url('../images/datasource_sm.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-closebutton.pentaho-imagebutton-hover {
+  width: 16px;
+  height: 16px;
+  background: url('images/closeTab_active.png') no-repeat center center;
+  cursor: pointer;
+}
+
+.pentaho-closebutton {
+  width: 16px;
+  height: 16px;
+  background: url('images/closeTab_active.png') no-repeat center center;
+  cursor: pointer;
+}
+
+.pentaho-closebutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('images/closeTab_off.png') no-repeat center center;
+  cursor: default;
+}
+
+.pentaho-closebutton-big {
+  width: 20px;
+  height: 20px;
+  background: url('images/close_big.png') no-repeat center;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.pentaho-undobutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/undo.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-undobutton.disabled,
+.pentaho-undobutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/undo_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-redobutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/redo.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-redobutton.disabled,
+.pentaho-redobutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/redo_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-downbutton {
+  width: 16px;
+  height: 16px;
+  background: url('images/16x16_down.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-downbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('images/16x16_down_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-upbutton {
+  width: 16px;
+  height: 16px;
+  background: url('images/16x16-up.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-upbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('images/16x16-up_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-optionsbutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/options.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-optionsbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/options_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.prevTemplateIconOn,
+.pentaho-left-lgbutton {
+  width: 26px;
+  height: 33px;
+  background: url('images/lg_arrow_left_on.png') no-repeat center;
+  cursor: pointer;
+}
+
+.prevTemplateIconOff,
+.pentaho-left-lgbutton.pentaho-imagebutton-disabled {
+  width: 26px;
+  height: 33px;
+  background: url('images/lg_arrow_left_off.png') no-repeat center;
+  cursor: default;
+}
+
+.nextTemplateIconOn,
+.pentaho-right-lgbutton {
+  width: 26px;
+  height: 33px;
+  background: url('images/lg_arrow_right_on.png') no-repeat center;
+  cursor: pointer;
+}
+
+.nextTemplateIconOff,
+.pentaho-right-lgbutton.pentaho-imagebutton-disabled {
+  width: 26px;
+  height: 33px;
+  background: url('images/lg_arrow_right_off.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-forecolorbutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/font_color.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-forecolorbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/font_color_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-backcolorbutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/back_color.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-backcolorbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/back_color_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-filterbutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/filter.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-filterbutton.pentaho-imagebutton-disabled {
+  width: 16px;
+  height: 16px;
+  background: url('../images/filter_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-layoutbutton {
+  width: 16px;
+  height: 16px;
+  background: url('../images/field_layout.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-contextmenubutton {
+  width: 15px;
+  height: 15px;
+  background: url('../images/options_menu_arrow.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-pagebackbutton {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_back.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-pagebackbutton.pentaho-imagebutton-hover {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_back_over.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-pagebackbutton.pentaho-imagebutton-disabled {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_back_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.pentaho-pagenextbutton {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_forward.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-pagenextbutton.pentaho-imagebutton-hover {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_forward_over.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-pagenextbutton.pentaho-imagebutton-disabled {
+  width: 18px;
+  height: 18px;
+  background: url('../images/page_forward_disabled.png') no-repeat center;
+  cursor: default;
+}
+
+.trashcan,
+.pentaho-trashbutton {
+  width: 128px;
+  height: 150px;
+  background: url('images/trashcan.png') no-repeat center;
+}
+
+.trashcan:hover,
+.trashcan.dojoDndContainerOver,
+.pentaho-trashbutton.pentaho-imagebutton-hover {
+  background: url('images/trashcan_full.png') no-repeat center;
+  cursor: pointer;
+}
+
+.pentaho-toolbar-separator {
+  width: 1px;
+  height: 18px;
+  background: url('../images/toolbar_separator.png') no-repeat center;
+}
+
+.pentaho-table {
+  background: black;
+}
+
+.pentaho-table-header-cell {
+  padding: 8px;
+  background: #1a1a1a; /* Old browsers */
+  background: -moz-linear-gradient(top, #1a1a1a 0%, #333333 50%, #000000 51%, #000000 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1a1a1a), color-stop(50%, #333333), color-stop(51%, #000000), color-stop(100%, #000000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #1a1a1a 0%, #333333 50%, #000000 51%, #000000 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #1a1a1a 0%, #333333 50%, #000000 51%, #000000 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, #1a1a1a 0%, #333333 50%, #000000 51%, #000000 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr ='#FF777777', endColorstr ='#FF000000');
+  zoom: 1;
+  background: linear-gradient(top, #1a1a1a 0%, #333333 50%, #000000 51%, #000000 100%); /* W3C */
+}
+
+.pentaho-table-header-cell .label {
+  color: white;
+}
+
+.pentaho-table-cell {
+  background-color: white;
+  padding: 0px 10px 0px 10px;
+}
+
+.pentaho-list-box {
+  border: 1px solid #CCC;
+}
+
+.categoryIndicator {
+  cursor: pointer;
+}
+
+.treenode-branch {
+  display: inline;
+}
+
+.treenode-open {
+  background: url('images/arrow_open.png');
+  width: 16px;
+  height: 16px;
+  float: left;
+  background-position: 0px 1px;
+}
+
+.treenode-closed {
+  background: url('images/arrow_closed.png');
+  width: 16px;
+  height: 16px;
+  float: left;
+  background-position: 0px 1px;
+}
+
+.treenode-leaf-label {
+  margin-left: 16px;
+  padding-left: 16px;
+  height: 24px;
+  line-height: 24px;
+}
+
+#fieldlistContainer #fieldlist > div:not(.treenode-leaf-label) {
+  margin-top: 20px;
+  margin-bottom: 3px;
+}
+
+#fieldlistContainer #fieldlist > div:not(.treenode-leaf-label):first-child {
+  margin-top: 0;
+}
+
+.fieldlist-filtered-field {
+  background-image: url('../images/filter_sm.png');
+  background-repeat: no-repeat;
+  background-position: 2px 6px;
+}
+
+.dragDropAvatar {
+  padding: 4px;
+  background-color: #F8F8F8;
+  border: 1px solid #1973bc;
+  border-radius: 4px;
+}
+
+.dragDropTargetArea.highlightTarget {
+  background-color: #E6EFF6;
+}
+
+.dragDropTargetArea {
+  background-color: #ffffff;
+  border: 1px solid #464f57;
+  padding: 2px;
+}
+
+.dragDropTargetAreaHint {
+  color: #898b8f;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* styles for splash/logo dialogs */
+.splash-content {
+
+  /* fallback color */
+  background: #FFF;
+  width: 460px !important;
+}
+
+.splashimage {
+  padding-top: 25px;
+}
+
+.splashtitle {
+  padding-top: 0px;
+  color: #333333;
+  font-family: opensanslight, Helvetica, Arial, Sans serif;
+  font-size: 16px;
+  vertical-align: top;
+  margin-top: 25px;
+  display: block;
+}
+
+.splashtext {
+  color: #333;
+  padding: 10px 0 0 0;
+  vertical-align: top;
+  line-height: 20px;
+}
+
+/* this style can be used to force padding on an element so the shadow of its child element can be seen */
+.pentaho-shadow-padding {
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+
+.pentaho-dropdownbutton-outer {
+  padding: 4px;
+  background: #005DA6;
+  cursor: pointer;
+  font-size: 0px;
+  zoom: 1;
+  width: 26px;
+  height: 23px;
+}
+
+.pentaho-dropdownbutton-outer.pentaho-disabled {
+  padding: 4px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #AAA), color-stop(0.10, #888), color-stop(0.50, #8d8d8d), color-stop(0.55, #727272), color-stop(0.90, #747474));
+  background: -moz-linear-gradient(#AAA, #BBB 10%, #8d8d8d 50%, #727272 55%, #747474 90%);
+  border: 1px outset gray;
+  font-size: 0px;
+}
+
+.pentaho-dropdownbutton-inner {
+  background-image: url('./images/calendar-white.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 21px;
+  width: 25px;
+  font-size: 0px;
+}
+
+.pentaho-dropdownbutton-inner.pentaho-disabled {
+  background-image: url('../images/combo_drop_arrow.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 8px;
+  width: 10px;
+  font-size: 0px;
+}
+
+.tundra .dijitSelect .dijitButtonContents {
+  background: #fff;
+}
+
+.tundra .dijitArrowButtonInner {
+  background: url("images/arrow_down_gray.svg") no-repeat left center;
+  width: 12px;
+  height: 16px;
+  margin: 0 0 0 4px;
+}
+
+#measure-properties-dialog .dijitArrowButtonInner {
+  background: url('images/arrow_down_gray.svg') no-repeat;
+  background-size: 12px 12px;
+  background-position: 1px center;
+}
+
+.IE .dialog-content .dijitComboBox .dijitArrowButton {
+  height: auto;
+  background-position: center center;
+}
+
+.dialog-content .dijitComboBox .dijitArrowButton input[type='text'],
+div.dijitDateTextBox.dijitComboBox .dijitArrowButton input[type='text'] {
+  border: none;
+  height: 33px !important;
+  margin-right: 3px;
+}
+
+div.dijitDateTextBox.dijitComboBox {
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.dijitSelect {
+
+  /* Standard form */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;  /* Firefox */
+  -moz-border-top-right-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;  /* Safari/Chrome */
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+}
+
+.tundra .dijitSelect {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tundra .dijitSelect .dijitArrowButton {
+  background: #FFF;
+  font-size: 12px;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.tundra .dijitSelect .dijitButtonContents {
+  border-right: 0 none;
+}
+
+.tundra .dijitDisabled .dijitArrowButtonInner {
+  background-position: center center;
+}
+
+.pentaho-chart-icon-large {
+  background: url("../images/chart.png") no-repeat;
+  height: 48px;
+  width: 48px;
+}
+
+.pentaho-settings-icon-large {
+  background: url("../images/settings.png") no-repeat;
+  height: 48px;
+  width: 48px;
+}
+
+.pentaho-settings-complete-icon-large {
+  background: url("../images/settings_done.png") no-repeat;
+  height: 48px;
+  width: 48px;
+}
+
+.pentaho-play-icon-large {
+  background: url("../images/play.png") no-repeat;
+  height: 48px;
+  width: 48px;
+}
+
+.pentaho-play-complete-icon-large {
+  background: url("../images/play_done.png") no-repeat;
+  height: 48px;
+  width: 48px;
+}
+
+/* FieldsetPane styles - start */
+.pentaho-fieldset-pane {
+}
+
+.pentaho-fieldset-pane-header {
+  border-bottom: 2px #BBB solid;
+  overflow: visible;
+  height: 12px;
+  margin: 5px 0 10px 0;
+}
+
+.pentaho-fieldset-pane-header .pentaho-fieldset-pane-title {
+  padding: 0 5px;
+  background-color: #d4d6db;
+  font-size: 18px;
+}
+
+/* pentaho fieldset pane styles - end */
+.disabledpane {
+  top: auto;
+  left: auto;
+  position: absolute;  /* bg color is the same as panel-content so it will blend in */
+  background-color: #d4d6db;  /* IE8 css hack for opacity */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=65)";
+  filter: alpha(opacity = 65);
+  opacity: 0.65;
+  height: 100%;
+  width: 100%;
+  z-index: 300;
+  margin: 0px;
+  padding: 0px;
+  display: none;
+  border-radius: 4px;
+}
+
+.tundra .dijitTabCloseButton {
+  background: url("../images/close_sm_disabled.png") no-repeat;
+  height: 16px;
+  width: 16px;
+}
+
+.tundra .dijitTabCloseButtonHover {
+  background: url("../images/close_sm.png") no-repeat;
+  height: 16px;
+  width: 16px;
+}
+
+.tundra .dijitTabInnerDiv {
+  padding: 2px;
+}
+
+.pentaho-fieldgroup-major {
+  font-size: 24px;
+  color: #333;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+  cursor: default;
+}
+
+.authText.authenticationMethodDescriptionLabel {
+  margin-bottom: 10px;
+}
+
+.authenticationSelector .groupOption:first-of-type {
+  margin-top: 10px;
+}
+
+.authMethod,
+.pentaho-fieldgroup-minor {
+  font-size: 16px;
+  color: #414141;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+}
+
+.dialog-content .message {
+  text-align: left;
+}
+
+.dialog-buttons {
+  height: 30px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 10px 0 10px 0;
+}
+
+.warning {
+  background: url('images/warning-icon.png') no-repeat 30px center #FBEADC;
+  padding: 30px;
+  border-radius: 4px;
+  border-color: #DDD;
+  border-width: 1px;
+  border-style: solid;
+  width: 575px;
+}
+
+.warning .icon {
+  width: 20px;
+  height: 70px;
+  float: left;
+  padding-right: 8px;
+}
+
+.warning .warning-header {
+  font-size: 1.25em;
+  color: red;
+}
+
+/* added by Brett  */
+#pucContent {
+  top: 85px; /* Top must be the same as height in #puchHeader */
+}
+
+.tabpanel {
+  border: 0px solid #000000;
+}
+
+#sidepaneltabs {
+  width: 258px;
+  border-right: 1px solid #CCC;
+  border-left: 1px solid #CCC;  /* background: url('images/bg_side_panel.png') repeat-y top right; */
+}
+
+#fieldlistContainer {
+  border: 1px solid #CCC;
+  border-left: 0 none;
+  border-right: 0 none;
+  padding: 10px 4px;
+  width: 250px;
+}
+
+#datasourcelbl .label .contrast-color {
+  color: #333;
+}
+
+.plabel {
+  color: #333;
+  padding: 0;
+}
+
+#bottompanel {
+  border: 0;
+  height: 40px;
+  padding: 4px;
+}
+
+.pentahoPropertiesPanel {
+  background-color: transparent;
+}
+
+.tundra .dijitTitlePaneContentOuter {
+  background-color: transparent;
+}
+
+/* -- new spinner stuff -- */
+.busy-indicator-container {
+  display: block;
+}
+
+.busy-indicator-container-wrapper {
+  display: table;
+}
+
+.spinner {
+}
+
+.spinner div > div {
+
+  /* spin.js uses inline styles, so we have to override those with !important to acheive theme-ability*/
+  background-color: #0560AB !important;
+}
+
+@-webkit-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-webkit-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-moz-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-ms-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-moz-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-webkit-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@-o-keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+@keyframes uil-rolling-anim {
+  0% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  50% {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}
+
+.spinner {
+  position: relative !important;
+  -ms-animation: uil-rolling-anim 1s linear infinite;
+  -moz-animation: uil-rolling-anim 1s linear infinite;
+  -webkit-animation: uil-rolling-anim 1s linear infinite;
+  -o-animation: uil-rolling-anim 1s linear infinite;
+  animation: uil-rolling-anim 1s linear infinite;
+}
+
+.spinner:after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  border-radius: 40px 40px 0 0;
+  border-color: ${MAINCOLOR};
+  border-style: solid;
+  border-width: 3px;
+  border-bottom-width: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.spinner:before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-color: #E0E0E0;
+  border-style: solid;
+  border-width: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.large-spinner {
+  height: 40px !important;
+  width: 40px !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.medium-spinner {
+  height: 32px !important;
+  width: 32px !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.spinner.medium-spinner:after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 16px;
+  border-radius: 32px 32px 0 0;
+  border-color: #005da6;
+  border-style: solid;
+  border-width: 2px;
+  border-bottom-width: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.spinner.medium-spinner:before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border-color: #E0E0E0;
+  border-style: solid;
+  border-width: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.small-spinner {
+  height: 16px !important;
+  width: 16px !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.spinner.small-spinner:after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  border-radius: 16px 16px 0 0;
+  border-color: #005da6;
+  border-style: solid;
+  border-width: 2px;
+  border-bottom-width: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.spinner.small-spinner:before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border-color: #E0E0E0;
+  border-style: solid;
+  border-width: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.large-spinner > div,
+.medium-spinner > div,
+.small-spinner > div {
+  visibility: hidden;
+}
+
+#getting-started .large-spinner {
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  margin: auto;
+  position: absolute !important;
+}
+
+.busy-indicator-spinner,
+.pentaho-busy-indicator-spinner {
+  display: table-cell;
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+.pentaho-busy-indicator-msg-contianer {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.waitPopup {
+  position: absolute;
+  width: 330px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  z-index: 20001;
+  height: auto;
+  border: 1px solid #CCC;
+  background: #FFF;
+}
+
+.waitPopup_title {
+  color: #333;
+  font-size: 18px;
+  padding-bottom: 3px;
+  width: 262px;
+}
+
+.waitPopup_msg {
+  color: #333;
+  font-weight: normal;
+  font-size: 14px;
+  white-space: normal;
+  width: 242px;
+}
+
+/* == == == == */
+.icon-small {
+  height: 16px;
+  width: 16px;
+}
+
+.icon-medium {
+  height: 32px;
+  width: 32px;
+}
+
+.icon-large {
+  height: 48px;
+  width: 48px;
+}
+
+.refresh-browse-perspective,
+.icon-small.icon-refresh {
+  background: url('images/refresh-small.png');
+  height: 22px;
+  width: 22px;
+  cursor: pointer;
+}
+
+.icon-small.icon-refresh.disabled {
+  background: url('../images/refresh-small-disabled.png');
+}
+
+.icon-small.icon-run {
+  background: url('images/start-scheduler-small.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-run.disabled {
+  background: url('images/start-scheduler-small.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-open-folder {
+  background: url('images/open-folder.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-open-folder.disabled {
+  background: url('images/open-folder-disabled.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-update {
+  background: url('../images/update.png');
+}
+
+.icon-small.icon-update.disabled {
+  background: url('../images/updateDisabled.png');
+}
+
+.icon-small.icon-misc {
+  background: url('../images/misc-small.png');
+}
+
+.icon-small.icon-misc.disabled {
+  background: url('../images/misc-small-disabled.png');
+}
+
+.icon-small.icon-drop-valid {
+  background: url('../images/drop_valid.png');
+}
+
+.icon-small.icon-drop-invalid {
+  background: url('../images/drop_invalid.png');
+}
+
+.icon-small.icon-analysis {
+  background: url('images/file_analysis.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-xaction {
+  background: url('images/file_action.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-url {
+  background: url('images/file_url.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-file {
+  background: url('images/file.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-folder {
+  background: url('images/folder_closed.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.fileChooserCellLabel,
+.fileChooserCell.fileChooserCell {
+  padding: 0 5px;
+  line-height: 26px;
+}
+
+.fileChooserCell img {
+  display: block;
+  margin: 2px 0;
+}
+
+.icon-small.icon-waqr-report {
+  background: url('images/file_generic.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-analyzer {
+  background: url('images/file_analysis.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-pir-report {
+  background: url('images/prptiFile.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-prpt-report {
+  background: url('images/prptFile.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-dashboard {
+  background: url('images/file_dashboard.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-stop {
+  background: url('images/stop_scheduler.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-stop-scheduler {
+  background: url('images/power-on.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-start-scheduler {
+  background: url('images/power-off.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-execute {
+  background: url('images/run-now.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-filter-add {
+  background: url('images/filter-add-small.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-filter-active {
+  background: url('../images/filter-active-small.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-small.icon-filter-remove {
+  background: url('images/filter-remove-small.png');
+  height: 22px;
+  width: 22px;
+}
+
+.icon-medium.icon-open {
+  background: url('../images/open_32.png');
+}
+
+.icon-medium.icon-save {
+  background: url('../images/save_32.png');
+}
+
+.icon-medium.icon-save.disabled {
+  background: url('../images/save_32_disabled.png');
+}
+
+.icon-medium.icon-saveAs {
+  background: url('../images/saveAs_32.png');
+}
+
+.icon-medium.icon-saveAs.disabled {
+  background: url('../images/saveAs_32_disabled.png');
+}
+
+.icon-medium.icon-print {
+  background: url('../images/print_32.png');
+}
+
+.icon-medium.icon-print.disabled {
+  background: url('../images/print_32_disabled.png');
+}
+
+.icon-medium.icon-edit.disabled {
+  background: url('../images/editContent_32.png');
+}
+
+.icon-medium.icon-edit.disabled {
+  background: url('../images/editContent_32_disabled.png');
+}
+
+/* added by brett to override anlyzer styles */
+.dijitTitlePane {
+  background-color: #F8F8F8;
+}
+
+.pentahoPropertiesPanel .dijitTitlePaneContentInner {
+  background-color: #F8F8F8;
+}
+
+.tundra .dijitTitlePaneTextNode {
+  font-size: 16px;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+  padding: 0 0 0 4px;
+}
+
+.icon-small.icon-accum-add {
+  background: url('images/accum_add.png');
+  height: 13px;
+  width: 14px;
+}
+
+.icon-small.icon-accum-add-all {
+  background: url('images/accum_add_all.png');
+  height: 13px;
+  width: 14px;
+}
+
+.icon-small.icon-accum-remove {
+  background: url('images/accum_remove.png');
+  height: 13px;
+  width: 14px;
+}
+
+.icon-small.icon-accum-remove-all {
+  background: url('images/accum_remove_all.png');
+  height: 13px;
+  width: 14px;
+}
+
+.icon-tree-leaf {
+  margin-left: 15px;
+}
+
+.icon-tree-node {
+  height: 14px;
+  width: 22px;
+}
+
+.icon-tree-node.icon-recycle-bin {
+  background: url('images/remove_16.png') no-repeat;
+  height: 16px;
+}
+
+.icon-tree-node.icon-folder {
+  background: url('images/folder_16.png') no-repeat;
+}
+
+.dijitFolderOpened,
+.dijitIconFolderOpen,
+.open > table .icon-tree-node.icon-folder {
+  background: url('images/folder_16-open.png') no-repeat;
+}
+
+.tree-item-collapsed>table>tbody>tr>td>img,
+.leaf-widget.parent-widget>table>tbody>tr>td>img {
+  background: url('images/arrow_closed.png') no-repeat !important;
+}
+
+.tree-item-expanded>table>tbody>tr>td>img,
+.leaf-widget.parent-widget.open>table>tbody>tr>td>img {
+  background: url('images/arrow_open.png') no-repeat !important;
+}
+
+.sidePanelIconOpen {
+  background: url('images/16x16_right.png') no-repeat;
+}
+
+.sidePanelIconClose {
+  background: url('images/16x16_left.png') no-repeat;
+}
+
+.fileBrowserColumn .body div.folder.open > div.element > div.icon {
+  background: url("images/folder_open.png") no-repeat;
+  width: 22px;
+}
+
+.fileBrowserColumn .body div.folder.open.selected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.open.secondarySelected > div.element > div.icon {
+  background: url("images/folder_open_white.png") no-repeat;
+  width: 22px;
+}
+
+.fileBrowserColumn .body div.folder > div.element > div.icon,
+.fileBrowserColumn .body div.folder.empty > div.element > div.icon,
+.fileBrowserColumn .body div.folder.open.empty > div.element > div.icon {
+  background: url("images/folder_closed.png") no-repeat;
+  width: 22px;
+}
+
+.fileBrowserColumn .body div.folder > div.element:hover > div.icon,
+.fileBrowserColumn .body div.folder.empty > div.element:hover > div.icon,
+.fileBrowserColumn .body div.folder.open.empty > div.element:hover > div.icon {
+  background: url("images/folder_closed.png") no-repeat;
+  width: 22px;
+}
+
+.fileBrowserColumn .body div.folder.selected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.empty.selected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.open.empty.selected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.secondarySelected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.empty.secondarySelected > div.element > div.icon,
+.fileBrowserColumn .body div.folder.open.empty.secondarySelected > div.element > div.icon {
+  background: url("images/folder_closed_white.png") no-repeat;
+  width: 22px;
+}
+
+.fileBrowserColumn .body div.trash.trash > div.element > div.icon,
+.fileBrowserColumn .body div.trash.trash.empty > div.element > div.icon,
+.fileBrowserColumn .body div.trash.trash.open.empty > div.element > div.icon {
+  background: url("images/trash.png") no-repeat;
+}
+
+.fileBrowserColumn .body div.trash.trash.selected > div.element > div.icon,
+.fileBrowserColumn .body div.trash.trash.empty.selected > div.element > div.icon,
+.fileBrowserColumn .body div.trash.trash.open.empty.selected > div.element > div.icon {
+  background: url("images/trash_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body div.trash.trash > div.element:hover > div.icon,
+.fileBrowserColumn .body div.trash.trash.empty > div.element:hover > div.icon,
+.fileBrowserColumn .body div.trash.trash.open.empty > div.element:hover > div.icon {
+  background: url("images/trash.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon {
+  background: url("images/file_generic.png") no-repeat;
+  margin: 0 5px;
+}
+
+.fileBrowserColumn .body .file:hover .icon,
+.fileBrowserColumn .body .file.selected .icon {
+  background: url("images/file_generic_white.png") no-repeat;
+  margin: 0 5px;
+}
+
+.fileBrowserColumn .body .file .icon.url {
+  background: url("images/file_url.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.url,
+.fileBrowserColumn .body .file.selected .icon.url {
+  background: url("images/file_url_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.xanalyzer {
+  background: url("images/file_analysis.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.xanalyzer,
+.fileBrowserColumn .body .file.selected .icon.xanalyzer {
+  background: url("images/file_analysis_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.xdash,
+.fileBrowserColumn .body .file .xdash {
+  background: url("images/file_dashboard.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.xdash,
+.fileBrowserColumn .body .file:hover .xdash,
+.fileBrowserColumn .body .file:hover .icon.xdash,
+.fileBrowserColumn .body .file:hover .xdash {
+  background: url("images/file_dashboard_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.ktr,
+.fileBrowserColumn .body .file .ktr {
+  background: url("images/kettle_transformation.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.ktr,
+.fileBrowserColumn .body .file:hover .ktr,
+.fileBrowserColumn .body .file.selected .icon.ktr,
+.fileBrowserColumn .body .file.selected .ktr {
+  background: url("images/kettle_transformation_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.xaction,
+.fileBrowserColumn .body .file .xaction {
+  background: url("images/file_action.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.xaction,
+.fileBrowserColumn .body .file:hover .xaction,
+.fileBrowserColumn .body .file.selected .icon.xaction,
+.fileBrowserColumn .body .file.selected .xaction {
+  background: url("images/file_action_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.prpt,
+.fileBrowserColumn .body .file .prpt {
+  background: url("images/prptFile.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.prpt,
+.fileBrowserColumn .body .file:hover .prpt,
+.fileBrowserColumn .body .file.selected .icon.prpt,
+.fileBrowserColumn .body .file.selected .prpt {
+  background: url("images/prptFile_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.prpti,
+.fileBrowserColumn .body .file .prpti {
+  background: url("images/prptiFile.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.prpti,
+.fileBrowserColumn .body .file:hover .prpti,
+.fileBrowserColumn .body .file.selected .icon.prpti,
+.fileBrowserColumn .body .file.selected .prpti {
+  background: url("images/prptiFile_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.trashFolder {
+  background: url("images/folder_closed.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.cda.cda,
+.fileBrowserColumn .body .file .cda.cda {
+  background: url("images/cda_20.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.wcdf.wcdf,
+.fileBrowserColumn .body .file .wcdf.wcdf {
+  background: url("images/cde_20.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.xcdf.xcdf,
+.fileBrowserColumn .body .file .xcdf.xcdf {
+  background: url("images/cdf_20.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file:hover .icon.xcdf.xcdf,
+.fileBrowserColumn .body .file:hover .xcdf.xcdf,
+.fileBrowserColumn .body .file.selected .icon.xcdf.xcdf,
+.fileBrowserColumn .body .file.selected .xcdf.xcdf {
+  background: url("images/cdf_20_white.png") no-repeat;
+}
+
+.fileBrowserColumn .body div.folder > div.element > div.expandCollapse {
+  background-image: url("images/folders-arrows.png");
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  height: 20px;
+  width: 20px;
+  margin: 0 5px;
+}
+
+.fileBrowserColumn .body div.folder > div.element:hover > div.expandCollapse {
+  background-image: url("images/folders-arrows.png");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  height: 20px;
+  width: 20px;
+  margin: 0 5px;
+}
+
+
+.fileBrowserColumn .body div.folder.selected > div.element > div.expandCollapse,
+.fileBrowserColumn .body div.folder.secondarySelected > div.element > div.expandCollapse {
+  background-position: bottom right;
+}
+
+.fileBrowserColumn .body div.folder.open > div.element > div.expandCollapse {
+  background-image: url("images/folders-arrows.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+  height: 20px;
+  width: 20px;
+}
+
+.fileBrowserColumn .body div.folder.open > div.element:hover > div.expandCollapse {
+  background-image: url("images/folders-arrows.png");
+  background-repeat: no-repeat;
+  background-position: top right;
+  height: 20px;
+  width: 20px;
+}
+
+.fileBrowserColumn .body div.folder.open.selected > div.element > div.expandCollapse,
+.fileBrowserColumn .body div.folder.open.secondarySelected > div.element > div.expandCollapse {
+  background-position: top right;
+}
+
+.fileBrowserColumn .body div.folder.empty > div.element:hover > div.expandCollapse {
+  background-image: none;
+}
+
+.file-xanalyzer {
+  background: url("images/file_analysis_32.png") no-repeat;
+}
+
+.file-xdash {
+  background: url("images/file_dashboard_32.png") no-repeat;
+}
+
+.file-xaction {
+  background: url("images/file_action_32.png") no-repeat;
+}
+
+.file-ktr {
+  background: url("images/kettle_transformation_32.png") no-repeat;
+}
+
+.file-prpt {
+  background: url("images/prptFile_32.png") no-repeat;
+}
+
+.file-prpti {
+  background: url("images/prptiFile_32.png") no-repeat;
+}
+
+/* added by brett to override PIR styles */
+.styled >* #reportContent,
+#reportContent {
+  border: 1px solid rgb(224, 224, 224);
+}
+
+.pentaho-selection-dialog-outer {
+  border: 1px solid #CCC;
+  background: #F8F8F8;
+  padding: 8px 8px 0px 8px;
+}
+
+.pentaho-selection-dialog-inner {
+  background: transparent;
+}
+
+.fade {
+  background: transparent;
+}
+
+/* added by brett to override dashbaord styles */
+
+/* #E6EFF6; */
+
+/* #8ac06e; */
+.highlight-shadow {
+  -moz-box-shadow: 0 0 0px 1px ${MAINCOLOR};
+  -webkit-box-shadow: 0 0 0px 1px ${MAINCOLOR};
+  box-shadow: 0 0 0px 1px ${MAINCOLOR};
+}
+
+.panelContent {
+  background-color: #fff;
+  border: 0;
+}
+
+#tab-dashboard-settings-panel div.panelContent button {
+  padding: 6px 14px;
+  margin-top: -3px;
+}
+
+.edit-panel {
+  border-top: 0px solid #969696;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 4px 4px 4px;
+  overflow: hidden;
+  background-color: #F8F8F8;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+
+#props-deck-1 > #propertiesPanel {
+  background: transparent;
+  padding: 4px;
+  border: 0px solid #666;
+}
+
+.gwt-ScrollTable .headerTable td {
+  color: #FFFFFF;
+  border-right: 1px solid rgb(255, 255, 255);
+  background: #999999;
+}
+
+.objectTree {
+  border: 1px solid #CCC;
+}
+
+.objectTree h2 {
+  color: #333;
+}
+
+/* added by brett to override browser styles */
+.main-container {
+  margin: 0 auto;
+  width: 1230px;
+}
+
+/* Browse Files */
+.fileBrowserColumn .header {
+  height: auto;
+  border: 0;
+  font-size: 16px;
+  line-height: 22px;
+  color: #333333;
+  padding: 0;
+  margin-bottom: 10px;
+  cursor: default;
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+}
+
+#fileBrowserFiles.fileBrowserColumn .body,
+#fileBrowserFolders.fileBrowserColumn .body {
+  border: 1px solid #CCC;
+  top: 51px;
+}
+
+.fileBrowserColumn .body .folder {
+  margin-left: 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fileBrowserColumn .body .folder .element {
+  padding: 8px 0;
+  font-size: 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  position: relative;
+}
+
+.fileBrowserColumn .body .folder .element:hover {
+  color: #FFF;
+  background-color: ${MAINCOLOR};
+}
+
+/*.fileBrowserColumn .body .folder .element:hover .icon {
+  background: url(images/folder_closed_white.png) no-repeat !important;
+}
+
+.fileBrowserColumn .body .folder .element:hover .expandCollapse {
+  background: url(images/folders-arrows.png) no-repeat bottom right !important;
+}*/
+
+#fileBrowserButtons .body {
+  top: 51px;
+}
+
+.fileBrowserColumn .body .folder .icon {
+  margin: 0 4px;
+}
+
+.fileBrowserColumn .body .file {
+  padding: 8px 0;
+  font-size: 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+}
+
+.fileBrowserColumn .body .file:hover {
+  background-color: ${MAINCOLOR};
+  color: #FFF;
+}
+
+.fileBrowserColumn .body .folder.selected > .element {
+  background: ${SECONDCOLOR};
+  color: #FFF;
+}
+
+.fileBrowserColumn .body .folder.secondarySelected > .element {
+  background: ${SECONDCOLOR};
+  color: #FFF;
+}
+
+.fileBrowserColumn .body .file.selected {
+  background: ${MAINCOLOR};
+  color: #FFF;
+}
+
+#fileBrowserButtons {
+  width: 250px;
+}
+
+.fileChooser-scrollPanel > div > table > * {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr > td {
+  border: 1px solid #ffffff;
+  border-right: 0 none;
+  border-top: 0 none;
+  padding: 0;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr:last-child > td {
+  border-bottom: 0 none;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr > td:first-child {
+  border-left: 0 none;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr > td:last-child {
+  /*border-right: 1px solid #e0e0e0;*/
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr:first-child > td {
+  border: 1px solid #cccccc;
+  border-right: 0 none;
+  border-top: 0 none;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr:first-child > td:last-child {
+  border-right: 1px solid #cccccc;
+}
+
+.fileChooser-scrollPanel > div > table > tbody > tr:first-child > td:first-child {
+  border-left: 0 none;
+}
+
+.fileChooserHeader {
+  background-color: #999;
+  border: 0 none;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 14px;
+  line-height: 26px;
+  color: #FFF;
+  cursor: default;
+}
+
+.fileBrowserColumn .body .separator {
+  margin: 10px 0px;
+  border-top: solid 1px #CCC;
+}
+
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:link,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:visited,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:hover,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:active,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:focus {
+  padding: 4px 0;
+  outline: 0 none;
+  background: none;
+  color: ${SECONDCOLOR};
+}
+
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:hover,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:active,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn:focus {
+  color: ${SECONDCOLOR};
+  text-decoration: underline;
+}
+
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled],
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled]:link,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled]:visited,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled]:hover,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled]:active,
+.bootstrap #fileBrowserButtons.fileBrowserColumn .btn[disabled]:focus {
+  color: #AAAAAA;
+  text-decoration: none;
+}
+
+.fileChooser-scrollPanel {
+  background-color: white;
+  border: 1px solid #CCC;
+  height: 220px;
+}
+
+/*  end browser styles */
+#reportPageOutline {
+  -webkit-box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, .3);
+  box-shadow: 0px 1px 6px 1px rgba(58, 58, 58, .1);
+  padding: 0;
+  margin-top: 4px;
+  border: 0;
+}
+
+.favorite-on {
+  background: url("images/favorite-on.png");
+  height: 32px;
+  width: 32px;
+}
+
+.favorite-off {
+  background: url("images/favorite-off.png");
+  height: 32px;
+  width: 32px;
+}
+
+.admin-perspective .pentaho-tab-deck-panel {
+  background-color: #FFF;
+  border-top: 0px solid #E8E9EA;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+}
+
+.admin-perspective .pentaho-tab-bar {
+  background-image: none;
+  height: 38px;
+}
+
+.admin-perspective .pentaho-tab-panel {
+  background: url('images/bg_admin_tab_panel.png') repeat-x 0 3px;
+  height: 39px;
+}
+
+.admin-perspective .pentaho-tabWidget {
+  border-top: solid 4px transparent;
+}
+
+.admin-perspective .pentaho-tabWidget-selected {
+  border-top: solid 4px ${MAINCOLOR};
+  border-left: solid 1px #CCC;
+  border-right: solid 1px #CCC;
+  -moz-border-radius-topleft: 1px;
+  -moz-border-radius-topright: 1px;
+  -webkit-border-top-left-radius: 1px;
+  -webkit-border-top-right-radius: 1px;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
+  background: #FFF;
+}
+
+button.adminButton {
+  background: url("images/auth.png")
+}
+
+.dijitFolderClosed,
+.dijitIconFolderClosed {
+  background-image: url("images/folder_16.png") !important;
+}
+
+.dijitFolderOpen,
+.dijitIconFolderOpen {
+  background-image: url("images/folder_16.png") !important;
+}
+
+/* added for Analyzer fix */
+#fieldListWrapperContentPane,
+#layoutPanelWrapper {
+  background-color: #fff;
+}
+
+#reportBtns {
+  background-color: #F8F8F8;
+  height: 30px;
+}
+
+#reportContainer {
+  border: solid 0px #CCC;
+  padding: 0;
+}
+
+.reportMain {
+  border: 0px solid rgb(224, 224, 224);
+}
+
+.pc_pageTotal,
+.dijitToolbar .pc_pageTotal {
+  padding: 4px 0px 0px 2px;
+}
+/*Overrides Analyzer styles for filter panels*/
+.reportArea #selectionFilterPanel {
+  margin-top: 2px;
+  padding: 1px 3px 13px 3px;
+  background-color: transparent;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  opacity: 1;
+}
+
+/* added by brett to for PIR  */
+#formattabpanelinner .tundra .dijitToolbar {
+  background-color: #fff;
+}
+
+.tundra .dijitToolbar,
+.tundra .dijitToolbar#toolbar {
+  background-color: #F8F8F8;
+  height: 30px;
+}
+
+.pentaho-table {
+  border-spacing: 0;
+  background-color: #FAFAFA;
+}
+
+.pentaho-table th {
+  font-size: 12px;
+  border-spacing: 0;
+  padding: 11px 8px 12px 8px;
+  font-weight: normal;
+  background-color: #999999;
+  color: #FFF;
+  border: 1px solid #cccccc;
+  border-right: 0 none;
+}
+
+.pentaho-table th:last-child {
+  border-right: 1px solid #99BEDB;
+}
+
+.schedulesPanel .gwt-ScrollTable .dataTable td {
+  padding: 8px 10px 10px 10px;
+  overflow: hidden;
+  text-align: left;
+  font-size: 12px;
+  border: 1px solid #e0e0e0;
+  border-right: 0 none;
+  border-top: 0 none;
+}
+
+.schedulesPanel .gwt-ScrollTable .dataTable td:last-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.schedulesPanel .gwt-ScrollTable .headerTable td {
+  padding: 8px 10px 10px 10px;
+}
+
+.schedulesPanel .cellTableCell {
+  cursor: pointer;
+}
+
+.schedulesPanel .cellTableCell.cellTableSelectedRowCell {
+  cursor: default;
+}
+
+.schedulesPanel .cellTableCell.cellTableHoveredRowCell:not(.cellTableSelectedRowCell) {
+  background: #cccccc;
+  color: #666666;
+}
+
+.schedulesPanel #blockout-table,
+.schedulesPanel .gwt-ScrollTable .headerTable,
+.schedulerPerspective-wrapper table {
+  width: 100% !important;
+}
+
+.schedulesPanel .cellTableCell div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.gwt-ScrollTable .dataTable td {
+  padding: 4px 10px 4px 10px;
+}
+
+.IE11 .gwt-ScrollTable .headerTable {
+  padding-right: 17px!important;
+}
+
+.gwt-ScrollTable .headerTable {
+  background: #CCCCCC;
+}
+
+.gwt-ScrollTable table.headerTable *,
+.gwt-ScrollTable .dataWrapper * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#selectedColumnTree .gwt-ScrollTable .dataWrapper table,
+#conditionsTree .gwt-ScrollTable .dataWrapper table,
+#orderTable .gwt-ScrollTable .dataWrapper table {
+  width: 100% !important;
+}
+
+.gwt-ScrollTable .dataWrapper .dataTable td {
+  border-right: 0 none;
+}
+
+.gwt-ScrollTable .dataWrapper .dataTable td:last-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.gwt-ScrollTable .dataWrapper .dataTable .custom-list tr:hover {
+  background: #FFF !important;
+}
+
+.gwt-ScrollTable .dataWrapper input[type='text'].xul-textbox {
+  padding: 2px 10px;
+}
+
+.gwt-ScrollTable .dataWrapper {
+  background: #f8f8f8;
+}
+
+.gwt-ScrollTable .headerTable.headerTable td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+input#limit.xul-textbox {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.gwt-ScrollTable {
+  border: 0 none;
+  overflow: hidden;
+}
+
+.gwt-ScrollTable .headerWrapper {
+  background: #d2d2d2 scroll left bottom;
+  padding-right: 0px;
+}
+
+.gwt-ScrollTable .footerWrapper {
+  background: #858585;
+  border-top: 1px solid #d7d7d7;
+}
+
+.gwt-ScrollTable .headerTable td {
+  font-size: 12px;
+  border-spacing: 0;
+  padding: 12px 10px;
+  font-weight: normal;
+  background-color: #999999;
+  color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-right: 0 none;
+}
+
+#contentLinkingAssignmentTable .gwt-ScrollTable .headerTable td,
+#propertiesPanelParameterAssignmentTable .gwt-ScrollTable .headerTable td {
+  padding-left: 0px;
+  padding-right: 0px;
+  height: 20px;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+td.tab-spacer-wrapper {
+  display: none;
+}
+
+#contentLinkingAssignmentTable .gwt-ScrollTable .dataTable>tbody>tr>td,
+#propertiesPanelParameterAssignmentTable .gwt-ScrollTable .dataTable>tbody>tr>td {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.gwt-ScrollTable .headerTable tr > td:last-of-type {
+  border-right: 1px solid #99BEDB;
+}
+
+.gwt-ScrollTable .headerTable-disabled td {
+  font-weight: normal;
+  color: #000000;
+  border-right: 0px;
+}
+
+.gwt-ScrollTable .dataTable tr {
+  background: white;
+}
+
+.gwt-ScrollTable .dataTable-disabled tr {
+  background: white;
+}
+
+.gwt-ScrollTable .dataTable td {
+  border: 1px solid #e0e0e0;
+}
+
+.gwt-ScrollTable .dataTable tr.hovering {
+  background: #CCCCCC;
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.gwt-ScrollTable .dataTable-disabled tr.hovering {
+  background: #CCCCCC;
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.gwt-ScrollTable .dataTable td.hovering {
+  background: #CCCCCC;
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.gwt-ScrollTable .dataTable tr.selected,
+.gwt-ScrollTable .dataTable tr.selected:hover {
+  background: ${MAINCOLOR} !important;
+  color: #FFF !important;
+  cursor: default;
+}
+
+.gwt-ScrollTable .dataTable tr:hover {
+  background: #CCCCCC;
+  color: #414141;
+  cursor: pointer;
+}
+
+.gwt-ScrollTable .pagingOptions {
+  background: #e8e8e8 none repeat scroll 0% 0%;
+  border-right: 1px solid #848484;
+  border-top: 1px solid #848484;
+}
+
+.gwt-ScrollTable .pagingOptions .errorLabel {
+  color: red;
+}
+
+.gwt-CellEditor {
+  background: white none repeat scroll 0% 0%;
+  border: 3px solid #d7d7d7;
+}
+
+.gwt-Tree .gwt-TreeItem-selected {
+  background-color: ${MAINCOLOR};
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.tree-item-custom-widget-selected {
+  background-color: ${MAINCOLOR};
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.tree-item-custom-widget-drop-hover {
+  border: 1px solid #848484;
+  background-color: #CCCCCC;
+  -moz-transition: all 600ms;
+  -webkit-transition: all 600ms;
+}
+
+.tree-drop-indicator {
+  height: 1px;
+  background-color: #1973cd;
+  margin-top: 1px;
+  padding-right: 6px;
+}
+
+.tree-drop-indicator-symbol {
+  background-image: url("images/dropIndicator.png");
+  padding-left: 12px;
+  padding-top: 4px;
+}
+
+/* dojo grid styles ------------------------- */
+.soria .dojoxGrid {
+  background-color: transparent;
+  font-size: 14px;
+}
+
+/* header */
+.soria .dojoxGridHeader {
+  background-color: transparent;
+}
+
+.soria .dojoxGridHeader .dojoxGridCell {
+  font-size: 12px;
+  border-spacing: 0;
+  padding: 8px 10px 10px 10px;
+  font-weight: normal;
+  background: #999999;
+  color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+}
+
+.soria .dojoxGridHeader .dojoxGridCell:last-child {
+  border-right: 1px solid #99BEDB;
+}
+
+/* rows */
+.soria .dojoxGridRow {
+  border: none;
+  background-color: white;
+}
+
+.soria .dojoxGridRowOver .dojoxGridCell {
+  background-color: ${MAINCOLOR};
+  color: #fff;
+  cursor: pointer;
+}
+
+.soria .dojoxGridRowSelected {
+  background-color: ${MAINCOLOR} !important;
+  color: #fff;
+}
+
+/* cells */
+.soria .dojoxGridCell {
+  padding: 8px 10px;
+  overflow: hidden;
+  text-align: left;
+  font-size: 12px;
+  border: 1px solid #e0e0e0;
+  border-right: 1px solid transparent;
+  border-top: 0 none;
+}
+
+.soria .dojoxGridCell:last-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+/* ======================= custom drop down control =========================== */
+.custom-list {
+  border: 1px solid #CCC;
+}
+
+.custom-list-item .gwt-Label.gwt-Label {
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#datasourceInfoBox .custom-list-item {
+  background-color: transparent;
+}
+
+.combo-arrow {
+  padding: 4px;
+  background: none;
+  border: 0 none;
+  cursor: pointer;
+  font-size: 0px;
+}
+
+.combo-arrow div {
+  background-image: url('images/arrow_down.png');
+  background-position: right center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 8px;
+  width: 12px;
+  font-size: 0px;
+}
+
+.custom-list-disabled {
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid #CCC;
+  background-color: #ebebe4;
+}
+
+.combo-arrow-disabled {
+  padding: 4px;
+  background: none;
+  border: 0 none;
+  font-size: 0px;
+}
+
+.combo-arrow-disabled div {
+  background-image: url('images/arrow_down_disabled.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 8px;
+  width: 10px;
+  font-size: 0px;
+}
+
+.drop-popup {
+  border: 1px solid #CCC;
+  margin-top: -2px;
+}
+
+#controller_panel {
+  border: 0;
+}
+
+/* report tab bg change  */
+.dj_contentbox .pentaho-page-background {
+  background: transparent;
+  background-color: #FFF;
+}
+
+/* report viewer  */
+.styled >* #reportControlPanel,
+#reportControlPanel {
+  max-height: 370px;
+  margin: 0px;
+  background-color: #FFFFFF;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #CCC;
+  border-left: 0px solid #FFF;
+  border-right: 0px solid #FFF;
+  width: 100%;
+}
+
+div.prompt-panel .pentaho-toggle-button-container {
+  margin: 2px 0;
+}
+
+.nonMobile.styled #reportControlPanel {
+  margin: 0px 0px 0px 0px;
+}
+
+div.prompt-panel .pentaho-toggle-button-container > DIV {
+  height: 30px;
+  padding: 3px;
+  display: inline-flex;
+}
+
+.wrapper_license_message {
+  padding: 20px;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+.license_message_content {
+  width: 300px;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  margin: 0 auto;
+  padding: 20px;  /*-webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.3);
+  box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.3);*/
+  background: url('images/warning-icon.png') no-repeat 15px center #FBEADC;
+}
+
+.invalidLicense {
+  padding: 10px 0;
+}
+
+.license_message_title {
+  font-size: 16px;
+  color: red;
+  padding: 0 0 10px 40px;
+}
+
+.license_message_text {
+  font-size: 14px;
+  color: #000;
+  padding: 0 0 0 40px;
+  margin: 0;
+}
+
+#file-input-form-container {
+  height: 20px;
+  margin: 0;
+  padding: 0 0 4px 0;
+}
+
+/* Data Source Wizard styles */
+#addFileButton {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.IE #selectAll,
+.IE #tempPreviewButton,
+.IE #preview,
+#selectAll,
+#tempPreviewButton,
+#preview{
+  padding: 4px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #ffffff;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); /* IE6-9 */
+  color: #1973BC;
+}
+
+.IE #selectAll:hover, .IE #selectAll:active,
+.IE #tempPreviewButton:hover, .IE #tempPreviewButton:active,
+.IE #preview:hover, .IE #preview:active,
+#selectAll:hover, #selectAll:active,
+#tempPreviewButton:hover, #tempPreviewButton:active,
+#preview:hover, #preview:active {
+  color: #0f2b5b;
+}
+
+.IE #createJoinButton,
+#createJoinButton {
+  padding: 0 0 2px 0px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #F8F8F8;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); /* IE6-9 */
+  color: #1973BC;
+}
+
+.IE #deleteJoinButton,
+#deleteJoinButton {
+  padding: 0 0 2px 0px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #F8F8F8;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); /* IE6-9 */
+  color: #1973BC;
+}
+
+#selectAll:hover,
+#tempPreviewButton:hover,
+#preview:hover,
+#createJoinButton:hover,
+#deleteJoinButton:hover {
+  text-decoration: underline;
+}
+
+#csvDeckPanel .custom-list-textbox,
+#datasourceName,
+#uploadedFile,
+.dataTable .gwt-HTML {
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  font-size: 14px;
+}
+
+#datasourceName {
+  margin-bottom: 10px;
+  padding: 0 10px;
+  line-height: 22px;
+  width: 206px !important;
+}
+
+#uploadedFile.xul-textbox {
+  height: 28px !important;
+  margin-right: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#queryDeckPanel .xul-label {
+  line-height: 28px;
+  margin-right: 3px;
+}
+
+#encodingTypeMenuList .custom-list-textbox {
+  padding: 3px 10px;
+}
+
+#previewLimit {
+  line-height: 22px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 30px !important;
+}
+
+span.gwt-RadioButton label {
+  top: -2px;
+  position: relative;
+}
+
+#otherRadio .gwt-TextBox {
+  padding: 0 10px;
+  line-height: 22px;
+  margin-top: -3px;
+}
+
+.caption .captionIcon {
+  display: inline-block;
+}
+
+/* Login page styles */
+#login-background {
+  height: 560px;
+  width: 373px;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+#login-logo {
+  background: url(images/logo.svg) no-repeat center center;
+  width: 100%;
+  height: 65px;
+}
+
+#login-title {
+  width: 373px;
+  white-space: nowrap;
+  font-size: 37px;
+  font-weight: 300;
+  font-style: normal;
+  font-family: OpenSansLight;
+  margin-top: 35px;
+}
+
+#login-input-container {
+  height: 155px;
+  top: 50%;
+  margin-top: -77px;
+  position: absolute;
+}
+
+#login input[type="text"],
+#login input[type="password"] {
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  padding: 8px 12px;
+  margin-bottom: 17px;
+  width: 100%;
+  line-height: 21px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: auto;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+#login .input-container {
+  display: block;
+}
+
+#login .input-container label {
+  color: #414141;
+}
+
+#login .input-container:last-child label {
+  display: none;
+}
+
+#login .input-container button,
+#login .input-container button:link,
+#login .input-container button:visited,
+#login .input-container button:hover,
+#login .input-container button:active,
+#login .input-container button:focus {
+  margin-top: 3px;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  border: 0 none;
+  padding: 8px 12px;
+  line-height: 21px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: auto;
+  color: #FFF;
+  background: ${MAINCOLOR};
+  filter: none;
+}
+
+#login .input-container button:hover,
+#login .input-container button:active,
+#login .input-container button:focus {
+  color: #FFF;
+  background: ${SECONDCOLOR};
+  filter: none;
+}
+
+#login-form-container {
+  width: 250px;
+  margin: 45px auto;
+}
+
+#login-footer-wrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 13px;
+  color: #666666;
+}
+
+#login,
+#animate-wrapper > h1 {
+  white-space: nowrap;
+}
+
+#evaluationPanel {
+  position: relative;
+  display: none;
+}
+
+.IE8 #evaluationPanel {
+  display: none;
+}
+
+#evaluationPanel.afterSlide {
+  display: block;
+}
+
+.IE8 #evaluationPanel.afterSlide {
+  display: block;
+}
+
+.role-business-user-panel,
+.role-admin-panel {
+  background: #478AC1;
+  border: 1px solid #669ECC;
+  border-radius: 4px;
+  color: #FFF;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+}
+
+.login-role {
+  font-size: 14px;
+  color: #414141;
+  border-bottom: 1px solid #CCCCCC;
+  text-align: center;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+#evaluationPanel button.btn,
+#evaluationPanel button.btn:link,
+#evaluationPanel button.btn:visited,
+#evaluationPanel button.btn:active,
+#evaluationPanel button.btn:focus {
+  margin-top: 5px;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  border: 0 none;
+  padding: 8px 20px;
+  line-height: 21px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: auto;
+  color: #FFF;
+  background: ${MAINCOLOR};
+  filter: none;
+}
+
+#evaluationPanel button.btn:hover {
+  background: ${SECONDCOLOR};
+}
+
+#evaluationPanel .btn {
+}
+
+#loginError,
+#systemDown {
+  width: 520px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin: 0 auto;
+}
+
+#eval-arrow {
+  height: 12px;
+  width: 18px;
+  background: url(images/pentaho_dropdown_arrow_white.png) center center no-repeat;
+  -webkit-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+#eval-arrow.closed {
+  -webkit-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -o-transform: rotate(0);
+  transform: rotate(0);
+}
+
+/* end Login page styles */
+.custom-dropdown-arrow {
+  background-image: url('../images/dropdown_arrow_gray.png');
+  background-repeat: no-repeat;
+  height: 11px;
+  width: 17px;
+}
+
+.custom-dropdown-arrow.custom-dropdown-pressed {
+  background-image: url('../images/dropdown_arrow_blue.png');
+}
+
+.custom-dropdown-arrow.small {
+  background-image: url('../images/arrow-dark-small.png');
+  background-repeat: no-repeat;
+  height: 8px;
+  width: 12px;
+}
+
+.custom-dropdown-arrow.small.custom-dropdown-pressed {
+  background-image: url('../images/arrow-light-small.png');
+}
+
+.custom-list-item-hover {
+  background-color: #CCCCCC;
+}
+
+.custom-list-item-hover .gwt-Label {
+  color: #414141;
+}
+
+.custom-list-item-selected {
+  background-color: ${MAINCOLOR};
+}
+
+.custom-list-item-selected .gwt-Label {
+  color: #FFFFFF;
+}
+
+.objectlist a:hover {
+  background: #CCCCCC;
+  color: #414141;
+}
+
+.objectlist-selected a {
+  cursor: pointer;
+  background-color: ${MAINCOLOR};
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #FFF;
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.objectlist-selected a:hover {
+  color: #FFF;
+  background-color: ${MAINCOLOR};
+}
+
+#launch-widget-body {
+  background-color: #F8F8F8;
+}
+
+/* analyzer disclosure panel arrow */
+.tundra .pentaho-titled-toolbar .dijitArrowNode {
+  background-image: url('../images/disclosure_open.png');
+}
+
+.tundra .pentaho-titled-toolbar.dijitClosed .dijitArrowNode {
+  background-image: url('../images/disclosure_close.png');
+}
+
+.pc_pageControlContainer,
+.dijitToolbar .pc_pageControlContainer {
+  padding: 0px 1px 0px 1px;
+  height: auto;
+  vertical-align: middle;
+}
+
+.indicator {
+  background-image: url("images/dropIndicator.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.indicator .indicatorLine {
+  background-color: #1973bc;
+}
+
+#standardDialog #dialogMessageBar .dlgInfo {
+  background: url(images/info.png) no-repeat;
+}
+
+/* Analyzer drag and drop indicators */
+.dnd-indicator-horizontal-left {
+  background: url(images/dnd_left_arrow.png) no-repeat;
+}
+
+.dnd-indicator-horizontal-line {
+  background: url(images/dnd_horz_line.png) repeat-x;  /* width will be set inline by javascript to be dynamic */
+}
+
+.dnd-indicator-horizontal-right {
+  background: url(images/dnd_right_arrow.png) no-repeat;
+}
+
+.dnd-indicator-vertical-top {
+  background: url(images/dnd_top_arrow.png);
+}
+
+.dnd-indicator-vertical-line {
+  background: url(images/dnd_vert_line.png) repeat-y;  /* height will be set inline by javascript to be dynamic */
+}
+
+.dnd-indicator-vertical-bottom {
+  background: url(images/dnd_bottom_arrow.png);
+}
+
+/* PIR drag and drop indicators */
+.dropActiveHorizontal {
+  background: transparent url(images/group_line_bg_active.png) repeat-x;
+}
+
+.dropActiveVertical {
+  background: transparent url(images/col_line_bg_active.png) repeat-y;
+}
+
+.dropHiliteHorizontal {
+  background: transparent url(images/group_line_bg_aadditional.png) repeat-x;
+}
+
+.dropHiliteVertical {
+  background: transparent url(images/col_line_bg_additional.png) repeat-y;
+}
+
+.dropLeftArrow {
+  background: transparent url(images/left_arrow.png);
+}
+
+.dropRightArrow {
+  background: transparent url(images/right_arrow.png);
+}
+
+.dropTopArrow {
+  background: transparent url(images/top_arrow.png);
+}
+
+.dropBottomArrow {
+  background: transparent url(images/bottom_arrow.png);
+}
+
+/*
+ * Toolbar buttons
+ */
+.pentaho-smallmeasurebutton {
+  width: 16px;
+  height: 16px;
+  background-image: url("images/gemBar_measure.png");
+}
+
+.pentaho-smalldimensionbutton {
+  background-image: url("images/sm_dim_icon.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-smallhierarchybutton {
+  background-image: url("images/sm_hierarchy_icon.png");
+  width: 13px;
+  height: 13px;
+}
+
+.pentaho-smalllevelbutton {
+  background-image: url("images/gemBar_level.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-smallmemberpropbutton {
+  background-image: url("images/sm_member_prop_icon.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-smallcategorybutton {
+  background-image: url("images/folder_16.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-fieldbutton {
+  background-image: url("images/list_16.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-autopopulatebutton {
+  background-image: url("images/auto_model.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-addfieldbutton {
+  background-image: url("images/add_to_model.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-refreshbutton {
+  background-image: url("../images/refresh.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-helpbutton {
+  background-image: url("../images/help_link.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-clearmodelbutton {
+  background-image: url("images/clear_model_16.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-smallremovebutton {
+  background-image: url("images/remove16x16.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-expandallbutton {
+  background-image: url("images/ExpandAll.png");
+  width: 15px;
+  height: 15px;
+}
+
+.pentaho-collapseallbutton {
+  background-image: url("images/CollapseAll.png");
+  width: 15px;
+  height: 15px;
+}
+
+.penatho-smalleditbutton {
+  background-image: url("images/edit_16.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-warningbutton {
+  background-image: url("../images/warning.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-updatebutton {
+  background-image: url("images/edit_22.png");
+  width: 22px;
+  height: 22px;
+}
+
+.pentaho-smallmodelbutton {
+  background-image: url("../images/sm_model_icon.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-column {
+  background-image: url("images/column.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-updatebutton.pentaho-imagebutton-disabled {
+  background-image: url("../images/updateDisabled.png");
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-movearrowbutton {
+  background-image: url("images/accum_add.png");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-movearrowbackbutton {
+  background-image: url("images/accum_remove.png");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+}
+
+.pentaho-chevron {
+  background-image: url("images/16x16_right.png");
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  background-position: 0px 2px;
+}
+
+.pentaho-filechooseupbutton {
+  background-image: url("images/up.png");
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  padding: 4px;
+  background-repeat: no-repeat;
+  background-position: 2px 4px;
+}
+
+.IE #browse-properties-dialog {
+  height: 500px;
+}
+
+.IE #browse-properties-dialog>div>table {
+  height: 465px !important;
+}
+
+.IE #browse-properties-dialog .dialogContent {
+  position: relative;
+}
+
+.IE #browse-properties-dialog .pentaho-tab-panel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: auto !important;
+}
+
+.reportMain .trashcan {
+  background: url('images/trashcan.png') no-repeat 4px 2px;
+}
+
+.reportMain .trashActive {
+  background: url('images/trashcan_full.png') no-repeat 4px 2px;
+}
+
+/* analyzer icons  */
+.gem-bar-level {
+  background: url('images/gemBar_level.png') no-repeat;
+  height: 16px;
+  width: 16px;
+}
+
+.gem-bar-measure {
+  background: url('images/gemBar_measure.png') no-repeat;
+  height: 16px;
+  width: 16px;
+}
+
+.gem-bar-filter {
+  background: url('images/gemBar_filter.png') no-repeat;
+  width: 35px;
+}
+
+.pentaho-undobutton {
+  background: url('images/undo.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.pentaho-undobutton.disabled,
+.pentaho-undobutton.pentaho-imagebutton-disabled {
+  background: url('images/undo_disable.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.pentaho-redobutton.disabled,
+.pentaho-redobutton.pentaho-imagebutton-disabled {
+  background: url('images/redo-disabled.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.pentaho-redobutton {
+  background: url('images/redo.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.field-panel-icon {
+  background: url('images/field_panel.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.field-layout-icon {
+  background: url('images/layoutpanel.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.pentaho-filterbutton {
+  background: url('images/filter.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.auto-refresh-icon {
+  background: url('images/autoRefresh.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.more-menu-icon {
+  background: url('images/more_menu.png') no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.show-pivot-icon {
+  background: url('images/btn_table.png') no-repeat;
+  width: 22px;
+  height: 22px;
+  border: 1px solid transparent;
+}
+
+.show-chart-icon {
+  background: url('images/btn_chart.png') no-repeat;
+  width: 22px;
+  height: 22px;
+  border: 1px solid transparent;
+}
+
+.textfield-icon {
+  background: url('images/prompt_controls/textfield.png') no-repeat;
+  width: 32px;
+  height: 32px;
+}
+
+.format-wrapper .textfield-icon {
+  background-position: -4px -4px;
+  width: 24px;
+  height: 24px;
+}
+
+#arrow-menu,
+.arrow-menu-icon {
+  background: url('images/arrow_menu.png') no-repeat;
+}
+
+.tundra .pentaho-titled-toolbar.dijitClosed .dijitArrowNode,
+.filterPaneToggle {
+  background: url('images/arrow_closed.png') no-repeat;
+}
+
+.tundra .pentaho-titled-toolbar .dijitArrowNode,
+.filterSummary .hide {
+  background: url('images/arrow_open.png') no-repeat center left;
+}
+
+.fieldListTree .folder {
+  padding-left: 15px;
+}
+
+.folderClose {
+  background: url('images/arrow_closed.png') no-repeat;
+}
+
+.folderOpen {
+  background: url('images/arrow_open.png') no-repeat;
+}
+
+.helpIcon {
+  background: url('images/help_link.png') no-repeat;
+}
+
+/* ---------- PIR icons ----------  */
+.tundra .dijitEditorIcon.dijitEditorIconUndo {
+  background: url('images/undo.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitDisabled .dijitEditorIconUndo {
+  background: url('images/undo_disable.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconRedo {
+  background: url('images/redo.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitDisabled .dijitEditorIconRedo {
+  background: url('images/redo-disabled.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitEditorIconIndent {
+  background-image: url(images/busy_thin.gif);
+  background-size: contain;
+  background-position: 0;
+  height: 22px;
+  width: 22px;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconBold {
+  background: url('images/bold.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconBold {
+  background: url('images/bold_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconItalic {
+  background: url('images/italic.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconItalic {
+  background: url('images/italic_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconForeColor {
+  background: url('images/font_color.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconForeColor {
+  background: url('images/font_color_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconBackColor {
+  background: url('images/back_color.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconBackColor {
+  background: url('images/back_color_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconCopy {
+  background: url('images/copy_format.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconCopy {
+  background: url('images/copy_format_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconPaste {
+  background: url('images/paste_format.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconPaste {
+  background: url('images/paste_format_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconDelete {
+  background: url('images/remove_format.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconDelete {
+  background: url('images/remove_format_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconJustifyLeft {
+  background: url('images/align_left.png') no-repeat;
+}
+
+.tundra .dijitDisabled  .dijitEditorIconJustifyLeft {
+  background: url('images/align_left_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconJustifyCenter {
+  background: url('images/align_center.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconJustifyCenter {
+  background: url('images/align_center_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconJustifyRight {
+  background: url('images/align_right.png') no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconJustifyRight {
+  background: url('images/align_right_disabled.png') no-repeat;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconSelectAll {
+  background: url('images/select_all.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconFilter {
+  background: url('images/filter.png');
+  width: 22px;
+  height: 22px;
+}
+
+.tundra .dijitEditorIcon.dijitEditorIconCut {
+  background: url('images/layoutpanel.png');
+  width: 22px;
+  height: 22px;
+}
+
+.filterIndicatorBackground_1 {
+  background: url("images/filter_indicators/num_filter_bg_1.png") no-repeat;
+}
+
+.filterIndicatorBackground_2 {
+  background: url("images/filter_indicators/num_filter_bg_2.png") no-repeat;
+}
+
+.filterIndicatorBackground_3 {
+  background: url("images/filter_indicators/num_filter_bg_3.png") no-repeat;
+}
+
+.filterIndicatorBackground_4 {
+  background: url("images/filter_indicators/num_filter_bg_4.png") no-repeat;
+}
+
+.filterIndicatorBackground_5 {
+  background: url("images/filter_indicators/num_filter_bg_5.png") no-repeat;
+}
+
+.filterIndicatorBackground_6 {
+  background: url("images/filter_indicators/num_filter_bg_6.png") no-repeat;
+}
+
+.filterIndicatorBackground_7 {
+  background: url("images/filter_indicators/num_filter_bg_7.png") no-repeat;
+}
+
+.filterIndicatorBackground_8 {
+  background: url("images/filter_indicators/num_filter_bg_8.png") no-repeat;
+}
+
+.filterIndicatorBackground_9 {
+  background: url("images/filter_indicators/num_filter_bg_9.png") no-repeat;
+}
+
+.filterIndicatorBackground_9_plus {
+  background: url("images/filter_indicators/num_filter_bg_9p.png") no-repeat;
+}
+
+.tundra .dijitDisabled .dijitEditorIconIndent {
+  background-image: url("images/indicator_circle_ball_stop.png");
+  background-position: 0;
+  height: 20px;
+  width: 20px;
+  margin: 1px;
+}
+
+.pentaho_dijitEditorIconExport {
+  background: url('images/file_export.png') no-repeat;
+  height: 22px;
+  width: 22px;
+}
+
+.dijitTooltipBelow .dijitTooltipConnector {
+  background: url("images/connector_top.png") no-repeat top left;
+  display: none;
+}
+
+.closeIcon {
+  background: url('images/closeTab_off.png') no-repeat top left;
+}
+
+.closeIcon:hover {
+  background: url('images/closeTab_active.png')no-repeat top left;
+}
+
+.tundra .dijitTooltipContainer .pentaho-tabWidget {
+  padding: 2px 8px;
+}
+
+.pc_pagePrev,
+.dijitToolbar .pc_pagePrev {
+  background: url('images/page_back.png') no-repeat !important;
+  background-position: 1px 3px !important;
+  height: 22px;
+  width: 22px;
+}
+
+.pc_pagePrevDisabled,
+.dijitToolbar .pc_pagePrevDisabled {
+  background: url('images/page_back_disabled.png') no-repeat !important;
+  background-position: 1px 3px !important;
+  height: 22px;
+  width: 22px;
+}
+
+.pc_pageNext,
+.dijitToolbar .pc_pageNext {
+  background: url('images/page_forward.png') no-repeat !important;
+  background-position: 1px 3px !important;
+  height: 22px;
+  width: 22px;
+}
+
+.pc_pageNextDisabled,
+.dijitToolbar .pc_pageNextDisabled {
+  background: url('images/page_forward_disabled.png') no-repeat !important;
+  background-position: 1px 3px !important;
+  height: 22px;
+  width: 22px;
+}
+
+.pentaho-optionsbutton {
+  background: url('images/options.png') no-repeat !important;
+  background-position: center !important;
+  height: 22px;
+  width: 22px;
+  padding: 2px;
+  border: 1px solid transparent;
+}
+
+.pentaho-optionsdatasourcebutton {
+  width: 32px;
+  height: 32px;
+  background: url('images/options.png') no-repeat center;
+  cursor: pointer;
+}
+
+.dijitEditorIconParameters,
+.dijitToolbar .dijitEditorIconParameters {
+  background: url('images/list_22x22.png') no-repeat !important;
+  height: 22px !important;
+  width: 22px !important;
+}
+
+.dijitEditorIconParameters,
+.dijitToolbar .dijitEditorIconRefresh {
+  background: url('images/refresh_report.png') no-repeat !important;
+  height: 22px !important;
+  width: 22px !important;
+}
+
+.tundra .dijitToolbar .dijitButtonChecked,
+.tundra .dijitToolbar .dijitToggleButtonChecked,
+.tundra .dijitToolbar#toolbar .dijitButtonChecked,
+.tundra .dijitToolbar#toolbar .dijitToggleButtonChecked {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid ${MAINCOLOR};
+}
+
+.tundra .dijitToolbar .dijitButtonHover,
+.tundra .dijitToolbar .dijitToggleButtonHover,
+.tundra .dijitToolbar .dijitDropDownButtonHover,
+.tundra .dijitToolbar .dijitComboButton .dijitButtonContentsHover,
+.tundra .dijitToolbar .dijitComboButton .dijitDownArrowButtonHover,
+.tundra .dijitToolbar#toolbar .dijitButtonHover,
+.tundra .dijitToolbar#toolbar .dijitToggleButtonHover,
+.tundra .dijitToolbar#toolbar .dijitDropDownButtonHover,
+.tundra .dijitToolbar#toolbar .dijitComboButton .dijitButtonContentsHover,
+.tundra .dijitToolbar#toolbar .dijitComboButton .dijitDownArrowButtonHover {
+
+  /* TODO: change this from Hover to Selected so that button is still highlighted while drop down is being used */
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid ${MAINCOLOR};
+}
+
+.pentaho-datasourcebutton {
+  background: url('images/database.png') no-repeat;
+}
+
+#toolbar2a {
+  background-color: #FFF;
+}
+
+.pageSetupDialogLandscape {
+  background: url('images/landscape_off.png') no-repeat;
+}
+
+.pageSetupDialogLandscape:hover {
+  background-image: url(images/landscape_on.png);
+}
+
+.pageSetupDialogLandscapeSelected {
+  background: url('images/landscape_on.png') no-repeat;
+}
+
+.pageSetupDialogPortrait {
+  background: url('images/portrait_off.png') no-repeat;
+}
+
+.pageSetupDialogPortrait:hover {
+  background-image: url(images/portrait_on.png);
+}
+
+.pageSetupDialogPortraitSelected {
+  background: url('images/portrait_on.png') no-repeat;
+}
+
+/* ----------  data access ----------  */
+.pentaho-exportbutton {
+  background: url('images/file_export.png') no-repeat;
+}
+
+.pentaho-exportbutton.pentaho-imagebutton-disabled {
+  background: url('images/export_disabled.png') no-repeat;
+}
+
+.pentaho-addcombobutton {
+  background: url('images/add_combo.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableEditSelected img.disabled-image-button-pressed,
+#filterTypeDeck #staticSelectionTableEditSelected img.disabled-image-button-over,
+#filterTypeDeck #staticSelectionTableEditSelected img.disabled-image-button,
+#editPovContainerPanel #povTableEditSelected img.disabled-image-button-pressed,
+#editPovContainerPanel #povTableEditSelected img.disabled-image-button-over,
+#editPovContainerPanel #povTableEditSelected img.disabled-image-button {
+  background: url('images/edit_16_disabled.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableEditSelected img.image-button-pressed,
+#filterTypeDeck #staticSelectionTableEditSelected img.image-button-over,
+#filterTypeDeck #staticSelectionTableEditSelected img.image-button,
+#editPovContainerPanel #povTableEditSelected img.image-button-pressed,
+#editPovContainerPanel #povTableEditSelected img.image-button-over,
+#editPovContainerPanel #povTableEditSelected img.image-button {
+  background: url('images/edit_16.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableAdd img.image-button-pressed,
+#filterTypeDeck #staticSelectionTableAdd img.image-button-over,
+#filterTypeDeck #staticSelectionTableAdd img.image-button,
+#editPovContainerPanel #povTableAdd img.image-button-pressed,
+#editPovContainerPanel #povTableAdd img.image-button-over,
+#editPovContainerPanel #povTableAdd img.image-button {
+  background: url('images/add_16.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableRemoveSelected img.image-button-pressed,
+#filterTypeDeck #staticSelectionTableRemoveSelected img.image-button-over,
+#filterTypeDeck #staticSelectionTableRemoveSelected img.image-button,
+#editPovContainerPanel #povTableRemoveSelected img.image-button-pressed,
+#editPovContainerPanel #povTableRemoveSelected img.image-button-over,
+#editPovContainerPanel #povTableRemoveSelected img.image-button {
+  background: url('images/remove_16.png') no-repeat;
+}
+
+#standardDialog .filterConditionDelete {
+  background: url('images/remove_16.png') no-repeat;
+  background-position: center;
+}
+
+#filterTypeDeck #staticSelectionTableRemoveSelected img.disabled-image-button-pressed,
+#filterTypeDeck #staticSelectionTableRemoveSelected img.disabled-image-button-over,
+#filterTypeDeck #staticSelectionTableRemoveSelected img.disabled-image-button,
+#editPovContainerPanel #povTableRemoveSelected img.disabled-image-button-pressed,
+#editPovContainerPanel #povTableRemoveSelected img.disabled-image-button-over,
+#editPovContainerPanel #povTableRemoveSelected img.disabled-image-button {
+  background: url('images/remove_16_disabled.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.disabled-image-button-pressed,
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.disabled-image-button-over,
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.disabled-image-button,
+#editPovContainerPanel #povTableMoveSelectedDown img.disabled-image-button-pressed,
+#editPovContainerPanel #povTableMoveSelectedDown img.disabled-image-button-over,
+#editPovContainerPanel #povTableMoveSelectedDown img.disabled-image-button {
+  background: url('images/16x16_down_disabled.png') no-repeat;
+}
+
+#editPovContainerPanel #povTableMoveSelectedDown img.image-button-pressed,
+#editPovContainerPanel #povTableMoveSelectedDown img.image-button-over,
+#editPovContainerPanel #povTableMoveSelectedDown img.image-button,
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.image-button-pressed,
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.image-button-over,
+#filterTypeDeck #staticSelectionTableMoveSelectedDown img.image-button {
+  background: url('images/16x16_down.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.disabled-image-button-pressed,
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.disabled-image-button-over,
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.disabled-image-button,
+#editPovContainerPanel #povTableMoveSelectedUp img.disabled-image-button-pressed,
+#editPovContainerPanel #povTableMoveSelectedUp img.disabled-image-button-over,
+#editPovContainerPanel #povTableMoveSelectedUp img.disabled-image-button {
+  background: url('images/16x16-up_disabled.png') no-repeat;
+}
+
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.image-button-pressed,
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.image-button-over,
+#filterTypeDeck #staticSelectionTableMoveSelectedUp img.image-button,
+#editPovContainerPanel #povTableMoveSelectedUp img.image-button-pressed,
+#editPovContainerPanel #povTableMoveSelectedUp img.image-button-over,
+#editPovContainerPanel #povTableMoveSelectedUp img.image-button {
+  background: url('images/16x16-up.png') no-repeat;
+}
+
+#schemaNameLabel,
+#uploadFileLabel {
+  border: 1px solid #CCC;
+  vertical-align: middle;
+  height: 18px !important;
+  width: 365px !important;
+  overflow: hidden;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+#propertiesPanelTitle {
+  width: 200px !important;
+  height: 25px !important;
+}
+
+#propertiesPanelRefreshPeriod {
+  width: 30px !important;
+  height: 25px !important;
+}
+
+.flag {
+  background: transparent url('images/flag-right.png') no-repeat scroll top right;
+}
+
+#toppanelinner {
+  padding: 0 4px 0 0;
+}
+
+.trashcan {
+  background: url('images/trashcan.png') no-repeat;
+}
+
+#datasource-button-bar {
+  padding: 0 10px;
+}
+
+.trashcan:hover {
+  background: url('images/trashcan_full.png') no-repeat scroll;
+}
+
+.colorpickertabs.tabpanel {
+  padding: 0px;
+  height: 230px;
+  width: 222px;
+  display: block;
+  border: 1px solid #CCC;
+  background-color: #fff;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+#modelSelectDialog div.dijitSelect {
+  display: inline-table;
+  width: 345px !important;
+}
+
+div.listbox {
+  display: inline-table;
+  width: 345px !important;
+  height: 100px !important;
+  border: 1px solid #CCC;
+  margin: 0.2em;
+  border-collapse: collapse;
+}
+
+div.listbox .pentaho-listbox {
+  width: 345px !important;
+  height: 100px !important;
+}
+
+/* Dashboard prompt controls */
+#filterControlsGroupbox #dropDownFilterButton img.image-button-pressed,
+#filterControlsGroupbox #dropDownFilterButton img.image-button-over,
+#filterControlsGroupbox #dropDownFilterButton img.image-button {
+  background: url("images/prompt_controls/dropdown.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #dropDownFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #dropDownFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #dropDownFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/dropdown_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #listFilterButton img.image-button-pressed,
+#filterControlsGroupbox #listFilterButton img.image-button-over,
+#filterControlsGroupbox #listFilterButton img.image-button {
+  background: url("images/prompt_controls/list.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #listFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #listFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #listFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/list_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #radioFilterButton img.image-button-pressed,
+#filterControlsGroupbox #radioFilterButton img.image-button-over,
+#filterControlsGroupbox #radioFilterButton img.image-button {
+  background: url("images/prompt_controls/radio.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #radioFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #radioFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #radioFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/radio_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #checkboxFilterButton img.image-button-pressed,
+#filterControlsGroupbox #checkboxFilterButton img.image-button-over,
+#filterControlsGroupbox #checkboxFilterButton img.image-button {
+  background: url("images/prompt_controls/checkbox.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #checkboxFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #checkboxFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #checkboxFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/checkbox_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #buttonFilterButton img.image-button-pressed,
+#filterControlsGroupbox #buttonFilterButton img.image-button-over,
+#filterControlsGroupbox #buttonFilterButton img.image-button {
+  background: url("images/prompt_controls/button.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #buttonFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #buttonFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #buttonFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/button_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #textfieldFilterButton img.image-button-pressed,
+#filterControlsGroupbox #textfieldFilterButton img.image-button-over,
+#filterControlsGroupbox #textfieldFilterButton img.image-button {
+  background: url("images/prompt_controls/textfield.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #textfieldFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #textfieldFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #textfieldFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/textfield_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #datepickerFilterButton img.image-button-pressed,
+#filterControlsGroupbox #datepickerFilterButton img.image-button-over,
+#filterControlsGroupbox #datepickerFilterButton img.image-button {
+  background: url("images/prompt_controls/datepicker.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#filterControlsGroupbox #datepickerFilterButton img.disabled-image-button-pressed,
+#filterControlsGroupbox #datepickerFilterButton img.disabled-image-button-over,
+#filterControlsGroupbox #datepickerFilterButton img.disabled-image-button {
+  background: url("images/prompt_controls/datepicker_selected.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 32px;
+  width: 32px;
+}
+
+#stepsPanel {
+  border-right: 0px solid black;
+  background-image: url(images/bg_steps.png);
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* instaview fiel type icon? */
+.pentaho-selectlist-item-data {
+  background-image: url("images/database.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 22px;
+}
+
+/* layout anel gem styling */
+.gem {
+  height: 17px;
+  border-radius: 0px;
+  padding: 1px 5px;
+  margin-bottom: 4px;
+  min-width: 120px;
+  background: #FDF296;
+  border: 1px solid #D6B225;
+}
+
+.IE .gem {
+  background: #FDF296;
+}
+
+.IE .propPanel_gemBar.number .gem {
+  background: #DDF4FC;
+}
+
+.propPanel_gemBar {
+  background: #F8F8F8;
+  border: 0px;
+}
+
+.propPanel_gemBar.number .gem {
+  background: #DDF4FC;
+  border: 1px solid #7EC9F2;
+}
+
+.propPanel_gemBar.number .gem.over {
+  background: #E6EFF6;
+  border: 1px solid #8ac06e;
+  -moz-box-shadow: #F2FBE8 0px 0px 1px 1px inset;
+  -webkit-box-shadow: #F2FBE8 0px 0px 1px 1px inset;
+}
+
+.gem.over {
+  background: #CBEFA3;
+  border: 1px solid #87DF27;
+  -moz-box-shadow: #F2FBE8 0px 0px 1px 1px inset;
+  -webkit-box-shadow: #F2FBE8 0px 0px 1px 1px inset;
+}
+
+.gem .gemMenuHandle {
+  float: right;
+  background-image: url('images/16x16_down.png');
+}
+
+.gem.over .gemMenuHandle {
+  background-image: url('images/16x16_down.png');
+}
+
+.gem.over .gemMenuHandle.over {
+  background-image: url('images/16x16_down.png');
+}
+
+#fieldListTree .gem .gemMenuHandle {
+  float: right;
+  background-image: url('images/16x16_down_white.png');
+}
+
+#fieldListTree .gem.over .gemMenuHandle {
+  background-image: url('images/16x16_down_white.png');
+}
+
+#fieldListTree .gem.over .gemMenuHandle.over {
+  background-image: url('images/16x16_down_white.png');
+}
+
+#getting-started-message-content #title {
+  font-size: 22px;
+  color: #414141;
+  font-family: opensanslight;
+  line-height: 30px;
+  padding-bottom: 10px;
+  width: 300px;
+}
+
+#getting-started-message-content #message {
+  font-size: 14px;
+  line-height: 20px;
+  width: 300px;
+}
+
+#getting-started-message-content #sub-messages {
+  left: 15px;
+}
+
+.welcome-img {
+  padding: 0 10px 0 0;
+}
+
+#video-container {
+  padding: 4px 4px 0 0;
+}
+
+#getting-started .card {
+  display: block;
+  border-top: 0px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid transparent;
+  padding: 10px;
+  padding-top: 14px;
+}
+
+#launch-widget .card {
+  border-bottom: 0px solid transparent;
+  border-left: 1px solid transparent;
+  border-top: 1px solid #CCC;
+  border-right: 1px solid transparent;
+  padding: 10px;
+  padding-top: 14px;
+}
+
+#launch-widget .tutorial-card {
+  width: 300px;
+}
+
+#launch-widget .sample-card {
+  width: 500px;
+}
+
+#launch-widget .selected {
+  background-color: #FFF;
+  border-bottom: 4px solid ${MAINCOLOR};
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #CCC;
+  padding-top: 10px;
+}
+
+#getting-started .selected {
+  background-color: #FFF;
+  border-top: 4px solid ${MAINCOLOR};
+  border-bottom: 1px solid #CCC;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #CCC;
+  padding-top: 10px;
+}
+
+#getting-started .card-img,
+#launch-widget .card-img {
+  width: 150px;
+  height: 100px;
+}
+
+#getting-started .selector-column {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 190px;
+  height: 381px;
+}
+
+#launch-widget .horizontal-selector {
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: absolute;
+  bottom: 0;
+}
+
+#getting-started .vertical-selector {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+#launch-widget .horizontal-selector,
+#getting-started .vertical-selector {
+  background-color: #F8F8F8;
+  padding: 0px;
+  font-size: 12px;
+  border-top: 0px solid #CCC;
+}
+
+#launch-widget.widget-panel .tab-content {
+  padding-left: 0px;
+}
+
+#getting-started #tab2 .details-img {
+  width: 644px;
+  height: 299px;
+  position: absolute;
+  bottom: 4px;
+}
+
+#getting-started #tab3 .details-img {
+  width: 644px;
+  height: 299px;
+  position: absolute;
+  bottom: 8px;
+}
+
+#getting-started .details-content {
+  width: 400px;
+}
+
+.details-content {
+  padding: 20px 0 0 20px;
+}
+
+#getting-started .detail-title {
+  padding: 0 0 20px 0;
+}
+
+#launch-widget .detail-title {
+  padding: 0 0 10px 0;
+}
+
+.detail-title {
+  font-family: OpenSansLight, Helvetica, Arial, Sans serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: #414141;
+}
+
+.detail-description {
+  padding: 0 0 20px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+#getting-started .detail-description {
+  font-size: 16px;
+  line-height: 22px;
+  display: none;
+}
+
+#getting-started .button-container {
+  position: absolute;
+  z-index: 1;
+  top: 200px;
+  left: 250px;
+}
+
+#getting-started-media-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#getting-started .pentaho-button {
+  font-size: 14px;
+  padding-right: 35px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  background: ${MAINCOLOR} url("images/open_new_window.png") no-repeat right 15px center;
+  border-radius: 4px;
+  width: 220px;
+  color: #FFF;
+}
+
+#getting-started #tab2 .pentaho-button {
+  width: 140px;
+  margin-left: 35px;
+}
+
+#getting-started .pentaho-button:hover {
+  background-color: ${SECONDCOLOR};
+  border-color: ${SECONDCOLOR};
+}
+
+#launch-widget #sample-container {
+  height: 462px;
+  padding: 0 20px;
+}
+
+#sample-sub-container {
+  border: 1px solid #CCC;
+  width: 100%;
+  height: 100%;
+}
+
+#launch-widget .detail-title {
+  padding: 0 0 10px 0;
+}
+
+#launch-widget .tab-pane {
+  height: 1000px;
+}
+
+#launch-widget #tab1,
+#launch-widget #tab2,
+#launch-widget #tab3 {
+  height: 760px;
+  position: relative;
+}
+
+#getting-started #welcome-video {
+  padding: 31px 0 0 0;
+}
+
+#launch-widget #welcome-video {
+  padding: 98px 0 0 0;
+}
+
+#launch-widget #sample {
+  height: 480px;
+}
+
+#launch-widget-container.main-container {
+  padding-top: 0px;
+}
+
+#launch-widget {
+  padding-top: 0px;
+}
+
+#launch-widget-title-row-span {
+  padding: 0 19px;
+}
+
+#launch-widget-title-row #logo {
+  background-image: url('../images/logo.png');
+  width: 185px;
+  height: 50px;
+  float: right;
+  margin: 10px 0;
+}
+
+#launch-widget-title-row #launch-widget-title {
+  float: left;
+  margin-top: 25px;
+}
+
+.file-unknown {
+  background: url("images/file_generic_32.png");
+}
+
+.file-url {
+  background: url("images/file_url_32.png");
+}
+
+#eval-users-toggle {
+  font-size: 14px;
+  color: #414141;
+  margin-top: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-align: center;
+}
+
+#eval-users-toggle > div {
+  display: inline-block;
+}
+
+.resize-wrapper-top,
+.resize-wrapper-inner {
+  background: #144b64;
+}
+
+.icon-table {
+  height: 16px;
+  width: 16px;
+  background: url("images/table.png");
+}
+
+.icon-fact-table {
+  height: 16px;
+  width: 16px;
+  background: url("images/table_fact.png");
+}
+
+.fileBrowserColumn .body .file .icon.cda,
+.fileBrowserColumn .body .file .cda {
+  background: url("../images/cda_20.png") no-repeat;
+}
+
+.fileBrowserColumn .body .file .icon.wcdf,
+.fileBrowserColumn .body .file .wcdf {
+  background: url("../images/cde_20.png") no-repeat;
+}
+
+.file-cda {
+  background: url("../images/cda_32.png") no-repeat;
+}
+
+.file-wcdf {
+  background: url("../images/cde_32.png") no-repeat;
+}
+
+/********** angular-directives **********/
+.bootstrap .accordion-wizard .accordion-title .accordion-heading-content {
+  color: #0088CC;
+}
+
+.bootstrap .accordion-wizard .summary-label {
+  color: #BBB;
+}
+
+.bootstrap .accordion-wizard .accordion-group {
+  background-color: #FFF;
+}
+
+.bootstrap .accordion-wizard .accordion-group.accordion-group-active {
+  background-color: #F8F8F8;
+}
+
+/********** /angular-directives **********/
+.dijitPopup.dijitCalendarPopup  .dijitCalendarContainer .dijitDownArrowButton .dijitArrowButtonInner {
+  background: url("images/16x16_down.png") no-repeat scroll center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.dijitPopup .dijitCalendarContainer .dijitCalendarIncrementControl.dijitCalendarDecrease {
+  background: url("images/16x16_left.png") no-repeat scroll center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.dijitPopup .dijitCalendarContainer .dijitCalendarIncrementControl.dijitCalendarIncrease {
+  background: url("images/16x16_right.png") no-repeat scroll center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.dijitPopup.dijitCalendarPopup .dijitCalendarContainer {
+  border: 2px solid #CCC;
+  background-color: #FFF;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.dijitCalendarContainer .dijitCalendarMonthContainer .dijitDropDownButton {
+  border: 1px solid #CCC;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 97%;
+  border-radius: 4px;
+}
+
+.dijitCalendarPopup.dijitPopup .dijitCalendarContainer * {
+  background-color: #FFFFFF;
+  background-image: none;
+}
+
+.dijitCalendarContainer .dijitCalendarSelectedDate,
+.dijitCalendarContainer .dijitCalendarSelectedDate .dijitCalendarDateLabel,
+.dijitCalendarContainer .dijitCalendarSelectedYear {
+  background-color: ${MAINCOLOR} !important;
+  color: #FFF;
+}
+
+.dijitCalendarMonthMenu.dijitMenu {
+  background-color: #FFF;
+  border: 2px solid #CCC;
+  border-top: none;
+}
+
+.dijitCalendarMonthMenu.dijitMenu .dijitCalendarMonthLabel,
+.dijitCalendarContainer .dijitDropDownButton .dijitButtonText,
+.dijitCalendarPopup.dijitPopup .dijitCalendarContainer {
+  font-family: OpenSansLight;
+  font-weight: normal;
+}
+
+.dijitCalendarMonthLabel.dijitCalendarCurrentMonthLabel {
+  font-weight: normal;
+}
+
+.dijitCalendarMonthMenu.dijitMenu .dijitCalendarMonthLabelHover {
+  background-color: ${MAINCOLOR};
+  color: #FFF;
+}
+
+.dijitCalendarMonthMenu.dijitMenu .dijitCalendarMonthLabelHover:active {
+  background-color: ${MAINCOLOR};
+}
+
+.dijitCalendarContainer .dijitCalendarDayLabelTemplate {
+  border-top: none;
+  color: #666;
+  padding-bottom: 10px
+}
+
+.dijitCalendarContainer .dijitCalendarYearLabel {
+  border-top: none;
+  margin-top: 10px;
+}
+
+.dijitCalendarContainer .dijitCalendarDateTemplate {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 1px;
+  padding-right: 1px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.dijitCalendarContainer [widgetid*=lookup_popup_mddb] {
+  position: relative;
+  left: -2px;
+}
+
+[id*=DP] .dijitDownArrowButton,
+div.dijitDateTextBox .dijitDownArrowButton {
+  height: 33px;
+  background-image: none !important;
+}
+
+[id*=DP] .dijitDownArrowButton input,
+div.dijitDateTextBox .dijitDownArrowButton input {
+  padding: 0px;
+}
+
+#widget_DP_range1_lookup,
+#widget_DP_range2_lookup,
+div.dijitDateTextBox {
+  width: 120px;
+}
+
+#date-picker-dlg-wrapper {
+  width: 100%;
+}
+
+.dialog-content #date-picker-dlg-wrapper .dijitComboBox .dijitArrowButton,
+div.dijitDateTextBox.dijitComboBox .dijitArrowButton {
+  border: none;
+  box-shadow: none;
+}
+
+#date-picker-dlg-wrapper .dijitComboBox {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#date-picker-dlg-wrapper #DP_range1,
+#date-picker-dlg-wrapper #DP_range2 {
+  text-align: center;
+}
+
+#DP_range1 #widget_DP_range1_lookup,
+div.dijitDateTextBox.dijitTextBox {
+  margin: auto;
+}
+
+#DP_range1_lookup,
+#DP_range2_lookup,
+div.dijitDateTextBox input.dijitInputInner[type='text'] {
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-left: 5px !important;
+  padding-bottom: 0px;
+  text-align: left;
+}
+
+#widget_DP_range1_lookup_dropdown,
+#widget_DP_range2_lookup_dropdown {
+  margin-top: 10px !important;
+  margin-left: -34px !important;
+}
+
+div.dijitPopup.dijitCalendarPopup {
+  margin-top: 3px !important;
+}
+
+#date-picker-dlg-wrapper .example-calendar {
+  width: 184px;
+  height: 191px;
+  background-image: url("images/calendar_example.png");
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+#widget_DP_range1_lookup .dijitArrowButtonInner,
+#widget_DP_range2_lookup .dijitArrowButtonInner,
+div.dijitDateTextBox .dijitArrowButtonInner {
+  background-image: url("images/calendar_icon.png") !important;
+}
+
+#widget_DP_range1_lookup,
+div.dijitDateTextBox.dijitTextBox {
+  border-color: #CCC;
+  background-image: none;
+}
+
+div#widget_pentaho_common_DateTextBox_0 {
+  margin-top: -3px;
+  display: inline-block;
+  overflow: hidden;
+  height: 31px;
+}
+
+div#widget_dijit_form_TextBox_1 {
+    border-radius: 4px;
+    margin-left: 5px;
+    background-image: none;
+}
+
+span#filterContextMenu {
+    font-size: 14px;
+}
+
+/*Angular Tree control directive*/
+[treecontrol] .treeControlView,
+treecontrol .treeControlView {
+  border: 1px solid #0088CC;
+  background-color: #FFFFFF;
+  height: 100%;
+  overflow: auto;
+}
+
+[treecontrol] .arrow-expanded,
+treecontrol .arrow-expanded {
+  padding: 1px 10px;
+  background: url("images/arrow_open.png") no-repeat;
+}
+
+[treecontrol] .arrow-collapsed,
+treecontrol .arrow-collapsed {
+  padding: 1px 10px;
+  background: url("images/arrow_closed.png") no-repeat;
+}
+
+[treecontrol] .blank,
+treecontrol .blank {
+  padding: 1px 10px;
+}
+
+/* classic tree css */
+[treecontrol].tree-classic li.tree-expanded i,
+treecontrol.tree-classic li.tree-expanded i {
+  padding: 1px 10px;
+  background: url('images/folder_open.png') no-repeat;
+  width: 22px;
+}
+
+[treecontrol].tree-classic li.tree-collapsed i,
+treecontrol.tree-classic li.tree-collapsed i {
+  padding: 1px 10px;
+  background: url("images/folder_closed.png") no-repeat;
+  width: 22px;
+}
+
+[treecontrol].tree-classic li.tree-normal i,
+treecontrol.tree-classic li.tree-normal i {
+  padding: 1px 10px;
+  background: url("images/file_generic.png") no-repeat;
+  width: 22px;
+}
+
+[treecontrol].tree-classic li .tree-selected,
+treecontrol.tree-classic li .tree-selected {
+  background-color: ${MAINCOLOR};
+}
+
+.bootstrap .pentaho-toggle .btn.toggle-on.active {
+}
+
+.bootstrap .pentaho-toggle .btn.toggle-on.inactive {
+  background-image: none;
+  background-color: #FFF;
+  color: #FFF;
+  text-shadow: none;
+}
+
+.bootstrap .pentaho-toggle .btn.toggle-off.active {
+  background-image: none;
+  background-color: #F8F8F8;
+  color: #000;
+  text-shadow: none;
+}
+
+.bootstrap .pentaho-toggle .btn.toggle-off.inactive {
+  background-image: none;
+  background-color: #FFF;
+  color: #FFF;
+  text-shadow: none;
+}
+
+.pentaho-calendar-icon,
+.angular-dojo.dateTimePicker .pentaho-dropdownbutton-outer {
+  padding: 6px;
+  background: none;
+  width: 16px;
+  border: none;
+  margin-left: 4px;
+}
+
+.angular-dojo.dateTimePicker .pentaho-dropdownbutton-inner {
+  background-image: url('images/calendar_icon.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 17px;
+  width: 16px;
+  font-size: 0px;
+}
+
+.angular-dojo.dateTimePicker .pentaho-dropdownbutton-inner.disabled {
+  background-image: url('images/calendar_icon_disabled.png');
+}
+
+.tundra .dijitDownArrowButton input[type='text'].dijitArrowButtonInner {
+  border: none;
+}
+
+.tundra table.dijitValidationTextBox .dijitButtonContents,
+.tundra table.dijitValidationTextBox .dijitArrowButtonInner {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.schedule-dialog-button-panel tr td button.pentaho-button {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.bootstrap DIV select {
+  border: 1px solid #CCC;
+  border-radius: 0px !important;
+  --webkit-box-shadow: none;
+  --moz-box-shadow: none;
+  box-shadow: none;
+}
+
+#standardDialog .dialogMessageBar span.dlgError {
+  background-image: url("images/no.png");
+  vertical-align: middle;
+  height: auto;
+  padding-left: 29px;
+  padding-top: 0px;
+  color: #333;
+  font-size: 13px;
+  overflow: hidden;
+  max-height: 57px;
+  line-height: 19px;
+}
+
+#standardDialog .dialogMessageBar {
+  margin-bottom: 10px;
+}
+
+#standardDialog #dialogMessageBar2 {
+  padding: 12px;
+  height: auto;
+  background-color: #fefde7;
+  border-color: #cacacb;
+  margin-top: 10px;
+}
+
+#sharePanelRemoveButton {
+  margin-left: 5px;
+}
+
+/* Folder tree styles */
+.leaf-widget {
+
+  /*font-size: 13px;*/
+}
+
+.leaf-widget .gwt-TreeItem > table {
+  color: #333;
+}
+
+.leaf-widget .gwt-TreeItem:hover > table {
+  background-color: #CCCCCC;
+  color: #414141;
+}
+
+.leaf-widget .gwt-TreeItem-selected > table,
+.leaf-widget .gwt-TreeItem-selected:hover > table {
+  background-color: ${MAINCOLOR};
+  color: #FFFFFF;
+}
+
+.leaf-widget .leaf-widget-hidden .gwt-TreeItem > table {
+  width: 100%;
+  opacity: .7;
+  font-style: italic;
+  background-color: #ffffff;
+}
+
+.leaf-widget .leaf-widget-hidden .gwt-TreeItem-selected > table {
+  width: 100%;
+  opacity: .7;
+  font-style: italic;
+  background-color: #dbdbdb;
+}
+
+.gwt-TreeItem:hover .icon-folder {
+  background: url(images/folder_16.png) no-repeat;
+}
+
+.gwt-TreeItem-selected:hover .icon-folder {
+  background: url(images/folder_16_white.png) no-repeat;
+}
+
+.gwt-TreeItem-selected .icon-folder {
+  background: url(images/folder_16_white.png) no-repeat;
+}
+
+.open > table .gwt-TreeItem-selected:hover .icon-folder {
+  background: url(images/folder_16-open.png) no-repeat;
+}
+
+.open > table .gwt-TreeItem-selected .icon-folder {
+  background: url(images/folder_16_white-open.png) no-repeat;
+}
+
+.open > table .gwt-TreeItem-selected:hover .icon-folder {
+  background: url(images/folder_16_white-open.png) no-repeat;
+}
+
+.gwt-TreeItem > table > tbody > tr > td:first-child {
+  padding-left: 5px;
+}
+
+.select-folder-tree {
+  height: 360px;
+  overflow: auto;
+  width: 380px;
+  border: 1px solid #CCC;
+  background-color: white;
+}
+
+#sidepanel #sidepaneltabset > div > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+#sidepanel #sidepaneltabset > div[tabid=datatab] > span {
+  max-width: 48px;
+}
+
+#sidepanel #sidepaneltabset > div[tabid=formattab] > span {
+  max-width: 80px;
+}
+
+#sidepanel #sidepaneltabset > div[tabid=generaltab] > span {
+  max-width: 62px;
+}
+
+.fieldListTree .attribute {
+  background: url('images/gemBar_level.png') no-repeat;
+}
+
+.fieldListTree .attribute:hover {
+  background: url('images/gemBar_level_white.png') no-repeat;
+}
+
+.fieldListTree .measure {
+  background: url('images/gemBar_measure.png') no-repeat;
+}
+
+.fieldListTree .measure:hover {
+  background: url('images/gemBar_measure_white.png') no-repeat;
+}
+
+/* styling for formatCombo */
+.dijitMenuItemHover {
+  background-color: ${MAINCOLOR};
+  color: #ffffff;
+}
+
+.dijitMenuItemSelected {
+  background-color: ${MAINCOLOR};
+  color: #ffffff;
+}
+
+.pentahoFormatCombo .dijitPlaceHolder {
+  padding-top: 8px;
+}
+
+.pentahoFormatCombo INPUT.dijitInputInner {
+  padding-left: 4px !important; /* only doing this to get past dojo's usage of !important */
+  height: 33px;
+}
+
+.dijitMenu.dijitComboBoxMenu {
+  background-color: #ffffff;
+  padding: 2px;
+}
+
+.dijitReset.dijitRight.dijitButtonNode.dijitArrowButton.dijitDownArrowButton.dijitArrowButtonContainer {
+  border-radius: 4px;
+  border-left: none;
+  width: 22px;
+}
+
+#DP_range1 #widget_DP_range1_lookup, 
+div.dijitDateTextBox.dijitTextBox .dijitReset.dijitRight.dijitButtonNode.dijitArrowButton.dijitDownArrowButton.dijitArrowButtonContainer {
+  background-color: ${MAINCOLOR};
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+}
+
+#DP_range1 #widget_DP_range1_lookup, 
+div.dijitDateTextBox.dijitTextBox .dijitReset.dijitRight.dijitButtonNode.dijitArrowButton.dijitDownArrowButton.dijitArrowButtonContainer input {
+  margin-left: 3px;
+  background: url(images/calendar-white.png) no-repeat !important;
+  margin-top: 8px;
+  height: 18px !important;
+}
+
+.tundra .pentahoFormatCombo.dijitComboBox,
+.tundra .pentahoFormatCombo.dijitComboBox .dijitButtonNode {
+  border-color: #CCC;
+  border-radius: 0;
+  background-color: #ffffff;
+}
+
+.tundra .pentahoFormatCombo.dijitTextBox {
+  background-image: none;
+  margin: 0px;
+}
+
+.tundra .pentahoFormatCombo.dijitComboBox .dijitArrowButton input[type='text'] {
+  border: none;
+}
+
+/* end styling for formatCombo */
+#datasourcesListTable > table {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+html.bootstrap .popover {
+  border-radius: 4px;
+  border: 1px solid #CCC;
+  background: #FFF;
+  -webkit-box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, .2);
+  box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, .2);
+}
+
+html.bootstrap .popover-content {
+  padding: 15px;
+}
+
+html.bootstrap .popover.right .arrow {
+  border-right-color: #ccc;
+}
+
+html.bootstrap .popover.left .arrow {
+  border-left-color: #ccc;
+}
+
+html.bootstrap .popover.top .arrow {
+  border-top-color: #ccc;
+}
+
+html.bootstrap .popover.bottom .arrow {
+  border-bottom-color: #ccc;
+}
+
+html.bootstrap .popover.right .arrow:after {
+  border-right-color: #fff;
+}
+
+html.bootstrap .popover.left .arrow:after {
+  border-left-color: #fff;
+}
+
+html.bootstrap .popover.top .arrow:after {
+  border-top-color: #fff;
+}
+
+html.bootstrap .popover.bottom .arrow:after {
+  border-bottom-color: #fff;
+}
+
+.bootstrap .btn.btn-large,
+.bootstrap .btn.btn-large:link,
+.bootstrap .btn.btn-large:visited,
+.bootstrap .btn.btn-large:hover,
+.bootstrap .btn.btn-large:active,
+.bootstrap .btn.btn-large:focus {
+  background: transparent;
+  filter: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: ${MAINCOLOR};
+  padding: 9px 14px;
+  font-family: opensansregular, Helvetica, Arial, Sans serif;
+  border-radius: 4px;
+  border: 1px solid ${MAINCOLOR};
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: 0 none;
+}
+
+.bootstrap .btn.btn-large:hover,
+.bootstrap .btn.btn-large:active,
+.bootstrap .btn.btn-large:focus {
+  background: ${MAINCOLOR};
+  color: #FFF;
+}
+
+/* lighter gray with white text */
+.bootstrap .btn.btn-large.disabled,
+.bootstrap .btn.btn-large.disabled:link,
+.bootstrap .btn.btn-large.disabled:visited,
+.bootstrap .btn.btn-large.disabled:hover,
+.bootstrap .btn.btn-large.disabled:active,
+.bootstrap .btn.btn-large.disabled:focus
+.bootstrap .btn.btn-large[disabled],
+.bootstrap .btn.btn-large[disabled]:link,
+.bootstrap .btn.btn-large[disabled]:visited,
+.bootstrap .btn.btn-large[disabled]:hover,
+.bootstrap .btn.btn-large[disabled]:active,
+.bootstrap .btn.btn-large[disabled]:focus {
+  background: #E4E4E4;
+  color: #999;
+}
+
+#uploadAnalysisButton {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 18px;
+}
+
+#domainIdText {
+  height: auto !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#database-options-box input,
+#connection-name-text {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+select#datasources {
+  padding: 0;
+  height: auto;
+}
+
+.empty-panel .pentaho-button {
+  font-size: 14px;
+}
+
+/* Home Screen */
+.bootstrap #recentsContianer .widget-panel.well#recents .content-panel,
+.bootstrap #favoritesContianer .widget-panel.well#favorites .content-panel {
+  border: 1px solid #CCC;
+}
+
+.bootstrap h3 {
+  font-size: 24px !important;
+  color: #333 !important;
+}
+
+.empty-message {
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+}
+
+.bootstrap .widget-panel .tab-content {
+  border-right: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+}
+
+.bootstrap .widget-panel .nav-tabs {
+  border: 0 none;
+  border-bottom: 1px solid #CCC;
+  background: #FFF !important;
+  filter: none;
+}
+
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:link,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:visited,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:hover,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:active,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:focus,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:link,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:visited,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:hover,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:active,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:focus {
+  border: 1px solid transparent;
+  border-top: 4px solid transparent;
+  padding: 6px 15px;
+  background: transparent;
+  color: #999;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+  font-size: 14px;
+  line-height: 22px;
+  width: auto;
+}
+
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:hover,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:active,
+.bootstrap .widget-panel#getting-started .nav-tabs > li > a:focus,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:hover,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:active,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li > a:focus {
+  color: ${MAINCOLOR};
+}
+
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a,
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a:link,
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a:visited,
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a:hover,
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a:active,
+.bootstrap .widget-panel#getting-started .nav-tabs > li.active > a:focus,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a:link,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a:visited,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a:hover,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a:active,
+.bootstrap .widget-panel#launch-widget .nav-tabs > li.active > a:focus {
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #FFF;
+  border-top: 4px solid ${MAINCOLOR};
+  color: ${MAINCOLOR};
+}
+
+/* reporting */
+.tundra .dijitInputContainer input {
+  padding: 1px !important;
+  background: #fff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+input#widthedit {
+  padding: 2px 2px;
+}
+
+#marginFieldSet input {
+  padding: 2px;
+}
+
+#marginFieldSet {
+  padding: 0;
+  margin: 0;
+}
+
+.tundra .tabpanel .section-header-inner {
+  min-height: 0;
+  margin-top: 10px;
+}
+
+.dijitTooltipConnector {
+  display: none !important;
+}
+
+#groupsorttable,
+#fieldsorttable {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+
+#groupsorttable .pentaho-listitem-hover,
+#fieldsorttable .pentaho-listitem-hover {
+  background: #FFF;
+  color: #333;
+  cursor: default;
+}
+
+#groupsorttable .pentaho-listitem select,
+#fieldsorttable .pentaho-listitem select {
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 2px 5px;
+}
+
+.sortTableCell {
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+.reportControlSection {
+  background-color: #FFF;
+  border: 1px solid #CCC;
+}
+
+.layoutItem-group,
+.layoutItem-column {
+  padding-top: 2px;
+}
+
+.reportControlSectionTitle {
+  padding: 0 10px 0 0;
+  line-height: 26px;
+}
+
+#gwt_FileUpload_uploadButton {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: 5px;
+}
+
+#csvModelDataTable input {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.welcome-img.welcome-img {
+  background-image: url(images/gettingStarted_welcome_graphic.png);
+}
+
+.welcome-img.welcome-img:hover {
+  background-image: url(images/gettingStarted_welcome_graphic_over.png);
+}
+
+button#preview,
+button#preview:link,
+button#preview:visited,
+button#preview:hover,
+button#preview:active {
+  background: none !important;
+  color: #005EAA;
+  padding: 0;
+  line-height: 28px;
+  margin-left: 10px;
+}
+
+button#preview:hover,
+button#preview:active {
+  color: #0F2B5B;
+  text-decoration: underline !important;
+}
+
+button#preview.disabled,
+button#preview.disabled:link,
+button#preview.disabled:visited,
+button#preview.disabled:hover,
+button#preview.disabled:active,
+button#preview[disabled],
+button#preview[disabled]:link,
+button#preview[disabled]:visited,
+button#preview[disabled]:hover,
+button#preview[disabled]:active {
+  background: none !important;
+  text-decoration: none !important;
+}
+
+.scrollable-horizontally {
+  overflow-x: auto;
+}
+
+.bootstrap #recentsContianer .nav-tabs > li,
+.bootstrap #favoritesContianer .nav-tabs > li {
+  margin-bottom: 0;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:link,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:visited,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:active,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:focus,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:link,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:visited,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:active,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:focus {
+  background: #FFF;
+  color: ${MAINCOLOR};
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+  border-bottom: 1px solid #CCC;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:active,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:focus,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:active,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:focus {
+  background: ${MAINCOLOR};
+  color: #FFF;
+}
+
+/* Recents / Favorites icons - normal state */
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-unknown,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-unknown,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-html,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-html {
+  background: url("images/file_generic_32.png");
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-url,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-url {
+  background: url("images/file_url_32.png");
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-xanalyzer,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-xanalyzer {
+  background: url("images/file_analysis_32.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-xdash,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-xdash {
+  background: url("images/file_dashboard_32.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-xaction,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-xaction {
+  background: url("images/file_action_32.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-ktr,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-ktr {
+  background: url("images/kettle_transformation_32.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-prpt,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-prpt {
+  background: url("images/prptFile_32.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .file-prpti,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .file-prpti {
+  background: url("images/prptiFile_32.png") no-repeat;
+}
+
+/* Recents / Favorites icons - hover state */
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-unknown,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-unknown,
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-html,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-html {
+  background: url("images/file_generic_32_white.png");
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-url,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-url {
+  background: url("images/file_url_32_white.png");
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-xanalyzer,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-xanalyzer {
+  background: url("images/file_analysis_32_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-xdash,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-xdash {
+  background: url("images/file_dashboard_32_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-xaction,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-xaction {
+  background: url("images/file_action_32_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-ktr,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-ktr {
+  background: url("images/kettle_transformation_32_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-prpt,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-prpt {
+  background: url("images/prptFile_32_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .file-prpti,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .file-prpti {
+  background: url("images/prptiFile_32_white.png") no-repeat;
+}
+
+/* Recents / Favorites favorite icon */
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .favorite-off,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .favorite-off {
+  background: url("images/favorite-off.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .favorite-off,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .favorite-off {
+  background: url("images/favorite-off_hover_unselected_white.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a .favorite-on,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a .favorite-on {
+  background: url("images/favorite-on.png") no-repeat;
+}
+
+.bootstrap #recentsContianer .nav-tabs.nav-stacked > li > a:hover .favorite-on,
+.bootstrap #favoritesContianer .nav-tabs.nav-stacked > li > a:hover .favorite-on {
+  background: url("images/favorite-on_hover_selected_white.png") no-repeat;
+}
+
+.pentaho-page-background#pageLoading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.analysisArea .pentaho-editbutton,
+.analysisArea .pentaho-addbutton,
+.analysisArea .pentaho-deletebutton {
+  margin-left: 5px;
+}
+
+.analysisArea .helpIcon {
+  margin: 0 0 0 5px;
+}
+
+#cmdShowChart {
+  margin-left: 5px;
+}
+
+.pentaho-page-background#pageLoading .page-loading-icon {
+  background: none;
+  position: relative !important;
+  -ms-animation: uil-rolling-anim 1s linear infinite;
+  -moz-animation: uil-rolling-anim 1s linear infinite;
+  -webkit-animation: uil-rolling-anim 1s linear infinite;
+  -o-animation: uil-rolling-anim 1s linear infinite;
+  animation: uil-rolling-anim 1s linear infinite;
+  margin-right: 10px;
+}
+
+.pentaho-page-background#pageLoading .page-loading-icon:after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 8px;
+  border-radius: 16px 16px 0 0;
+  border-color: ${MAINCOLOR};
+  border-style: solid;
+  border-width: 2px;
+  border-bottom-width: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.pentaho-page-background#pageLoading .page-loading-icon:before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border-color: #F8F8F8;
+  border-style: solid;
+  border-width: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Home Screen Buttons */
+
+/* Home Screen Buttons */
+
+#buttonWrapper button,
+#buttonWrapper button:link,
+#buttonWrapper button:visited,
+#buttonWrapper button:hover,
+#buttonWrapper button:active,
+#buttonWrapper button:focus {
+  background: transparent;
+  color: ${MAINCOLOR};
+  filter: none;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 9px 15px;
+  border: 1px solid ${MAINCOLOR};
+}
+
+#buttonWrapper button:hover,
+#buttonWrapper button:active,
+#buttonWrapper button:focus {
+  background: ${MAINCOLOR};
+  border-color: ${MAINCOLOR};
+  filter: none;
+  color: #FFF;
+}
+
+/* Global Styles */
+
+.pentaho-page-background {
+  background: #FFF;
+}
+
+/* Login Screen */
+
+#login-wrapper {
+  background-color: #F8F8F6;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+  border-top: 4px solid ${MAINCOLOR};
+}
+
+#login-footer-wrapper #login-footer {
+    display: block;
+}
+
+#login-form-container h1 {
+  display: none;
+}
+
+#evaluationPanel {
+  border: 1px solid #CCCCCC;
+  width: 350px;
+  margin-left: -50px;
+  margin-top: 8px;
+  background: #FFFFFF;
+  padding: 15px 0;
+}
+
+#evaluationPanel > .span6 {
+  width: 50%;
+  padding: 0 15px;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#evaluationPanel > .span6 {
+  width: 50%;
+  padding: 0 15px;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#evaluationPanel .login-label {
+  background: url(images/password-icon.png) no-repeat left center;
+  height: 24px;
+  min-height: 0;
+  line-height: 24px;
+  width: 12px;
+  font-size: 0;
+}
+
+#evaluationPanel .login-role + .row-fluid .login-label {
+  background: url(images/username-icon.png) no-repeat left center;
+}
+
+#evaluationPanel .login-value {
+  height: 24px;
+  min-height: 0;
+  line-height: 24px;
+  width: auto;
+  margin-left: 10px;
+  color: #414141;
+}
+
+#evaluationPanel .login-role ~ .row-fluid  {
+  padding: 4px 10px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#evaluationPanel .login-role + .row-fluid  {
+  padding: 8px 10px 4px;
+}
+
+.pluginListItem .pluginActionContainer button {
+  margin-top: 1px;
+  line-height: 32px;
+  padding: 0 14px;
+}
+
+button.pentaho-button.installVersionButton,
+button.pentaho-button.installVersionButton:link,
+button.pentaho-button.installVersionButton:visited,
+button.pentaho-button.installVersionButton:hover,
+button.pentaho-button.installVersionButton:active,
+button.pentaho-button.installVersionButton.install,
+button.pentaho-button.installVersionButton.install:link,
+button.pentaho-button.installVersionButton.install:visited,
+button.pentaho-button.installVersionButton.install:hover,
+button.pentaho-button.installVersionButton.install:active,
+button.pentaho-button.uninstallButton,
+button.pentaho-button.uninstallButton:link,
+button.pentaho-button.uninstallButton:visited,
+button.pentaho-button.uninstallButton:hover,
+button.pentaho-button.uninstallButton:active {
+  line-height: 32px;
+  padding: 0 14px;
+  border: 1px solid ${MAINCOLOR};
+  background: transparent;
+  filter: none;
+}
+
+button.pentaho-button.installVersionButton.install:hover,
+button.pentaho-button.installVersionButton.install:active,
+button.pentaho-button.installVersionButton:hover,
+button.pentaho-button.installVersionButton:active,
+button.pentaho-button.uninstallButton:hover,
+button.pentaho-button.uninstallButton:active {
+  border: 1px solid #0F2B5B;
+  background: #0F2B5B;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+button.pentaho-button.installVersionButton.update,
+button.pentaho-button.installVersionButton.update:link,
+button.pentaho-button.installVersionButton.update:visited,
+button.pentaho-button.installVersionButton.update:hover,
+button.pentaho-button.installVersionButton.update:active {
+  background: #F4A425;
+  border-color: #F4A425;
+  filter: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+button.pentaho-button.installVersionButton.update:hover,
+button.pentaho-button.installVersionButton.update:active {
+  background: #E6910C;
+  border-color: #E6910C;
+}
+
+button.pentaho-button.installVersionButton.upToDate,
+button.pentaho-button.installVersionButton.upToDate:link,
+button.pentaho-button.installVersionButton.upToDate:visited,
+button.pentaho-button.installVersionButton.upToDate:hover,
+button.pentaho-button.installVersionButton.upToDate:active {
+  background: transparent;
+  border-color: ${MAINCOLOR};
+  color: ${MAINCOLOR};
+  filter: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+button.pentaho-button.uninstallButton:disabled,
+button.pentaho-button.uninstallButton:disabled:link,
+button.pentaho-button.uninstallButton:disabled:visited,
+button.pentaho-button.uninstallButton:disabled:hover,
+button.pentaho-button.uninstallButton:disabled:active {
+  line-height: 32px;
+  padding: 0 14px;
+  border: 1px solid #E4E4E4;
+  background: #E4E4E4;
+  color: #888;
+  filter: none;
+}
+
+.bootstrap.admin-perspective .pentaho-tab-deck-panel,
+.filterBar,
+.filterBar .filterContainer .multiselect button.btn.btn-primary.dropdown-toggle,
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-menu,
+.bootstrap input.search,
+.bootstrap .filteredPluginsContainer ul > li,
+.bootstrap .filteredPluginsContainer ul > li:last-of-type,
+.pluginListItem .dev-stage,
+.bootstrap .modal .modal-dialog,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .sectionHeader,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginDetailBottom,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginDetailBottom > div.devStageName,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginDetailTop .pluginDetailLeft .versionSelectDropdown button.btn.btn-primary.dropdown-toggle,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginDetailTop .pluginDetailLeft .versionSelectDropdown .dropdown-menu,
+.bootstrap .modal.stagesInfoDialog .sectionHeader {
+  border-color: #CCC;
+}
+
+body.bootstrap .modal.pluginDetailDialog,
+body.bootstrap .modal.confirmationDialog {
+  border: 0 none;
+}
+
+.bootstrap .filteredPluginsContainer ul > li:hover {
+    background: #E6EFF6;
+}
+
+.bootstrap.admin-perspective .pentaho-tab-deck-panel {
+  margin-top: -1px;
+}
+
+.bootstrap .filteredPluginsContainer ul > li .pluginName,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginHeaderInfo .pluginName,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .sectionHeader {
+  color: #414141;
+}
+
+.filterBar {
+  background: #F0F0F0;
+}
+
+.bootstrap .filterBar a,
+.bootstrap .filterBar a:link,
+.bootstrap .filterBar a:visited,
+.bootstrap .modal.pluginDetailDialog a,
+.bootstrap .modal.pluginDetailDialog a:link,
+.bootstrap .modal.pluginDetailDialog a:visited {
+  color: #414141;
+}
+
+.bootstrap .filterBar a:hover,
+.bootstrap .filterBar a:active,
+.bootstrap .modal.pluginDetailDialog a:hover,
+.bootstrap .modal.pluginDetailDialog a:active {
+  color: #0F2B5B
+}
+
+.filterBar .filterContainer .multiselect button.btn.btn-primary.dropdown-toggle,
+body.bootstrap .modal.pluginDetailDialog .pluginDetail .pluginDetailTop .pluginDetailLeft .versionSelectDropdown button.btn.btn-primary.dropdown-toggle {
+  color: #666;
+}
+
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-menu > li > a {
+  color: #333;
+}
+
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-menu > li > a:hover,
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-menu > li > a:focus,
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-submenu:hover > a,
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-submenu:focus > a {
+    background: #E6EFF6;
+}
+
+.bootstrap .filterBar .filterContainer .multiselect .dropdown-menu .divider {
+    margin: 9px 0;
+    background-color: #CCC;
+}
+
+.bootstrap .filteredPluginsContainer ul > li .pluginAuthor,
+.bootstrap .filteredPluginsContainer ul > li {
+  color: #666;
+}
+
+.infoBar {
+  background: #005DA6;
+  border-color: #005DA6;
+}
+
+.infoBar:hover,
+.infoBar:active {
+  background: #0F2B5B;
+  border-color: #0F2B5B;
+}
+
+body.bootstrap .modal.pluginDetailDialog .pluginDetail {
+  color: #333;
+}
+
+body.bootstrap .modal.confirmationDialog .dialog div.title {
+  background: none;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: OpenSansLight;
+  color: #333;
+  padding-bottom: 20px;
+}
+
+body.bootstrap .modal.confirmationDialog .dialog div.body {
+  line-height: 20px;
+  color: #333;
+  padding-bottom: 20px;
+}
+
+.IE11 table.dijitSelect.dijitDownArrowButton td.dijitButtonContents, .IE11 table.dijitSelect.dijitDownArrowButton td.dijitArrowButton {
+  background: transparent;
+}
+
+.dialog-content select.form-input {
+  height: 33px;
+}
+
+#protocolPanel tr td {
+  display: block;
+}
+
+#protocolPanel select {
+  width: 220px;
+}
+
+.datePickerDays .datePickerDayIsValue,
+.datePickerDays .datePickerDayIsHighlighted {
+  background-color: ${MAINCOLOR};
+  color: #FFF;
+}
+
+#datasourceInfoBox .custom-list {
+  border-radius: 4px;
+}
