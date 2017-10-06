@@ -99,17 +99,18 @@ if [ $CHOICE -eq 0 ]; then
 	if [[ $variant =~ ce  ]]; then
 
 		echo Downloading $version-$buildno $variant...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*-$buildno.zip";
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/ce; mget -O $DOWNLOAD_DIR server/$serverPrefix-$variant-*-$buildno.zip";
 
 	else
 
 		# EE - download the bundles (ba and plugins)
 		echo Downloading $version-$buildno $variant and plugins...
 
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*-$buildno-dist.zip \
-			paz-plugin-ee-*-dist.zip \
-			pir-plugin-ee-*-dist.zip \
-			pdd-plugin-ee-*-dist.zip"
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version/$buildno/ee; mget -O $DOWNLOAD_DIR server/$serverPrefix-$variant-*-$buildno-dist.zip ; \
+			mget -O $DOWNLOAD_DIR \
+			plugins/pir-plugin-ee-*-dist.zip \
+			plugins/paz-plugin-ee-*-dist.zip \
+			plugins/pdd-plugin-ee-*-dist.zip"
 
 	fi
 
