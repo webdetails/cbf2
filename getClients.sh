@@ -92,7 +92,21 @@ then
 fi
 
 
-tooldir=$DIR/$product/$branch/$buildno
+
+path="ee"
+appender="-dist"
+IS_DIST=1
+
+if [[ $product =~ ce  ]]; then
+	echo " -- You selected a CE product"
+	path="ce"
+	appender=""
+	IS_DIST=0
+fi
+
+
+tooldir=$DIR/$product/$branch/$buildno/
+
 
 echo you selected $product. Downloading to $tooldir
 
@@ -104,16 +118,46 @@ else
   mkdir -p $tooldir
 fi
 
+
+
 # Downloading. We need to take into account the fact that mondrian stuff doesnt respect the same naming pattern
 # Also - don't download mac stuff
 
 lftp -c "lcd $tooldir; open -u $BOX_USER,$BOX_PASSWORD $BOX_URL ; \
-  cd $branch/$buildno; \
-  mget $product-[^m]*-$buildno.zip \
+  cd $branch/$buildno/$path/client-tools; \
+  mget $product-[^m]*-$buildno$appender.zip \
   ";
 
-unzip $tooldir/$product-*-$buildno.zip -d $tooldir
-rm $tooldir/$product-*-$buildno.zip 
+
+
+unzip $tooldir/$product-*-$buildno$appender.zip -d $tooldir
+
+if [ $IS_DIST == "1" ]
+then
+		echo Installing $dir...
+
+		pushd $tooldir > /dev/null
+		cd $prod*/
+
+		cat <<EOT > auto-install.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<AutomatedInstallation langpack="eng"> 
+   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+   <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
+      <installpath>../</installpath> 
+   </com.izforge.izpack.panels.target.TargetPanel> 
+   <com.izforge.izpack.panels.install.InstallPanel id="installpanel"/> 
+</AutomatedInstallation>
+EOT
+
+    java -jar installer.jar auto-install.xml > /dev/null
+
+		popd > /dev/null
+
+fi
+
+rm -rf $tooldir/$product-*-$buildno*
+
 
 echo Done. You may want to use the ./startClient.sh command
 
