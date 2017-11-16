@@ -186,10 +186,12 @@ then
 
 		# EE - download the bundles (ba and plugin), and then the patches
 		echo " Downloading $minorVersion EE and plugins..."
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR $serverPrefix-[^m]*zip ee/$serverPrefix-[^m]*zip \
-			paz-plugin-ee-*.zip ee/paz-plugin-ee-*.zip \
-			pir-plugin-ee-*.zip ee/pir-plugin-ee-*.zip \
-			pdd-plugin-ee-*.zip ee/pdd-plugin-ee-*.zip" 2>/dev/null
+
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/ee; mget -O $DOWNLOAD_DIR server/$serverPrefix-[^m]*zip ; \
+			mget -O $DOWNLOAD_DIR \
+			plugins/pir-plugin-ee-*-dist.zip \
+			plugins/paz-plugin-ee-*-dist.zip \
+			plugins/pdd-plugin-ee-*-dist.zip" 
 
 		## Find dot versions that are relevant
 		for subV in $subVersions
