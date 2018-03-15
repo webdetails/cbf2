@@ -324,7 +324,7 @@ else
 			fi
 
 			if [ $operation == "A" ]; then
-				docker exec -it $dockerImage bash
+				docker exec -it $dockerImage bash  -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 				echo Done
 				exit 0
 			fi
