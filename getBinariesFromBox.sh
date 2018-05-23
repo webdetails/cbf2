@@ -180,7 +180,7 @@ then
 
 		# CE is actually easier; We'll download from $version-Releases/$version-.$minorVersion.0/ce/baserver
 		echo Downloading $minorVersion CE...
-		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*zip ce/$serverPrefix-$variant-*zip"; 2>/dev/null
+		lftp -c "open -u $BOX_USER,$BOX_PASSWORD $BOX_URL/$version-Releases/$minorVersion.$dotDotVersion/ce; mget -O $DOWNLOAD_DIR $serverPrefix-$variant-*zip server/$serverPrefix-$variant-*zip"; 2>/dev/null
 
 	else
 

@@ -19,7 +19,7 @@ then
 fi
 
 #VERSIONS=()
-VERSIONS=(8.0-QAT 8.1-QAT)
+VERSIONS=(8.1-QAT 9.0-QAT)
 BOX_URL=${BOX_URL:-ftp.box.com/CI}
 DIR=clients
 
