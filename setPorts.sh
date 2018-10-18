@@ -7,7 +7,9 @@ PORTS=( "httpPort:8080"
         "pgPort:5432"
         "debugPort:8044"
         "disPort:9001"
-				"lumadaLocalPort:1337"
+		"lumadaLocalPort:1337"
+		"mosquittoPort:1883"
+		"node-redPort:1880"
         "wsLocalPort:2337"
       )
       
