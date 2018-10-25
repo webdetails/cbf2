@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # Mapping ports
-PORTS=( "httpPort:8080"
-        "httpsPort:8443"
-        "ajp13Port:8009"
-        "pgPort:5432"
-        "debugPort:8044"
-        "disPort:9001"
-		"lumadaLocalPort:1337"
-		"mosquittoPort:1883"
-		"node-redPort:1880"
-        "wsLocalPort:2337"
-      )
+DEFAULT_PORTS=( "httpPort:8080"
+                "httpsPort:8443"
+                "ajp13Port:8009"
+                "pgPort:5432"
+                "debugPort:8044"
+                "disPort:9001"
+                "lumadaLocalPort:1337"
+                "wsLocalPort:2337"
+              )
       
 NAMES=()
 DEFAULTS=()
 USED=()
+
+PORTS=("${DEFAULT_PORTS[@]}" "${PROJ_PORTS[@]}")
         
 n=-1        
 for port in "${PORTS[@]}" ; do
