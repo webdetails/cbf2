@@ -238,10 +238,27 @@ straightforward:
 
 CBF2 allows you to run multiple containers at the same time. If some exposed port is already in use in the host by some service, CBF2 will look for a new free port and use it.
 
-To include, change and/or delete exposed ports do the following:
+The list of the default exposed ports are defined in the setPorts.sh file.
+
+To include, change and/or delete globally the default exposed ports do the following:
 
 * Edit the setPorts.sh file
 * Do the proper changes in the PORTS list, at the top. Each line represents a port to be exposed, composed by a unique name and the default port used by the service inside the container.
+
+To expose additional ports per project, do the following:
+
+* Create/edit the file setPorts.sh in the cbf2/projects/\<projectName\>/config folder
+* Define in the setPorts.sh file the list of the new ports to be exposed
+
+Use the following sample for the cbf2/projects/\<projectName\>/config/setPorts.sh:
+
+	#!/bin/bash
+	
+	# Mapping ports for the project
+	PROJ_PORTS=(
+                 "mysqlPort:3306"
+                 "nodeWsPort:13536"
+               )
 
 
 ### Mounting docker volumes
