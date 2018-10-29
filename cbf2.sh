@@ -220,7 +220,7 @@ else
 			DEBUG=${DEBUG:-"n"}
 
 			# Check for docker volumes
-			projectName=$(echo $build | egrep 'pdu-' | cut -d' ' -f 1 | cut -d'-' -f 2)
+			projectName=$(echo $build | sed -E -e 's/pdu-(.*)-baserver.*/\1/ ' )
 
 			if [ $projectName ] && [ -f $BASEDIR/projects/$projectName/config/setPorts.sh ]
 			then
