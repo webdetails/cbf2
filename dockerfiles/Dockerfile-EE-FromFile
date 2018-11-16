@@ -4,7 +4,7 @@ MAINTAINER  Pedro Alves <palves@pentaho.com>
 ADD scripts/run.sh /pentaho/
 ADD tmp/pentaho/ /pentaho/
 ADD tmp/licenses /pentaho/licenses/
-ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+ADD pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
 
 RUN cd /pentaho && \
   license-installer/install_license.sh install -q  /pentaho/licenses/*lic && \
