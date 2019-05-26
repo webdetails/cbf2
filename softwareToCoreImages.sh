@@ -134,7 +134,7 @@ else
 		
 		targetDir="../../pentaho"
 		if [[ $dir =~ plugin ]]; then
-			targetDir=$( cd ../../pentaho/*server*/pentaho-solutions/system && pwd )
+			targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
 		fi
 
 		echo Installing $dir...
@@ -165,7 +165,7 @@ EOT
 
 		targetDir="../../pentaho"
 		if [[ $dir =~ plugin ]]; then
-			targetDir=$( cd ../../pentaho/*server*/pentaho-solutions/system && pwd )
+			targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
 		fi
 
 		echo Installing $dir...
