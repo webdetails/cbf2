@@ -48,7 +48,7 @@ server=${OPTIONS[$CHOICE]}
 serverFile=${SERVERFILESARRAY[$serverChoiceIdx]}
 DOCKERTAG=$(echo $server | sed -E -e ' s/pentaho-/ba/; s/biserver/baserver/; s/(-dist)?\.zip//' | tr '[:upper:]' '[:lower:]')
 
-# echo "Server chosen: $server ($serverChoiceIdx); File: $serverFile; Docker tag: $DOCKERTAG"
+echo "Server chosen: $server ($serverChoiceIdx); File: $serverFile; Docker tag: $DOCKERTAG"
 
 
 # 4. Dynamically change the project-specific dockerfile to change the FROM
@@ -100,44 +100,94 @@ else
 	tmpDirInstallers=$tmpDir/installers
 	mkdir $tmpDirInstallers 
 
-	
+	# 1 - Unzip everything
 	echo Unzipping files...
 	for file in $( dirname $serverFile )/[^S]*ee*.zip
 	do 
 		unzip $file -d $tmpDirInstallers > /dev/null
 	done
 
-	# EULA
-	less $tmpDirInstallers/*server*/license.txt
-	echo
-	read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
+	# 2 - EULA
+	if [ -f "$tmpDirInstallers/*server*/license.txt" ]; then
+		less $tmpDirInstallers/*server*/license.txt
+	
+		read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
 
-	choice=$( tr '[:lower:]' '[:upper:]' <<< "$choice" )
+		choice=$( tr '[:lower:]' '[:upper:]' <<< "$choice" )
 
-	# Did the user accept it?
-	if ! [ $choice == "Y" ]; then
-		echo "Sorry, can't  continue without accepting the license agreement. Bye"
-		exit 1
-	fi
+		# Did the user accept it?
+		if ! [ $choice == "Y" ]; then
+			echo "Sorry, can't  continue without accepting the license agreement. Bye"
+			exit 1
+		fi
+	else
+		echo "EULA was not found in the expected location, so you must have a custom"
+		echo "Enterprise Edition with patches applied, and each one would have forced"
+		echo "you to accept the EULA. "
+		echo "Continuing to inspect the archive." 
+    fi
 
 	# 3 - Call the installers
-
+	# Pentaho Installer or Archive source fils folder (cbf2/dockerfiles/tmp/installers)
 	tmpDirInstallers=$tmpDir/installers
-
+	# Destination folder expected by the docker image and run scripts down the line.
 	mkdir $tmpDir/pentaho
 
-	# First, the server. Then the plugins. There's surely a smarter way to do this...
-	# I guess I'm just not smart enough
+	# Customers outside of Hitachi have to run the installers and patch up
+	# the server by themselves.  This means that a customer would have zipped a folder
+	# structure that looks like this:
+	# .
+    # ├── jdbc-distribution
+    # ├── license-installer
+    # ├── pentaho_eula.txt
+    # └── pentaho-server
+	#
+	# Inside that folder they would have run a zip command as follows
+	# $ zip -r ../baserver-ee-8.2.0.6-dist.zip .
+	#
+	# That zip file would be in cbf2/software/8.2.0 and step #1 above would
+	# yield contents in the cbf2/dockerfiles/tmp/installers folder:
+	# .
+    # ├── jdbc-distribution
+    # ├── license-installer
+    # ├── pentaho_eula.txt
+    # └── pentaho-server
+	#
+    # We will test for the existence of the 3 folders and 1 file and move them
+	# to dockerfiles/tmp/pentaho, which in turn makes it into the docker image
+	# the cbf scripts expect to find.
+    if [ -d "$tmpDirInstallers/jdbc-distribution" ]; then
+		echo "Moving $tmpDirInstallers/jdbc-distribution -> $tmpDir/pentaho" 
+		mv $tmpDirInstallers/jdbc-distribution $tmpDir/pentaho
+	fi
 
-	for dir in $tmpDirInstallers/*server*/
-	do
-		
-		targetDir="../../pentaho"
-		if [[ $dir =~ plugin ]]; then
-			targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
-		fi
+    if [ -d "$tmpDirInstallers/pentaho-server" ]; then
+		echo "Moving $tmpDirInstallers/pentaho-server -> $tmpDir/pentaho" 
+		mv $tmpDirInstallers/pentaho-server $tmpDir/pentaho
+	fi
 
-		echo Installing $dir...
+    if [ -d "$tmpDirInstallers/license-installer" ]; then
+		echo "Moving $tmpDirInstallers/license-installer -> $tmpDir/pentaho" 
+		mv $tmpDirInstallers/license-installer $tmpDir/pentaho
+	fi
+
+	# If a pentaho-server folder was found above, there is no need to run any
+	# installers or do patching, so we can skip to the copying of licenses and
+	# create the docker image.
+
+	if [ ! -d $tmpDir/pentaho/pentaho-server ]; then 
+		# First, the server. Then the plugins. There's surely a smarter way to do this...
+		# I guess I'm just not smart enough
+
+		for dir in $tmpDirInstallers/*server*/
+		do
+			
+			targetDir="../../pentaho"
+			if [[ $dir =~ plugin ]]; then
+				targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
+			fi
+
+			echo Installing $dir...
 
 		pushd $dir > /dev/null
 
@@ -152,23 +202,23 @@ else
 </AutomatedInstallation>
 EOT
 
-    java -jar installer.jar auto-install.xml > /dev/null
+		java -jar installer.jar auto-install.xml > /dev/null
 
-		popd > /dev/null
+			popd > /dev/null
 
-	done
+		done
 
-	for dir in $tmpDirInstallers/*plugin*/
-	do
-		
-		pushd $dir > /dev/null
+		for dir in $tmpDirInstallers/*plugin*/
+		do
+			echo Hello plugins
+			pushd $dir > /dev/null
 
-		targetDir="../../pentaho"
-		if [[ $dir =~ plugin ]]; then
-			targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
-		fi
+			targetDir="../../pentaho"
+			if [[ $dir =~ plugin ]]; then
+				targetDir="../../pentaho/pentaho-server/pentaho-solutions/system"
+			fi
 
-		echo Installing $dir...
+			echo Installing $dir...
 
 		cat <<EOT > auto-install.xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
@@ -181,56 +231,59 @@ EOT
 </AutomatedInstallation>
 EOT
 
-    java -jar installer.jar auto-install.xml > /dev/null
+		java -jar installer.jar auto-install.xml > /dev/null
 
-		popd > /dev/null
+			popd > /dev/null
 
-	done
+		done
 
-	# 4 - Patches
 
-	tmpDirPatches=$tmpDir/patches
-	mkdir $tmpDirPatches
+		# 4 - Patches
 
-	echo Unzipping patches...
-	tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
-	mkdir $tmpDirPentahoPatches
+		tmpDirPatches=$tmpDir/patches
+		mkdir $tmpDirPatches
 
-	for file in $( dirname $serverFile )/[S]*zip
-	do 
-		if [ -f $file ]; then
-			unzip $file -d $tmpDirPatches > /dev/null
-		fi
-	done
+		echo Unzipping patches...
+		tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
+		mkdir $tmpDirPentahoPatches
 
-	# We're only interested in by server patches...
-	for patch in $tmpDirPatches/BIServer/*zip $tmpDirPatches/*/BIServer/*zip
-	do
-		if [ -f $patch ]; then
-			echo Processing $patch
-			unzip -o $patch -d $tmpDirPentahoPatches > /dev/null
-		fi
-	done
+		for file in $( dirname $serverFile )/[S]*zip
+		do 
+			if [ -f $file ]; then
+				unzip $file -d $tmpDirPatches > /dev/null
+			fi
+		done
 
-	# Now we need to find all jars that are on the pentaho dir with the same name,
-	# delete them (old patches required this...) and copy all the stuff over
+		# We're only interested in by server patches...
+		for patch in $tmpDirPatches/BIServer/*zip $tmpDirPatches/*/BIServer/*zip
+		do
+			if [ -f $patch ]; then
+				echo Processing $patch
+				unzip -o $patch -d $tmpDirPentahoPatches > /dev/null
+			fi
+		done
 
-	pushd $tmpDirPentahoPatches
-	find . -iname \*jar | while read jar
-	do
+		# Now we need to find all jars that are on the pentaho dir with the same name,
+		# delete them (old patches required this...) and copy all the stuff over
 
-		rm $( echo ../../pentaho/*server*/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
+		pushd $tmpDirPentahoPatches
+		find . -iname \*jar | while read jar
+		do
 
-	done
+			rm $( echo ../../pentaho/*server*/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
 
-	# and copy them...
-	cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
-	popd
+		done
 
-	echo Copying licenses...
+		# and copy them...
+		cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
+		popd
+	fi # Ends the running of installers and Patching section of code.
+
+    #read -n 1 -s -r -p "Press any key to continue"
+	echo "Copying licenses to $tmpDir"
 	cp -R licenses $tmpDir
 
-	echo Creating docker image...
+	echo "Creating docker image using dockerfiles/Dockerfile-EE-FromFile"
 	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
 
 fi
