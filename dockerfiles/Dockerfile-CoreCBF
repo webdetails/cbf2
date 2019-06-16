@@ -1,25 +1,33 @@
-FROM    ubuntu:16.04
-MAINTAINER  Pedro Alves <palves@pentaho.com>
+FROM ubuntu:16.04
+LABEL maintainer="Brandon Jackson <usbrandon@gmail.com>"
 
-# Set the locale
+# Set the locale and clean up cache
+RUN apt-get clean && apt-get update && apt-get install --no-install-recommends -y locales \
+ && locale-gen en_US.UTF-8 \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get clean && apt-get update && apt-get install -y locales && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8 
 ENV TERM xterm
 RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX && \
     echo Building core image
-
-RUN sed 's/main$/main universe/' -i /etc/apt/sources.list && \
-	apt-get update && apt-get install -y software-properties-common unzip git lftp sudo && apt-get install postgresql postgresql-contrib -y && \
-	apt-get update && apt-get upgrade -y && \
-	apt-get update && \
-	sudo apt install -y openjdk-8-jdk && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/* && \
-	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-	rm -rf /tmp/*
+#
+# The JRE is less than half the size of the JDK, so JRE-headless it is.
+#
+RUN sed 's/main$/main universe/' -i /etc/apt/sources.list \
+	&& apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
+	git \ 
+	lftp \
+	openjdk-8-jre-headless \
+	postgresql \
+	postgresql-contrib \
+	software-properties-common \
+	sudo \
+	unzip \ 
+ && rm -rf /var/lib/apt/lists/* \
+ &&	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+ &&	rm -rf /tmp/*
 
 ADD pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
 

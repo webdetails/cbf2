@@ -121,10 +121,10 @@ else
 			exit 1
 		fi
 	else
-		echo "EULA was not found in the expected location, so you must have a custom"
-		echo "Enterprise Edition with patches applied, and each one would have forced"
-		echo "you to accept the EULA. "
-		echo "Continuing to inspect the archive." 
+		echo "The normal EULA was not found (pentaho-server/license.txt)."
+		echo "Assuming a custom, patched Enterprise Edition implying accepted EULA."
+		echo ""
+		echo "Moving foward with image creation."
     fi
 
 	# 3 - Call the installers
@@ -284,7 +284,7 @@ EOT
 	cp -R licenses $tmpDir
 
 	echo "Creating docker image using dockerfiles/Dockerfile-EE-FromFile"
-	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
+	docker build --build-arg CURRENT_HOST_UID=$(id -u) --build-arg CURRENT_HOST_GID=$(id -g) -t $DOCKERTAG -f dockerfiles/Dockerfile-EE-FromFile dockerfiles
 
 fi
 
@@ -302,5 +302,3 @@ echo Done. You may want to use the ./cbf2.sh command
 
 cd $BASEDIR
 exit 0
-
-

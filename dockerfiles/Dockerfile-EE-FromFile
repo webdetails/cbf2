@@ -1,35 +1,57 @@
-FROM cbf2-core
-MAINTAINER  Pedro Alves <palves@pentaho.com>
+FROM cbf2-core AS cbf2-pentaho
+LABEL maintainer="Brandon Jackson <usbrandon@gmail.com>"
 
-ADD scripts/run.sh /pentaho/
-ADD tmp/pentaho/ /pentaho/
-ADD tmp/licenses /pentaho/licenses/
-ADD pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+ARG CURRENT_HOST_UID
+ARG CURRENT_HOST_GID
+ENV CURRENT_UID=$CURRENT_HOST_UID
+ENV CURRENT_GID=$CURRENT_HOST_GID
 
-RUN cd /pentaho && \
-  license-installer/install_license.sh install -q  /pentaho/licenses/*lic && \
-  mv /root/.pentaho/.installedLicenses.xml /pentaho/*server* && \
-  /etc/init.d/postgresql start && \
-  cd /pentaho/*server*/data/postgresql; \
-  psql -U postgres -f create_jcr_postgresql.sql; \
-  psql -U postgres -f create_quartz_postgresql.sql; \
-  psql -U postgres -f create_repository_postgresql.sql; \
-  rm /pentaho/*server*/promptuser.sh; \
-	cd /pentaho/*server*/tomcat/logs/ ; touch catalina.out ; touch pentaho.log ; \
-	cd /pentaho ; \
-  sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/*server*/tomcat/bin/startup.sh; \
-  mkdir /home/pentaho && groupadd -r pentaho && useradd -r -g pentaho -p $(perl -e'print crypt("pentaho", "aa")' ) -G sudo pentaho && \ 
-  chown -R pentaho.pentaho /pentaho && \
-  chown -R pentaho.pentaho /home/pentaho && \
-	if [ $( ls -1 /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-*.jar | head -n 1 | sed -E -e 's/.*pentaho-platform-api-(.).+/\1/' )  -lt "6"  ]; then update-java-alternatives -s java-7-oracle && echo Java 7 enabled ; else echo Java 8 enabled; fi && \
-	/etc/init.d/postgresql stop
+# Create pentaho user and establish its environment.
+# Users are 'Homeless' within a docker container build.
+RUN mkdir /home/pentaho && groupadd --gid $CURRENT_GID --system pentaho \
+ && useradd --uid $CURRENT_UID --gid $CURRENT_GID --no-log-init --system --password $(perl -e'print crypt("pentaho", "aa")' ) -G sudo pentaho \
+ && chown --recursive pentaho:pentaho /home/pentaho
+
+# Add large files first with the correct ownership to reduce layers (true size on disk)
+ADD --chown=pentaho:pentaho scripts/run.sh /pentaho/
+ADD --chown=pentaho:pentaho tmp/pentaho/ /pentaho/
+ADD --chown=pentaho:pentaho tmp/licenses /pentaho/licenses/
+ADD --chown=root:root pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+
+#
+# Import Pentaho License Files.
+#
+RUN echo "Installing Pentaho Enterprise Edition license files." \
+ && cd /pentaho \
+ && license-installer/install_license.sh install -q  /pentaho/licenses/*lic \
+ && mv /root/.pentaho/.installedLicenses.xml /pentaho/*server* \
+ && chown pentaho:pentaho /pentaho/*server*/.installedLicenses.xml
+
+#
+# Prepare the database to support the Pentaho Business Analytics Server
+# 
+RUN /etc/init.d/postgresql start \
+ && cd /pentaho/*server*/data/postgresql; \
+    psql -U postgres -f create_jcr_postgresql.sql; \
+    psql -U postgres -f create_quartz_postgresql.sql; \
+    psql -U postgres -f create_repository_postgresql.sql \
+ && /etc/init.d/postgresql stop
+
+#
+# Basic cleanup.  
+# The fancy sed line checks for BA servers less than version 6 and sets their JRE to version 7
+# Otherwise, OpenJDK JRE 8 is used. (Default in cbf2-crore is openjdk-8-jre-headless) 
+#
+RUN rm /pentaho/*server*/promptuser.sh; \
+  	cd /pentaho/*server*/tomcat/logs/ ; touch catalina.out ; touch pentaho.log ; \
+  	cd /pentaho ; \
+    sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/*server*/tomcat/bin/startup.sh; \
+    if [ $( ls -1 /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-*.jar | head -n 1 | sed -E -e 's/.*pentaho-platform-api-(.).+/\1/' )  -lt "6"  ]; then update-java-alternatives -s java-7-oracle && echo Java 7 enabled ; else echo Java 8 enabled; fi 
 
 WORKDIR /pentaho
 USER pentaho
 
-
-EXPOSE 8080 8044 9001
+EXPOSE 8080 8044 9001 5432
 
 # 1. Run 
-
 ENTRYPOINT ["bash", "/pentaho/run.sh"]
