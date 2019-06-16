@@ -4,7 +4,7 @@
 # a local pentaho server image to build from, so that has to exist previously
 
 # 1. Define project/folder  Name
-# 2. Do you whant define a custom theme
+# 2. Do you want to define a custom theme?
 # 3. Clean it
 
 BASEDIR=$(dirname $0)

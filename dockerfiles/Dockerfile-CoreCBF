@@ -16,15 +16,17 @@ RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX && \
 # The JRE is less than half the size of the JDK, so JRE-headless it is.
 #
 RUN sed 's/main$/main universe/' -i /etc/apt/sources.list \
-	&& apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
+	&& apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \ 
 	git \ 
 	lftp \
+	nano \
 	openjdk-8-jre-headless \
 	postgresql \
 	postgresql-contrib \
 	software-properties-common \
 	sudo \
-	unzip \ 
+	unzip \
+	vim \
  && rm -rf /var/lib/apt/lists/* \
  &&	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
  &&	rm -rf /tmp/*

@@ -33,10 +33,23 @@ RUN /etc/init.d/postgresql start \
 # Otherwise, OpenJDK JRE 8 is used. (Default in cbf2-crore is openjdk-8-jre-headless) 
 #
 RUN rm /pentaho/*server*/promptuser.sh; \
-  	cd /pentaho/*server*/tomcat/logs/ ; touch catalina.out ; touch pentaho.log ; \
+  	cd /pentaho/*server*/tomcat/logs/ ; touch catalina.out ; touch pentaho.log ; chown pentaho:pentaho catalina.out ; chown pentaho:pentaho pentaho.log \
   	cd /pentaho ; \
     sed -i -e 's/\(exec ".*"\) start/\1 run/' /pentaho/*server*/tomcat/bin/startup.sh; \
-    if [ $( ls -1 /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-*.jar | head -n 1 | sed -E -e 's/.*pentaho-platform-api-(.).+/\1/' )  -lt "6"  ]; then update-java-alternatives -s java-7-oracle && echo Java 7 enabled ; else echo Java 8 enabled; fi 
+    if [ $( ls -1 /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-*.jar | head -n 1 | sed -E -e 's/.*pentaho-platform-api-(.).+/\1/' )  -lt "6"  ]; then update-java-alternatives -s java-7-oracle && echo Java 7 enabled ; else echo Java 8 enabled; fi \
+ && echo "Update server configuration and teaching it about Excel files, LibreOffice spreadsheets, txt and sql files." \
+ && cd /pentaho/pentaho-server \
+ && sed -i -e 's/\(exec ".*"\) start/\1 run/' tomcat/bin/startup.sh \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">\n        <extension>xlsx</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.template">\n        <extension>xltx</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.ms-excel.sheet.macroEnabled.12">\n        <extension>xlsm</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.ms-excel.template.macroEnabled.12">\n        <extension>xltm</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.ms-excel.addin.macroEnabled.12">\n        <extension>xlam</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(      <MimeTypeDefinition mimeType="application/vnd.ms-excel">\)|      <MimeTypeDefinition mimeType="application/vnd.ms-excel.sheet.binary.macroEnabled.12">\n        <extension>xlsb</extension>\n      </MimeTypeDefinition>\n\1|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(        <extension>xls</extension>\)|\1\n        <extension>xlt</extension>\n        <extension>xla</extension>|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(        <extension>sql</extension>\)|\1\n        <extension>txt</extension>\n        <extension>csv</extension>|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
+ && sed -i -e 's|\(,csv,\)|\1sql,|' pentaho-solutions/system/*.xml \
+ && sed -i -e 's|\(,xlsx,\)|\1xltx,xlsm,xltm,xlam,xlsb,|' pentaho-solutions/system/*.xml
 
 WORKDIR /pentaho
 USER pentaho
