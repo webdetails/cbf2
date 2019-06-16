@@ -70,7 +70,7 @@ mkdir -p $tmpDir
 
 if  [[ ! $( docker images | grep cbf2-core ) ]]; then
 
-	echo Base imagee not found. Building cbf2-core...
+	echo Base image not found. Building cbf2-core...
 	docker build -t cbf2-core -f dockerfiles/Dockerfile-CoreCBF dockerfiles
 
 fi
@@ -108,7 +108,7 @@ else
 	done
 
 	# 2 - EULA
-	if [ -f "$tmpDirInstallers/*server*/license.txt" ]; then
+	if [ -f $tmpDirInstallers/*server*/license.txt ]; then
 		less $tmpDirInstallers/*server*/license.txt
 	
 		read -e -p "> Select 'Y' to accept the terms of the license agreement: " choice
@@ -194,7 +194,7 @@ else
 		cat <<EOT > auto-install.xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
 <AutomatedInstallation langpack="eng"> 
-   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+   <com.pentaho.engops.eula.izpack.PentahoHTMLLicensePanel id="licensepanel"/> 
    <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
       <installpath>$targetDir</installpath> 
    </com.izforge.izpack.panels.target.TargetPanel> 
@@ -210,7 +210,6 @@ EOT
 
 		for dir in $tmpDirInstallers/*plugin*/
 		do
-			echo Hello plugins
 			pushd $dir > /dev/null
 
 			targetDir="../../pentaho"
@@ -223,7 +222,7 @@ EOT
 		cat <<EOT > auto-install.xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
 <AutomatedInstallation langpack="eng"> 
-   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+   <com.pentaho.engops.eula.izpack.PentahoHTMLLicensePanel id="licensepanel"/> 
    <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
       <installpath>$targetDir</installpath> 
    </com.izforge.izpack.panels.target.TargetPanel> 
@@ -239,11 +238,42 @@ EOT
 
 
 		# 4 - Patches
+		# Since at least mid 2018 patches are comprehesive and there is no
+		# requirement to unzip, delete existing jars and carefully copy the patch files
+		# to the correct destination.
+		#
+		# I will test for .bin files with the
+#		for file in $( dirname $serverFile )/[^S]*SP*.bin
+#		do 
+#			if [[ ! -x $file ]]; then
+#				echo "Making $file executable."
+#				chmod +x $file
+#			fi
+#			echo "Installing $file"
+#			targetDir="../../pentaho/pentaho-server"
+			
+#			cat <<EOT > auto-install.xml
+#<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+#<AutomatedInstallation langpack="eng"> 
+#   <com.pentaho.engops.eula.izpack.PentahoHTMLLicencePanel id="licensepanel"/> 
+#   <com.izforge.izpack.panels.target.TargetPanel id="targetpanel"> 
+#      <installpath>$targetDir</installpath> 
+#   </com.izforge.izpack.panels.target.TargetPanel> 
+#   <com.izforge.izpack.panels.install.InstallPanel id="installpanel"/> 
+#</AutomatedInstallation>
+#EOT
+#			java -jar installer.jar auto-install.xml > /dev/null
+
+#			popd > /dev/null
+
+#		done
+		#read -n 1 -s -r -p "Press any key to continue"
+
 
 		tmpDirPatches=$tmpDir/patches
 		mkdir $tmpDirPatches
 
-		echo Unzipping patches...
+		echo Unzipping patches if they exist...
 		tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
 		mkdir $tmpDirPentahoPatches
 
@@ -278,6 +308,11 @@ EOT
 		cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
 		popd
 	fi # Ends the running of installers and Patching section of code.
+	
+	if [ -d $tmpDir/installers ]; then
+		 echo "Removing installer files before creating docker container."
+	     rm -rf $tmpDir/installers
+	fi
 
     #read -n 1 -s -r -p "Press any key to continue"
 	echo "Copying licenses to $tmpDir"
