@@ -21,6 +21,7 @@ RUN sed 's/main$/main universe/' -i /etc/apt/sources.list \
 	lftp \
 	nano \
 	openjdk-8-jre-headless \
+	openssh-client \
 	postgresql \
 	postgresql-contrib \
 	software-properties-common \
