@@ -43,6 +43,7 @@ echo Release available - Branch: 7.1.0.0 , Buind number: 12
 echo Release available - Branch: 8.0.0.0 , Buind number: 28
 echo Release available - Branch: 8.1.0.0 , Buind number: 365
 echo Release available - Branch: 8.2.0.0 , Buind number: 342
+echo Release available - Branch: 8.3.0.0 , Buind number: 371
 
 
 # Get list of files
