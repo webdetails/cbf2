@@ -171,7 +171,7 @@ echo
 
 # 7. Build it
 
-docker build -t $DOCKERTAG $tmpDir
+docker build --no-cache -t $DOCKERTAG $tmpDir
 
 # 8. Clean it
 

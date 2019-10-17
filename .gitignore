@@ -4,3 +4,5 @@ licenses/*.lic
 tmp/
 projects/*/
 .DS_Store
+auto-install.xml
+projects/*
