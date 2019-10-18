@@ -1,5 +1,5 @@
 FROM BUILDPROJECTFROMIMAGE
-LABEL maintainer="Brandon Jackson <usbrandon@gmail.com>"
+LABEL maintainer="Pedro Alves <palves@pentaho.com>, Brandon Jackson <usbrandon@gmail.com>, Paulo Pires <paorpires@gmail.com>"
 
 USER pentaho
 # Dockerfile to work with CBF2 and BA Server 8.2
@@ -52,10 +52,18 @@ RUN sudo chown -R pentaho.pentaho /pentaho/patches && \
 #ADD logo-image/ /pentaho/logo-image
 #RUN cp -R /pentaho/logo-image/logo.svg /pentaho/pentaho-server/pentaho-solutions/system/common-ui/resources/themes/myTheme/images/
 
-	
+
+# set alias
+RUN echo "alias ll='ls -la --color=auto -la'" >> /home/pentaho/.bashrc
+
+
 # Configure mondrian logs
-RUN perl -ibak -p0e 's#(</log4j:configuration>)#   <category name="mondrian">      <priority value="DEBUG"/>   </category>   <category name="mondrian.sql">      <priority value="DEBUG"/>   </category><category name="mondrian.olap.fun"><priority value="INFO"/></category><category name="mondrian.rolap.NoCacheMemberReader"><priority value="INFO"/></category><category name="mondrian.i18n.LocalizingDynamicSchemaProcessor"><priority value="INFO"/></category><category name="mondrian.rolap.RolapConnection"><priority value="INFO"/></category><category name="mondrian.olap.ResultBase"><priority value="INFO"/></category><category name="mondrian.rolap.agg.AggregationManager"><priority value="INFO"/></category><category name="mondrian.rolap.SqlStatement"><priority value="INFO"/></category><category name="mondrian.olap.RoleImpl"><priority value="INFO"/></category><category name="mondrian.rolap.RolapMember"><priority value="INFO"/></category>$1#s' /pentaho/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
- perl -ibak -p0e 's/(PENTAHOCONSOLE.*?value=.)(?:ERROR|INFO)/$1DEBUG/s' /pentaho/pentaho-server/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
+RUN perl -ibak -p0e 's#(</log4j:configuration>)#   <category name="mondrian">      <priority value="DEBUG"/>   </category>   <category name="mondrian.sql">      <priority value="DEBUG"/>   </category><category name="mondrian.olap.fun"><priority value="INFO"/></category><category name="mondrian.rolap.NoCacheMemberReader"><priority value="INFO"/></category><category name="mondrian.i18n.LocalizingDynamicSchemaProcessor"><priority value="INFO"/></category><category name="mondrian.rolap.RolapConnection"><priority value="INFO"/></category><category name="mondrian.olap.ResultBase"><priority value="INFO"/></category><category name="mondrian.rolap.agg.AggregationManager"><priority value="INFO"/></category><category name="mondrian.rolap.SqlStatement"><priority value="INFO"/></category><category name="mondrian.olap.RoleImpl"><priority value="INFO"/></category><category name="mondrian.rolap.RolapMember"><priority value="INFO"/></category>$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
+	perl -ibak -p0e 's/(PENTAHOCONSOLE.*?value=.)(?:ERROR|INFO)/$1DEBUG/s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
+
+RUN perl -pi -e 's#(</log4j:configuration>)#<appender name="MONDRIAN" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian">\n <priority value="DEBUG"/>\n <appender-ref ref="MONDRIAN"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
+	perl -pi -e 's#(</log4j:configuration>)#\n<appender name="MDXLOG" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian_mdx.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian.mdx">\n <priority value="DEBUG"/>\n <appender-ref ref="MDXLOG"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
+	perl -pi -e 's#(</log4j:configuration>)#\n<appender name="SQLLOG" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian_sql.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian.sql">\n <priority value="DEBUG"/>\n <appender-ref ref="SQLLOG"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
  
 
 #Set CTools Plugin properties
@@ -69,7 +77,6 @@ RUN	perl -ibak -p0e 's#(<MimeTypeDefinitions>)#$1<MimeTypeDefinition mimeType="a
 		perl -ibak -p0e 's/("org.pentaho.platform.plugin.services.importexport.DefaultExportHandler".*?<value>.xcdf<\/value>)/$1<value>.eot<\/value><value>.ttf<\/value><value>.woff<\/value><value>.otf<\/value>/s' /pentaho/pentaho-server/pentaho-solutions/system/importExport.xml && \
 		perl -ibak -p0e 's/("convertersMap".*?"streamConverter"\/>)/$1<entry key="eot" value-ref="streamConverter"\/><entry key="ttf" value-ref="streamConverter"\/><entry key="woff" value-ref="streamConverter"\/><entry key="otf" value-ref="streamConverter"\/>/s' /pentaho/pentaho-server/pentaho-solutions/system/importExport.xml
 
- 
 
 # Enable Pentaho Marketplace
 RUN perl -ibak -p0e 's/pentaho-big-data-ee-plugin-osgi-obf/pentaho-big-data-ee-plugin-osgi-obf,pentaho-marketplace/' /pentaho/pentaho-server/pentaho-solutions/system/karaf/etc/org.apache.karaf.features.cfg

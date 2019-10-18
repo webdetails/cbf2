@@ -226,7 +226,7 @@ else
 			then
 				source "$BASEDIR/projects/$projectName/config/setPorts.sh"
 			fi
-                        
+			
 			source "$BASEDIR/setPorts.sh"
 
 			if ! [ -z $projectName ] && [ -f $BASEDIR/projects/$projectName/config/dockerVolumes.sh ]
@@ -251,7 +251,7 @@ else
 				DOCKER_NETWORK_OPT="--net=${CBF2_DOCKER_NETWORK}"
 			fi
 
-                        
+			
 			if [ $DEBUG == "y" ] || [ $DEBUG == "Y" ]
 			then
 				eval "docker run $exposePorts $DOCKER_NETWORK_OPT -p $debugPort:8044 --name $build-debug --hostname $build-debug -e DEBUG=true $volumeList $build"
