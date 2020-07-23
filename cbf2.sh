@@ -35,6 +35,7 @@ cd $BASEDIR
 
 DOCKER_CONTAINERS=()
 DOCKER_STATUS=()
+DOCKER_RESTARTPOLICY=()
 DOCKER_IDS=()
 DOCKER_IMAGES=()
 
@@ -91,11 +92,13 @@ do
 		DOCKER_STATUS[$n]="Stopped"
 	fi
 
+	DOCKER_RESTARTPOLICY[$n]="Restart: "$( docker inspect -f "{{ .HostConfig.RestartPolicy.Name }}" ${ENTRY[2]})
+
 	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
   	DOCKER_IMAGES[$n]=${ENTRY[6]}
 	TYPE[$n]="CONTAINER"
-	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
+	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} (${DOCKER_RESTARTPOLICY[$n]}) "
 done
 
 
@@ -137,11 +140,13 @@ do
 		DOCKER_STATUS[$n]="Stopped"
 	fi
 
+	DOCKER_RESTARTPOLICY[$n]="Restart: "$( docker inspect -f "{{ .HostConfig.RestartPolicy.Name }}" ${ENTRY[2]})
+
 	DOCKER_CONTAINERS[$n]=${ENTRY[2]}
 	DOCKER_IDS[$n]=${ENTRY[0]}
   	DOCKER_IMAGES[$n]=${ENTRY[6]}
 	TYPE[$n]="CONTAINER"
-	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} "
+	echo " [$n] (${DOCKER_STATUS[$n]}): ${ENTRY[2]} (${DOCKER_RESTARTPOLICY[$n]}) "
 done
 
 
@@ -301,6 +306,8 @@ else
 				echo " E: Export the solution"
 				echo " I: Import the solution"
 			fi
+
+			echo " F: Flag restart to it"
 			echo
 
 			read -e -p "What do you want to do? [A]: " operation
@@ -308,7 +315,7 @@ else
 
 			operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
-			if ! [ $operation == "S" ] && ! [ $operation == "R" ]  && ! [ $operation == "A" ] && ! [ $operation == "E" ] && ! [ $operation == "I" ] && ! [ $operation == "L" ] && ! [ $operation == "P" ] 
+			if ! [ $operation == "S" ] && ! [ $operation == "R" ]  && ! [ $operation == "A" ] && ! [ $operation == "E" ] && ! [ $operation == "I" ] && ! [ $operation == "L" ] && ! [ $operation == "P" ] && ! [ $operation == "F" ]
 			then
 				echo Invalid selection
 				exit 1;
@@ -417,6 +424,38 @@ else
 
 			fi
 
+			if [ $operation == "F" ]; then
+				echo 
+				echo "Select a flag for restart policy:"
+				echo 
+				echo " N: Not automatically restart the container"
+				echo " O: Restart the container if it exits due to an error, which manifests as a non-zero exit code"
+				echo " A: Always restart the container if it stops. If it is manually stopped, it is restarted only when Docker daemon restarts or the container itself is manually restarted"
+				echo " U: Always restart the container if it stops, unless it is stopped manually or otherwise "
+				echo 
+				read -e -p "Type the flag? [N]: " operation
+				operation=${operation:-N}
+
+				if ! [ $operation == "N" ] && ! [ $operation == "O" ]  && ! [ $operation == "A" ] && ! [ $operation == "U" ]
+				then
+					echo Invalid selection
+					exit 1;
+				fi
+
+				if [ $operation == "N" ]; then
+					operation="no"
+				elif [ $operation == "O" ]; then
+					operation="on-failure"
+				elif [ $operation == "A" ]; then
+					operation="always"
+				else
+					operation="unless-stopped"
+				fi
+
+				docker update --restart $operation $dockerImage
+				echo Done
+				exit 0
+			fi
 		else
 
 			# Stopped
@@ -424,6 +463,7 @@ else
 			echo "The container is stopped; Possible operations:"
 			echo " S: Start it"
 			echo " D: Delete it"
+			echo " F: Flag restart to it"
 			echo
 
 			read -e -p "What do you want to do? [S]: " operation
@@ -431,7 +471,7 @@ else
 
 			operation=$( tr '[:lower:]' '[:upper:]' <<< "$operation" )
 
-			if ! [ $operation == "S" ]   && ! [ $operation == "D" ]
+			if ! [ $operation == "S" ] && ! [ $operation == "D" ] && ! [ $operation == "F" ]
 			then
 				echo Invalid selection
 				exit 1;
@@ -451,6 +491,38 @@ else
 				exit 0
 			fi
 
+			if [ $operation == "F" ]; then
+				echo 
+				echo "Select a flag for restart policy:"
+				echo 
+				echo " N: Not automatically restart the container"
+				echo " O: Restart the container if it exits due to an error, which manifests as a non-zero exit code"
+				echo " A: Always restart the container if it stops. If it is manually stopped, it is restarted only when Docker daemon restarts or the container itself is manually restarted"
+				echo " U: Always restart the container if it stops, unless it is stopped manually or otherwise "
+				echo 
+				read -e -p "Type the flag? [N]: " operation
+				operation=${operation:-N}
+
+				if ! [ $operation == "N" ] && ! [ $operation == "O" ] && ! [ $operation == "A" ] && ! [ $operation == "U" ]
+				then
+					echo Invalid selection
+					exit 1;
+				fi
+
+				if [ $operation == "N" ]; then
+					operation="no"
+				elif [ $operation == "O" ]; then
+					operation="on-failure"
+				elif [ $operation == "A" ]; then
+					operation="always"
+				else
+					operation="unless-stopped"
+				fi
+
+				docker update --restart $operation $dockerImage
+				echo Done
+				exit 0
+			fi
 		fi
 
 
