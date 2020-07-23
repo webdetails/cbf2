@@ -217,6 +217,10 @@ the options available over containers:
 	 R: Restart it
 	 A: Attach to it
 	 L: See the Logs
+	 P: See exposed ports
+	 E: Export the solution
+	 I: Import the solution
+	 F: Flag restart to it
 
 	What do you want to do? [A]:
 
@@ -230,6 +234,10 @@ straightforward:
 * _Attach to it_: Attaches to the docker container. You'll then have a bash
 	shell and you'll be able to play with the server
 * _See the Logs_: Gets the logs from the server
+* _See exposed ports_: Gets the exposed ports from the server
+* _Export the solution_: Export the project solution (if it's a "Project container")
+* _Import the solution_: Import the project solution (if it's a "Project container")
+* _Flag restart to it_: Set flag related to containers restart (Restart policy)
 
 
 ## Custom definitions
