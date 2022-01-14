@@ -50,9 +50,14 @@ DOCKERTAG=$(echo $server | sed -E -e ' s/pentaho-/ba/; s/biserver/baserver/; s/(
 
 echo "Server chosen: $server ($serverChoiceIdx); File: $serverFile; Docker tag: $DOCKERTAG"
 
+getTimeZone
+echo "Timezone set to use: " ${TZ_HOST}
+
 
 # 4. Dynamically change the project-specific dockerfile to change the FROM
 tmpDir=dockerfiles/tmp
+
+
 
 
 # We'll use one of two things: If we have a project-specific Dockerfile, we'll 
@@ -71,7 +76,7 @@ mkdir -p $tmpDir
 if  [[ ! $( docker images | grep cbf2-core ) ]]; then
 
 	echo Base image not found. Building cbf2-core...
-	docker build -t cbf2-core -f dockerfiles/Dockerfile-CoreCBF dockerfiles
+	docker build -t cbf2-core --build-arg TZ_PARAM=${TZ_HOST} -f dockerfiles/Dockerfile-CoreCBF dockerfiles
 
 fi
 
@@ -237,7 +242,7 @@ EOT
 		done
 
 
-		# 4 - Patches
+# 4 - Patches
 		# Since at least mid 2018 patches are comprehesive and there is no
 		# requirement to unzip, delete existing jars and carefully copy the patch files
 		# to the correct destination.
@@ -269,48 +274,105 @@ EOT
 #		done
 		#read -n 1 -s -r -p "Press any key to continue"
 
+#
+#		As of version 9.1 a newer updater was implemented.  In order to support the new installer
+#		a new block of of code is added to keep backwards compatibility and support the new installer.
+#
 
-		tmpDirPatches=$tmpDir/patches
-		mkdir $tmpDirPatches
+#		Analyze the server version being processed.
+		major_version=`echo $server | awk -F- '{print $4}' | cut -d '.' -f 1`
+		minor_version=`echo $server | awk -F- '{print $4}' | cut -d '.' -f 2`
+		
+		if ([[ $major_version -ge 9 ]] && [[ $minor_version -ge 1 ]]) || ([[ $major_version -eq 8 ]] && [[ $minor_version -ge 3 ]])  
+		then
+			echo "Processing with the newer 9.1 updater style."
+			# 1) Find the most up-to-date update file.
+			# 2) Unzip into tmp/updater tmp directory.
+			# 3) Process the updater from the updater directory.
+			
+			tmpDirUpdater=$tmpDir/updater
+			mkdir $tmpDirUpdater
 
-		echo Unzipping patches if they exist...
-		tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
-		mkdir $tmpDirPentahoPatches
+			# Get the most recent update file that exists.  You only need the most recent.
+			UPDATER_ZIPFILE=`ls $(dirname $serverFile)/pentaho-update*.zip 2>/dev/null | sort -r | head -1`
+			
+			if [ ! -z ${UPDATER_ZIPFILE} ] && [ -f ${UPDATER_ZIPFILE} ]
+			then
+				echo "Using Updater zipfile: " ${UPDATER_ZIPFILE}
+				echo "unzipping updater file: "
+				unzip ${UPDATER_ZIPFILE} -d $tmpDirUpdater
 
-		for file in $( dirname $serverFile )/[S]*zip
-		do 
-			if [ -f $file ]; then
-				unzip $file -d $tmpDirPatches > /dev/null
+				if [ -f $tmpDirUpdater/pentaho-update*.bin ]
+				then
+					INSTALLED_DIR=`pwd`'/'${tmpDir}'/pentaho/' 
+					
+					pushd $tmpDirUpdater
+					#
+					# I would have used a relative location (../pentaho) for the install dir
+					# but the installer was wonky.  So I simply used a fully qualified directory.
+					# no big deal.
+					#
+					echo "Processing updater file: pentaho-update*.bin -i silent -DEULA=true -DUSER_INSTALL_DIR=${INSTALLED_DIR}"
+					./pentaho-update*.bin -i silent -DEULA=true -DUSER_INSTALL_DIR=${INSTALLED_DIR} 
+					echo "Finished processing updater file: "  ${UPDATER_FILE}
+					popd
+				fi 
+				if [ -d ~/.pentaho/backups ]
+				then
+					echo "Removing backup files from host build machine."
+					rm -rf ~/.pentaho/backups
+				fi
+				
+				# Added to clean up temporary updater directory
+				if [ -d $tmpDirUpdater ]; then
+					echo "Removing updater files before creating docker container."
+					rm -rf $tmpDirUpdater
+				fi
 			fi
-		done
+		else 
 
-		# We're only interested in by server patches...
-		for patch in $tmpDirPatches/BIServer/*zip $tmpDirPatches/*/BIServer/*zip
-		do
-			if [ -f $patch ]; then
-				echo Processing $patch
-				unzip -o $patch -d $tmpDirPentahoPatches > /dev/null
-			fi
-		done
+			tmpDirPatches=$tmpDir/patches
+			mkdir $tmpDirPatches
 
-		# Now we need to find all jars that are on the pentaho dir with the same name,
-		# delete them (old patches required this...) and copy all the stuff over
+			echo Unzipping patches if they exist...
+			tmpDirPentahoPatches=$tmpDirPatches/pentahoPatches
+			mkdir $tmpDirPentahoPatches
 
-		pushd $tmpDirPentahoPatches
-		find . -iname \*jar | while read jar
-		do
+			for file in $( dirname $serverFile )/[S]*zip
+			do 
+				if [ -f $file ]; then
+					unzip $file -d $tmpDirPatches > /dev/null
+				fi
+			done
 
-			rm $( echo ../../pentaho/*server*/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
+			# We're only interested in by server patches...
+			for patch in $tmpDirPatches/BIServer/*zip $tmpDirPatches/*/BIServer/*zip
+			do
+				if [ -f $patch ]; then
+					echo Processing $patch
+					unzip -o $patch -d $tmpDirPentahoPatches > /dev/null
+				fi
+			done
 
-		done
+			# Now we need to find all jars that are on the pentaho dir with the same name,
+			# delete them (old patches required this...) and copy all the stuff over
 
-		# and copy them...
-		cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
-		popd
+			pushd $tmpDirPentahoPatches
+			find . -iname \*jar | while read jar
+			do
+
+				rm $( echo ../../pentaho/*server*/$jar | sed -E -e 's/(.*\/[^\]*-)[0-9]*.jar/\1/' )* 2>/dev/null
+
+			done
+
+			# and copy them...
+			cp -R * ../../pentaho/*server*/ > /dev/null 2>&1
+			popd
+		fi	#Ends the code block for patching method (either: version 9.1+ or prior)
 	fi # Ends the running of installers and Patching section of code.
 	
 	if [ -d $tmpDir/installers ]; then
-		 echo "Removing installer files before creating docker container."
+		echo "Removing installer files before creating docker container."
 	     rm -rf $tmpDir/installers
 	fi
 

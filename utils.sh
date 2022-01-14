@@ -42,3 +42,20 @@ promptUser() {
 
 }
 
+getTimeZone() {
+
+	# Check to see if the user has a timezone set.
+	TZ_HOST=${TZ}
+
+	if [ -z ${TZ_HOST} ]
+	then
+		
+		# Check to see if the system has timezone set
+		TZ_HOST=`timedatectl 2>/dev/null | grep "Time zone:" | awk '{print $3}'`
+		if [ -z ${TZ_HOST} ]
+		then
+			# Use default Timezone
+			TZ_HOST="UTC"
+		fi	
+	fi
+}
