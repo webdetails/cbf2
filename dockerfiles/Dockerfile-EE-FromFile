@@ -16,7 +16,7 @@ RUN mkdir /home/pentaho && groupadd --gid $CURRENT_GID --system pentaho \
 ADD --chown=pentaho:pentaho scripts/run.sh /pentaho/
 ADD --chown=pentaho:pentaho tmp/pentaho/ /pentaho/
 ADD --chown=pentaho:pentaho tmp/licenses /pentaho/licenses/
-ADD --chown=root:root pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+ADD --chown=root:root pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
 
 #
 # Import Pentaho License Files.

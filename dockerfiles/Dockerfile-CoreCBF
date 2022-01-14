@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 LABEL maintainer="Pedro Alves <palves@pentaho.com>, Brandon Jackson <usbrandon@gmail.com>, Paulo Pires <paorpires@gmail.com>"
 
 # Set the locale and clean up cache
@@ -6,11 +6,16 @@ RUN apt-get clean && apt-get update && apt-get install --no-install-recommends -
 	&& locale-gen en_US.UTF-8 \
 	&& rm -rf /var/lib/apt/lists/*
 
+# Encountered a TZ prompt when updating to Ubuntu 18.04 - "
+ENV DEBIAN_FRONTEND="noninteractive"
+ARG TZ_PARAM
+ENV TZ=${TZ_PARAM}
+
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8 
 ENV TERM xterm
-RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX && \
+RUN update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX TZ=${TZ}&& \
     echo Building core image
 #
 # The JRE is less than half the size of the JDK, so JRE-headless it is.
@@ -23,22 +28,24 @@ RUN sed 's/main$/main universe/' -i /etc/apt/sources.list \
 	nano \
 	openjdk-8-jre-headless \
 	openssh-client \
-	postgresql \
-	postgresql-contrib \
+	postgresql-10 \
+	postgresql-contrib-10 \
 	software-properties-common \
 	sudo \
 	unzip \
 	vim \
 	curl \
 	wget \
+	dirmngr \
+	gpg-agent \
  && sudo apt update \
  && sudo apt install net-tools \
  && rm -rf /var/lib/apt/lists/* \
  &&	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
  &&	rm -rf /tmp/*
 
-ADD pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+ADD pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
 
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/10/main/postgresql.conf
 
 
