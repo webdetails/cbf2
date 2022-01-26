@@ -16,7 +16,7 @@ RUN mkdir /home/pentaho && groupadd --gid $CURRENT_GID --system pentaho \
 ADD --chown=pentaho:pentaho scripts/run.sh /pentaho/
 ADD --chown=pentaho:pentaho tmp/pentaho/ /pentaho/
 ADD --chown=pentaho:pentaho tmp/licenses /pentaho/licenses/
-ADD --chown=root:root pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
+ADD --chown=postgres:postgres pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
 
 #
 # Import Pentaho License Files.
@@ -29,7 +29,7 @@ RUN echo "Installing Pentaho Enterprise Edition license files." \
 
 #
 # Prepare the database to support the Pentaho Business Analytics Server
-# 
+#
 RUN /etc/init.d/postgresql start \
  && cd /pentaho/*server*/data/postgresql; \
     psql -U postgres -f create_jcr_postgresql.sql; \
@@ -38,9 +38,9 @@ RUN /etc/init.d/postgresql start \
  && /etc/init.d/postgresql stop
 
 #
-# Basic cleanup.  
+# Basic cleanup.
 # The fancy sed line checks for BA servers less than version 6 and sets their JRE to version 7
-# Otherwise, OpenJDK JRE 8 is used. (Default in cbf2-core is openjdk-8-jre-headless) 
+# Otherwise, OpenJDK JRE 8 is used. (Default in cbf2-core is openjdk-8-jre-headless)
 #
 RUN rm /pentaho/*server*/promptuser.sh; \
   	cd /pentaho/*server*/tomcat/logs/ ; touch catalina.out ; touch pentaho.log ; chown pentaho:pentaho catalina.out ; chown pentaho:pentaho pentaho.log ; \
@@ -59,7 +59,7 @@ RUN rm /pentaho/*server*/promptuser.sh; \
  && sed -i -e 's|\(        <extension>xls</extension>\)|\1\n        <extension>xlt</extension>\n        <extension>xla</extension>|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
  && sed -i -e 's|\(        <extension>sql</extension>\)|\1\n        <extension>txt</extension>\n        <extension>csv</extension>|' pentaho-solutions/system/ImportHandlerMimeTypeDefinitions.xml \
  && sed -i -e 's|\(,csv,\)|\1sql,|' pentaho-solutions/system/*.xml \
- && sed -i -e 's|\(,xlsx,\)|\1xltx,xlsm,xltm,xlam,xlsb,|' pentaho-solutions/system/*.xml 
+ && sed -i -e 's|\(,xlsx,\)|\1xltx,xlsm,xltm,xlam,xlsb,|' pentaho-solutions/system/*.xml
 
 
 # set alias
@@ -73,7 +73,7 @@ RUN perl -ibak -p0e 's#(</log4j:configuration>)#   <category name="mondrian">   
 RUN perl -pi -e 's#(</log4j:configuration>)#<appender name="MONDRIAN" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian">\n <priority value="DEBUG"/>\n <appender-ref ref="MONDRIAN"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
 	perl -pi -e 's#(</log4j:configuration>)#\n<appender name="MDXLOG" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian_mdx.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian.mdx">\n <priority value="DEBUG"/>\n <appender-ref ref="MDXLOG"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml && \
 	perl -pi -e 's#(</log4j:configuration>)#\n<appender name="SQLLOG" class="org.apache.log4j.RollingFileAppender">\n <param name="File" value="../logs/mondrian_sql.log"/>\n <param name="Append" value="false"/>\n <param name="MaxFileSize" value="500KB"/>\n <param name="MaxBackupIndex" value="1"/>\n <layout class="org.apache.log4j.PatternLayout">\n  <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>\n </layout>\n</appender>\n<category name="mondrian.sql">\n <priority value="DEBUG"/>\n <appender-ref ref="SQLLOG"/>\n</category>\n$1#s' /pentaho/*server*/tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
- 
+
 
 #Set CTools Plugin properties
  RUN perl -ibak -p0e 's/<!--|-->//g' /pentaho/pentaho-server/pentaho-solutions/system/pentaho-cdf-dd/plugin.xml && \
@@ -96,5 +96,5 @@ USER pentaho
 
 EXPOSE 8080 8044 9001 5432
 
-# 1. Run 
+# 1. Run
 ENTRYPOINT ["bash", "/pentaho/run.sh"]
