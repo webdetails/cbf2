@@ -1,4 +1,15 @@
 #!/bin/bash
+# ******************************************************************************
+#
+# Pentaho
+#
+# Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+#
+# Use of this software is governed by the Business Source License included
+# in the LICENSE.TXT file.
+#
+# Change Date: 2030-06-15
+# ******************************************************************************
 
 # Builds a project that is in the project subdirectory. It always uses
 # a local pentaho server image to build from, so that has to exist previously
